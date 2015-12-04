@@ -1,2 +1,2 @@
-# tonic
-:triangular_ruler: Self meta-described collections framework
+# Tonic
+:cocktail: Self meta-described collections framework

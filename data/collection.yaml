@@ -1,0 +1,28 @@
+- name: foo
+  description: blablabla
+  link: https://github.com/foo
+  tags:
+    - foo
+    - so
+    - much
+- name: baz
+  description: blablabla
+  link: https://github.com/baz
+  tags:
+    - foo
+    - baz
+    - yeah
+- name: foo
+  description: blablabla
+  link: https://github.com/foo
+  tags:
+    - foo
+    - so
+    - much
+- name: baz
+  description: blablabla
+  link: https://github.com/baz
+  tags:
+    - foo
+    - baz
+    - yeah

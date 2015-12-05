@@ -1,10 +1,21 @@
 ---
-title: Welcome to Middleman
+title: Tonic
 ---
 
 <div class="welcome">
-  <h1>Middleman is Watching</h1>
-  <p class="doc">
-    <%= link_to "Read Online Documentation", "http://middlemanapp.com/" %>
-  </p><!-- .doc -->
-</div><!-- .welcome -->
+  <h1>Tonic</h1>
+</div>
+
+<ul>
+  <% data.collection.each do |item| %>
+    <li>
+      <h3><%= link_to item.name, item.link %><h3>
+      <%= item.description %>
+      <p>
+        <% item.tags.each do |tag| %>
+          <%= "##{tag}," %>
+        <% end %>
+      </p>
+    </li>
+  <% end %>
+</ul>

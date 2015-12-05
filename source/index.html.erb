@@ -6,16 +6,22 @@ title: Tonic
   <h1>Tonic</h1>
 </div>
 
-<ul>
-  <% data.collection.each do |item| %>
-    <li>
-      <h3><%= link_to item.name, item.link %><h3>
-      <%= item.description %>
-      <p>
-        <% item.tags.each do |tag| %>
-          <%= "##{tag}," %>
-        <% end %>
-      </p>
-    </li>
-  <% end %>
-</ul>
+<h2>Tags</h2>
+<% data.collection.flat_map(&:tags).uniq.each do |tag| %>
+  <%= link_to tag, tag %>
+<% end %>
+<hr/>
+
+<% data.collection.each do |item| %>
+  <article data-name="<%= item.name %>" data-description="<%= item.description %>" data-tags="<%= item.tags.join(",") %>">
+    <h3><%= link_to item.name, item.link %></h3>
+
+    <%= item.description %>
+
+    <p>
+      <% item.tags.each do |tag| %>
+        <%= "##{tag}," %>
+      <% end %>
+    </p>
+  </article>
+<% end %>

@@ -2,26 +2,32 @@
 title: Tonic
 ---
 
-<div class="welcome">
+<header class="welcome">
   <h1>Tonic</h1>
-</div>
+</header>
 
-<h2>Tags</h2>
-<% data.collection.flat_map(&:tags).uniq.each do |tag| %>
-  <%= link_to tag, tag %>
-<% end %>
-<hr/>
+<nav>
+  <button onclick="tags.filter('all')" class="all active">all</button>
+  <% data.collection.flat_map(&:tags).uniq.each do |tag| %>
+    <button onclick="tags.filter('<%= "#{tag}" %>')" class="<%= "#{tag}" %>"><%= "##{tag}" %></button>
+  <% end %>
+  <hr/>
+</nav>
 
 <% data.collection.each do |item| %>
-  <article data-name="<%= item.name %>" data-description="<%= item.description %>" data-tags="<%= item.tags.join(",") %>">
+  <article data-name="<%= item.name %>" data-description="<%= item.description %>" class="all <%= item.tags.join(" ") %>">
     <h3><%= link_to item.name, item.link %></h3>
 
     <%= item.description %>
 
     <p>
       <% item.tags.each do |tag| %>
-        <%= "##{tag}," %>
+        <button onclick="tags.filter('<%= "#{tag}" %>')"><%= "##{tag}," %></button>
       <% end %>
     </p>
   </article>
 <% end %>
+
+<aside></aside>
+<hr/>
+<footer>Tonic footer</footer>

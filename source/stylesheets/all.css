@@ -5,6 +5,10 @@ body {
   text-align: center;
   font-family: sans-serif; }
 
+nav .active {
+  background-color: orange;
+}
+
 h1 {
   color: rgba(0, 0, 0, .3);
   font-weight: bold;
@@ -12,10 +16,12 @@ h1 {
   letter-spacing: -1px;
   text-transform: uppercase;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
-  background: url("../images/middleman.png") no-repeat center 100px;
-  padding: 350px 0 10px;
+  background: url("../images/tonic.png") no-repeat center;
+  background-size: auto 128px;
+  padding: 192px 0 10px;
   margin: 0; }
 
+.hidden { display: none }
 .doc {
   font-size: 14px;
   margin: 0; }

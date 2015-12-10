@@ -5,15 +5,18 @@
 
     <!-- Always force latest IE rendering engine or request Chrome Frame -->
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Use title if it's in the page YAML frontmatter -->
     <title><%= current_page.data.title || "The Middleman" %></title>
-
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-red.min.css">
     <%= stylesheet_link_tag "normalize", "all" %>
     <%= javascript_include_tag  "all" %>
   </head>
 
   <body class="<%= page_classes %>">
-    <%= yield %>
+    <div class="mdl-layout mdl-js-layout"><%= yield %></div>
+    <!--script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </body>
 </html>

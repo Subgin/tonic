@@ -6,10 +6,10 @@ window.tags = {
 
 function filter(tag){
   tags.selected = tag;
-  var elements = document.querySelectorAll('nav button');
+  var elements = document.querySelectorAll('.mdl-layout__tab'), ACTIVE='mdl-button--raised';
   for (var el in elements){
     el = elements[el];
-    hasClass(el,tag) ? addClass(el,'active') : removeClass(el,'active');
+    hasClass(el,tag) ? addClass(el,ACTIVE) : removeClass(el,ACTIVE);
   }
   refresh();
 }

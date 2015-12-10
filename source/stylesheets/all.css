@@ -10,17 +10,26 @@ nav .active {
 }
 
 h1 {
-  color: rgba(0, 0, 0, .3);
   font-weight: bold;
   font-size: 32px;
   letter-spacing: -1px;
   text-transform: uppercase;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
   background: url("../images/tonic.png") no-repeat center;
-  background-size: auto 128px;
-  padding: 192px 0 10px;
+  background-size: auto 64px;
+  background-position: 25px 72px;
+  padding: 128px 0 10px;
   margin: 0; }
 
+.mdl-layout__tab-bar-container {
+  max-width: 80%;
+  left: 20%;
+}
+.mdl-button--fab { top: -24px; left: 11px;}
+.mdl-cell{
+  min-width: 356px;
+  padding: 5px;
+}
 .hidden { display: none }
 .doc {
   font-size: 14px;

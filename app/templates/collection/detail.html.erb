@@ -1,0 +1,7 @@
+<div class="detail">
+  <%= image_tag item.image if item.image %>
+
+  <%= partial("templates/collection/item", locals: { item: item }) %>
+
+  <%= link_to "<- Back to collection", "/" %>
+</div>

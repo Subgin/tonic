@@ -1,0 +1,21 @@
+<article <%= data_attributes(item) %> class="all <%= item.tags.join(" ") %> <%= item.category %>">
+  <h2>
+    <%= link_to item.name, "/#{item.name}" %>
+    <small><%= item.category %></small>
+  </h2>
+
+  <p><small><%= link_to item.link, item.link %></small></p>
+  <p><small><%= "Stars: #{item.stars} | Downloads: #{item.downloads}" %></small></p>
+
+  <%= item.description %>
+
+  <% if item.price %>
+    <p><b><%= item.price %>$</b></p>
+  <% end %>
+
+  <p>
+    <% item.tags.each do |tag| %>
+      <button onclick="tags.filter('<%= "#{tag}" %>')"><%= "##{tag}" %></button>
+    <% end %>
+  </p>
+</article>

@@ -1,0 +1,20 @@
+title: Tonic Example
+
+slug: # wip
+
+theme: # wip
+
+default_order: # wip
+
+main_color: # wip
+
+filters:
+  exclude:
+    - link
+  type:
+    category: "select"
+    downloads: "slider_range"
+    image: "boolean"
+    price: "numeric_range"
+  label:
+    image: "With image?"

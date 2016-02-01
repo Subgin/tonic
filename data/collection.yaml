@@ -1,28 +1,119 @@
-- name: foo
-  description: blablabla
-  link: https://github.com/foo
+- name: Subgin
+  description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  link: https://github.com/Subgin
+  stars: 51
+  downloads: 100
+  category: nice
   tags:
     - foo
     - so
     - much
+  image: "https://avatars0.githubusercontent.com/u/11079821?v=3&s=200"
+  price: 1000
+- name: albertvp
+  description: hacker bcn
+  link: albertvp.com
+  stars: 100
+  downloads: 100
+  category: nice
+  tags:
+    - tech
+    - code
+    - js
+    - man
+    - yeah
+  image: "https://avatars3.githubusercontent.com/u/1481710?v=3&s=460"
+  price: 2100
+- name: markets
+  description: markets markets
+  link: https://github.com/markets
+  stars: 300
+  downloads: 5000
+  category: verynice
+  tags:
+    - tech
+    - code
+    - ruby
+    - man
+  image: "https://avatars2.githubusercontent.com/u/576701?v=3&s=460"
+  price: 2000
 - name: baz
-  description: blablabla
+  description: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   link: https://github.com/baz
+  stars: 5123
+  downloads: 200
+  category: verynice
   tags:
     - foo
     - baz
     - yeah
 - name: foo
-  description: blablabla
+  description: blablabla blablablablablablablablabla blablabla blablabla blablabla blablablablablablablablabla blablabla blablablablablabla blablablablablablablablabla blablabla blablabla blablabla blablablablablablablablabla blablabla blablabla
   link: https://github.com/foo
+  stars: 4
+  downloads: 300
+  category: verynice
   tags:
     - foo
     - so
     - much
+  price: 400
 - name: baz
-  description: blablabla
+  description: Lorem ipsum dolor sit amet. Lorem ipsum. Lorem ipsum. Lorem ipsum
   link: https://github.com/baz
+  stars: 5123
+  downloads: 400
+  category: notnice
   tags:
     - foo
     - baz
+    - yeah
+- name: baz2
+  description: blablablablablablablablabla blablablablablablablablabla blablablablab lablablablablabl ablablablablablablablabla blablablablablablablablabla
+  link: https://github.com/baz
+  stars: 223
+  downloads: 500
+  category: notnice
+  tags:
+    - yeah
+- name: foooo
+  description: Lorem ipsum dolor sit amet. Lorem ipsum. Lorem ipsum. Lorem ipsum Lorem ipsum dolor sit amet. Lorem ipsum. Lorem ipsum. Lorem ipsumLorem ipsum dolor sit amet. Lorem ipsum. Lorem ipsum. Lorem ipsumLorem ipsum dolor sit amet. Lorem ipsum. Lorem ipsum. Lorem ipsumLorem ipsum dolor sit amet. Lorem ipsum. Lorem ipsum. Lorem ipsum
+  link: https://github.com/baz
+  stars: 1234
+  downloads: 1000
+  category: nice
+  tags:
+    - foo2
+    - yeah
+- name: markets2
+  description: markets2 markets2
+  link: https://github.com/baz
+  stars: 300
+  downloads: 5000
+  category: verynice
+  tags:
+    - markets
+    - markets2
+    - yeah
+- name: a22
+  description: picas picas such dev
+  link: https://github.com/albertvp
+  stars: 300
+  downloads: 500
+  category: verynice
+  tags:
+    - picas
+    - a22
+    - albertvp
+    - man
+  price: 1400
+- name: nat
+  description: nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat nat
+  link: nat.com
+  stars: 1000
+  downloads: 1000
+  category: verynice
+  tags:
+    - nat
+    - woman
     - yeah

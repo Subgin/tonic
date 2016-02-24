@@ -75,12 +75,12 @@ module Tonic
 
     def text_filter(attribute)
       label(attribute) +
-      input_tag(:text, onchange: "textFilter(this.value, '#{attribute}')")
+      input_tag(:text, onkeyup: "textFilter(this.value, '#{attribute}')")
     end
 
     def numeric_filter(attribute)
       label(attribute) +
-      input_tag(:number, onchange: "numericFilter(this.value, '#{attribute}')")
+      input_tag(:number, onkeyup: "numericFilter(this.value, '#{attribute}')")
     end
 
     def numeric_range_filter(attribute)

@@ -1,42 +1,22 @@
-window.tags = {
-  selected: '',
-  filter: filter,
-  refresh: refresh
+window.filter = {
+  tag: tagFilter,
+  text: textFilter,
+  numeric: numericFilter,
+  slider: numericSliderFilter,
+  range: rangeSliderFilter,
+  boolean: booleanFilter,
+  has: {
+    tags: hasTags,
+    search: hasSearch,
+    custom: hasCustom
+  }
 };
 
-function filter(tag){
-  tags.selected = tag;
-  var elements = document.querySelectorAll('button');
-  for (var el in elements){
-    el = elements[el];
-    hasClass(el,tag) ? addClass(el,'active') : removeClass(el,'active');
-  }
-  refresh();
-}
-
-function refresh(){
-  var elements = document.querySelectorAll('article');
-
-  for (var el in elements){
-    hasClass(elements[el],tags.selected) ? removeClass(elements[el],'hidden') : addClass(elements[el],'hidden');
-  }
-}
-
-function textFilter(text, attribute) {
-  var regexp = new RegExp(text, "i");
-
-  $("article").each(function(){
-    var elem_text = $(this).data(attribute);
-
-    if (elem_text.match(regexp) != null) {
-      $(this).show();
-    } else {
-      $(this).hide();
-    }
-  });
-}
-
 function numericFilter(value, attribute) {
+  state.numeric[attribute] = value;
+  state.refresh();
+
+  // TODO REMOVE
   $("article").each(function(){
     var attribute_value = $(this).data(attribute);
 
@@ -92,4 +72,9 @@ function booleanFilter(yes, attribute) {
         $(this).show();
     }
   });
+}
+
+function hasCustom () {
+  // TODO custom attributes filtering
+  return true;
 }

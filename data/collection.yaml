@@ -58,7 +58,7 @@
     - so
     - much
   price: 400
-- name: baz
+- name: bazzy
   description: Lorem ipsum dolor sit amet. Lorem ipsum. Lorem ipsum. Lorem ipsum
   link: https://github.com/baz
   stars: 5123

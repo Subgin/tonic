@@ -1,6 +1,5 @@
-<button onclick="tags.filter('all')" class="all active">all</button>
+<button id="tag_all" onclick="filter.tag('all')" class="all active">all</button>
 
 <% tags.each do |tag| %>
-  <button onclick="tags.filter('<%= "#{tag}" %>')" class="<%= "#{tag}" %>"><%= "##{tag}" %></button>
+  <button id="tag_<%= "#{tag}" %>" onclick="filter.tag('<%= "#{tag}" %>')" class="tag <%= "#{tag}" %>"><%= "##{tag}" %></button>
 <% end %>
-

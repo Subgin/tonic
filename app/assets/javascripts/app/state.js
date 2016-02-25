@@ -1,11 +1,12 @@
 window.state = {
   refresh: refresh,
   reset: reset,
-  boolean: {},
-  numeric: {},
-  slider: {},
-  range: {},
+  booleans: {},
+  numerics: {},
+  sliders: {},
+  ranges: {},
   tagged: {},
+  types: {},
   search: ''
 };
 
@@ -17,18 +18,25 @@ function refresh () {
     if (!el) return;
     hasFilters(id) ?
       removeClass(el,HIDDEN) :
-      (!hasClass(el,HIDDEN) && addClass(el,HIDDEN));
-  });
-}
-
-function reset () {
-  collection.forEach(function(c){
-    var id = c.name.toLowerCase().replace('/\s/g','-');
-    map[id] = c;
+      ( !hasClass(el,HIDDEN) && addClass(el,HIDDEN) );
   });
 }
 
 function hasFilters (id) {
   var item = map[id];
-  return filter.has.tags(item, Object.keys(state.tagged)) && filter.has.search(item, state.search) && filter.has.custom(item, state.custom);
+  return filter.has(item);
+}
+
+function reset () {
+  collection.forEach(function(c){
+    var id = c.name.toLowerCase().replace('/\s/g','-');
+    c._strings = []; c._customs = [];
+    Object.keys(c).forEach(function(a){
+      if (a==='tags' || a==='image' || a==='_strings' || a==='_customs') return;
+      typeof c[a]==='string' ?
+        c._strings.push(a) :
+        c._customs.push(a);
+    });
+    map[id] = c;
+  });
 }

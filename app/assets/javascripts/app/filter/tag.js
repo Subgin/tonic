@@ -2,6 +2,16 @@
 var ACTIVE = 'active',
     TAG = 'tag_';
 
+function hasTags (item) {
+  var tags = Object.keys(state.tagged);
+  return !tags.length || !(item.tags && item.tags.length) || hasAllTags(item, tags, 0);
+}
+
+function hasAllTags (item, tags, i){
+  if (!tags[i]) return true;
+  return item.tags.indexOf(tags[i])>-1 && hasAllTags(item, tags, ++i);
+}
+
 function tagFilter (tag) {
   if (isAllTag(tag)) return state.refresh();
   removeClass(document.getElementById(TAG+'all'), ACTIVE);
@@ -32,13 +42,4 @@ function removeTags () {
   for (var t in tags){
     removeClass(tags[t], ACTIVE);
   }
-}
-
-function hasTags (item, tags) {
-  return !tags.length || !(item.tags && item.tags.length) || hasAllTags(item, tags, 0);
-}
-
-function hasAllTags (item, tags, i){
-  if (!tags[i]) return true;
-  return item.tags.indexOf(tags[i])>-1 && hasAllTags(item, tags, ++i);
 }

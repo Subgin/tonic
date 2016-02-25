@@ -1,9 +1,9 @@
 <p>
   <span>From (<%= min %>)</span>
-  <%= input_tag(:number, onchange: "filter.slider(this.value, '#{attribute}', 'from')") %>
+  <%= input_tag(:number, onchange: "filter.range(this.value, '#{attribute}', 'a')") %>
 </p>
 
 <p>
   <span>To (<%= max %>)</span>
-  <%= input_tag(:number, onchange: "filter.slider(this.value, '#{attribute}', 'to')") %>
+  <%= input_tag(:number, onchange: "filter.range(this.value, '#{attribute}', 'b')") %>
 </p>

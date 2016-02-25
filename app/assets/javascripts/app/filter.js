@@ -1,4 +1,5 @@
 window.filter = {
+  reset: resetFilters,
   tag: tagFilter,
   text: textFilter,
   type: typeFilter,
@@ -9,3 +10,7 @@ window.filter = {
     return hasSearch(item) && hasTags(item) && hasCustom(item);
   }
 };
+
+function resetFilters () {
+  resetTags();
+}

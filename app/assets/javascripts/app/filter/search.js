@@ -12,6 +12,5 @@ function hasSearch (item) {
 
 function hasAnySearch (item, regexp, attrs, a) {
   if (!attrs[a]) return false;
-  //!_strings if (typeof item[attrs[a]] !== 'string') return hasAnySearch(item, regexp, ++a);
   return item[attrs[a]].match(regexp) || hasAnySearch(item, regexp, ++a);
 }

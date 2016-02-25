@@ -43,3 +43,13 @@ function removeTags () {
     removeClass(tags[t], ACTIVE);
   }
 }
+
+function resetTags () {
+  var tagAll = document.getElementById(TAG+'all');
+  if (hasClass(tagAll,ACTIVE)) return;
+  var elems = document.getElementsByClassName(ACTIVE);
+  for (var e in elements) {
+    removeClass(e,ACTIVE);
+  }
+  addClass(tagAll,ACTIVE);
+}

@@ -20,8 +20,6 @@
     <footer>
       <p><%= data.config.title %> - powered by <%= link_to "Tonic", Tonic::REPO %> <%= Tonic::VERSION %></p>
     </footer>
+    <%= javascript_include_tag  "all" %>
   </body>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <%= javascript_include_tag  "all" %>
 </html>

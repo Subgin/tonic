@@ -6,9 +6,6 @@ window.filter = {
   range: numericRangeFilter,
   boolean: booleanFilter,
   has: function (item) {
-    return
-      hasSearch(item) &&
-      hasTags(item) &&
-      hasCustom(item);
+    return hasSearch(item) && hasTags(item) && hasCustom(item);
   }
 };

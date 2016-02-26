@@ -10,6 +10,8 @@ main_color: # wip
 
 filters:
   exclude:
+    - name
+    - description
     - link
   type:
     category: "select"

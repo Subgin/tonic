@@ -6,7 +6,7 @@ module Tonic
     context.helpers Helpers
 
     context.data.collection.each do |item|
-      context.proxy "/#{item.name}", "/templates/collection/detail.html", locals: { item: item }, ignore: true
+      context.proxy "/#{item.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}", "/templates/collection/detail.html", locals: { item: item }, ignore: true
     end
   end
 
@@ -73,14 +73,18 @@ module Tonic
       end
     end
 
+    def search()
+      input_tag(:text, onkeyup: "filter.text(this.value)")
+    end
+
     def text_filter(attribute)
       label(attribute) +
-      input_tag(:text, onchange: "textFilter(this.value, '#{attribute}')")
+      input_tag(:text, onkeyup: "filter.text(this.value, '#{attribute}')")
     end
 
     def numeric_filter(attribute)
       label(attribute) +
-      input_tag(:number, onchange: "numericFilter(this.value, '#{attribute}')")
+      input_tag(:number, onkeyup: "numericFilter(this.value, '#{attribute}')")
     end
 
     def numeric_range_filter(attribute)
@@ -104,7 +108,7 @@ module Tonic
       options = ["all"] + options
 
       label(attribute) +
-      select_tag(attribute, options: options, onchange: "tags.filter(this.value)")
+      select_tag(attribute, options: options, onchange: "filter.type(this.value, '#{attribute}')")
     end
 
     def slider_range_filter(attribute)
@@ -127,6 +131,10 @@ module Tonic
 
         "data-#{name}='#{value}'"
       end.join(" ")
+    end
+
+    def identify(elem)
+      "id='#{elem.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}'"
     end
   end
 end

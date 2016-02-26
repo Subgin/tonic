@@ -1,4 +1,4 @@
-<article <%= data_attributes(item) %> class="all <%= item.tags.join(" ") %> <%= item.category %>">
+<article <%= identify(item) %> class="all <%= item.tags.join(" ") %> <%= item.category %>">
   <h2>
     <%= link_to item.name, "/#{item.name}" %>
     <small><%= item.category %></small>
@@ -15,7 +15,7 @@
 
   <p>
     <% item.tags.each do |tag| %>
-      <button onclick="tags.filter('<%= "#{tag}" %>')"><%= "##{tag}" %></button>
+      <button onclick="filter.tag('<%= "#{tag}" %>')"><%= "##{tag}" %></button>
     <% end %>
   </p>
 </article>

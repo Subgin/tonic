@@ -25,22 +25,42 @@ function hasRanges (item, type, attrs, i) {
 }
 
 function booleanFilter (value, attribute) {
+  router.applied[attribute] = String(value);
   state.booleans[attribute] = Boolean(value);
   state.refresh();
 }
 
 function numericFilter (value, attribute) {
+  router.applied[attribute] = String(value);
   state.numerics[attribute] = Number(value);
   state.refresh();
 }
 
 function typeFilter (value, attribute) {
+  router.applied[attribute] = String(value);
   state.types[attribute] = value;
   state.refresh();
 }
 
 function numericRangeFilter (value, attribute, direction) {
+  router.applied[attribute + '.' + direction] = String(value);
   if (!state.sliders[attribute]) state.sliders[attribute] = {};
   state.sliders[attribute][direction] = Number(value);
   state.refresh();
+}
+
+function useCustom (name, value){
+  // TODO how to know which type of custom is ? has functions will not work
+  if (document.filters[name]) {
+    switch (document.filters[name].type) {
+      case 'select-one':
+        document.filters[name].value = value;
+        break;
+      default:
+    }
+  }
+}
+
+function resetCustom () {
+  // TODO apply default values, same as init
 }

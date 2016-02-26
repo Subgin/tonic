@@ -1,5 +1,7 @@
 
-var ACTIVE = 'active',
+var tags = document.getElementsByClassName('tag'),
+    tagAll = document.getElementById('tag_all'),
+    ACTIVE = 'active',
     TAG = 'tag_';
 
 function hasTags (item) {
@@ -13,43 +15,44 @@ function hasAllTags (item, tags, i){
 }
 
 function tagFilter (tag) {
-  if (isAllTag(tag)) return state.refresh();
-  removeClass(document.getElementById(TAG+'all'), ACTIVE);
+  if (treatAllTag(tag)) return;
+  removeClass(tagAll,ACTIVE);
   if (state.tagged[tag]) {
-    removeClass(document.getElementById(TAG+tag), ACTIVE);
+    removeClass(document.getElementById(TAG+tag),ACTIVE);
     delete state.tagged[tag];
   } else {
-    addClass(document.getElementById(TAG+tag), ACTIVE);
+    addClass(document.getElementById(TAG+tag),ACTIVE);
     state.tagged[tag] = true;
   }
+  if (!Object.keys(state.tagged).length && !hasClass(tagAll,ACTIVE)) addClass(tagAll,ACTIVE);
   state.refresh();
 }
 
-function isAllTag (tag) {
+function treatAllTag (tag) {
   if (tag === 'all'){
-    state.tagged = {};
-    var el = document.getElementById(TAG+'all');
-    if (!hasClass(el,ACTIVE)) addClass(el,ACTIVE);
-    removeTags();
+    resetTags();
     state.reset();
     return true;
   }
   return false;
 }
 
-function removeTags () {
-  var tags = document.getElementsByClassName('tag');
-  for (var t in tags){
-    removeClass(tags[t], ACTIVE);
-  }
+function useTags (tagged) {
+  if (!tagged) return;
+  tagged = tagged.split(',');
+  resetTags();
+  if (!tagged.length) return;
+  removeClass(tagAll,ACTIVE);
+  tagged.forEach(function (tag) {
+    state.tagged[tag] = true;
+    tag = document.getElementById(TAG+tag);
+    if (tag) addClass(tag,ACTIVE);
+  });
 }
 
 function resetTags () {
-  var tagAll = document.getElementById(TAG+'all');
-  if (hasClass(tagAll,ACTIVE)) return;
+  state.tagged = {};
   var elems = document.getElementsByClassName(ACTIVE);
-  for (var e in elements) {
-    removeClass(e,ACTIVE);
-  }
-  addClass(tagAll,ACTIVE);
+  for (var e in elems) removeClass(elems[e],ACTIVE);
+  if (!hasClass(tagAll,ACTIVE)) addClass(tagAll,ACTIVE);
 }

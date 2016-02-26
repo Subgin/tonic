@@ -1,6 +1,9 @@
 window.state = {
-  refresh: refresh,
+  init: init,
   reset: reset,
+  refresh: refresh,
+  _strings: [],
+  _customs: [],
   booleans: {},
   numerics: {},
   sliders: {},
@@ -9,16 +12,6 @@ window.state = {
   types: {},
   search: ''
 };
-
-function init () {
-  if (location.hash){
-    // TODO check url
-  } else {
-    Object.keys(state).forEach(function(o){ if (typeof state[o]==='object') state[o]={}; });
-    state.search = '';
-  }
-  refresh();
-}
 
 var HIDDEN = 'hidden';
 function refresh () {
@@ -29,24 +22,25 @@ function refresh () {
       removeClass(el,HIDDEN) :
       ( !hasClass(el,HIDDEN) && addClass(el,HIDDEN) );
   });
+  setTimeout(router.changed);
 }
 
-var excluded = ['tags','image','_strings','_customs'];
-function reset (clicked) {
-  if (clicked) {
-    location.hash = '';
-    filter.reset();
-  }
-  collection.forEach(function(c){
-    var id = c.name.toLowerCase().replace('/\s/g','-');
-    c._strings = []; c._customs = [];
-    Object.keys(c).forEach(function(a){
-      if (excluded.indexOf(a)>-1) return;
-      typeof c[a]==='string' ?
-        c._strings.push(a) :
-        c._customs.push(a);
-    });
-    map[id] = c;
-    if (Object.keys(map).length===collection.length) init();
+var excluded = ['tags','image'];
+function init () {
+  Object.keys(collection[0]).forEach(function(a){
+    if (excluded.indexOf(a) > -1) return;
+    typeof collection[0][a] === 'string' && !document.getElementsByName(a) ?
+      state._strings.push(a) :
+      state._customs.push(a) && router.filters.push(a);
   });
+  collection.forEach(function(c){
+    map[c.name.toLowerCase().replace('/\s/g','-')] = c;
+  });
+  setTimeout(router.use);
+}
+
+function reset () {
+  location.hash = '';
+  filter.reset();
+  state.refresh();
 }

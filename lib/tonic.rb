@@ -108,7 +108,7 @@ module Tonic
       options = ["all"] + options
 
       label(attribute) +
-      select_tag(attribute, options: options, onchange: "filter.type(this.value, '#{attribute}')")
+      select_tag(attribute, name: attribute, options: options, onchange: "filter.type(this.value, '#{attribute}')")
     end
 
     def slider_range_filter(attribute)

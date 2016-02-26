@@ -1,10 +1,10 @@
 <div class="wrapper">
-  <div class="sidebar">
-    <button onclick="reset(true)">Reset filters</button>
+  <form name="filters" class="sidebar">
+    <button onclick="state.reset(true)">Reset filters</button>
     </p></p>
     <%= search %>
     <ul><%= render_filters %></ul>
-  </div>
+  </form>
 
   <div class="collection">
     <%= render_collection %>

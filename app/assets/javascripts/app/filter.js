@@ -1,5 +1,6 @@
 window.filter = {
   reset: resetFilters,
+  use: useFilters,
   tag: tagFilter,
   text: textFilter,
   type: typeFilter,
@@ -12,5 +13,22 @@ window.filter = {
 };
 
 function resetFilters () {
+  resetSearch();
   resetTags();
+  resetCustom();
+  location.hash = '';
+}
+
+function useFilters (key, value) {
+  if (!key || !value) return;
+  switch (key) {
+    case 'search':
+      useSearch(value);
+      break;
+    case 'tags':
+      useTags(value);
+      break;
+    default:
+      useCustom(key, value);
+  }
 }

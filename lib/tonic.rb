@@ -1,5 +1,5 @@
 module Tonic
-  VERSION = "0.0.1"
+  VERSION = "0.0.2"
   REPO = "https://github.com/Subgin/tonic"
 
   def self.run(context)

@@ -99,7 +99,7 @@ function selectorHas (name, value) {
 }
 
 function resetCustom () {
-  Object.keys(state.numerics).forEach(resetCustomFilter);
+  Object.keys(state.booleans).forEach(resetCustomFilter);
   Object.keys(state.numerics).forEach(resetCustomFilter);
   Object.keys(state.sliders).forEach(resetCustomFilter);
   Object.keys(state.ranges).forEach(resetCustomFilter);
@@ -107,6 +107,6 @@ function resetCustom () {
 }
 
 function resetCustomFilter (custom) {
-  document.filters[custom] = null;
+  document.filters[custom].value = null;
   delete router.applied[custom];
 }

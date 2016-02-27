@@ -29,7 +29,7 @@ var excluded = ['tags','image'];
 function init () {
   Object.keys(collection[0]).forEach(function(a){
     if (excluded.indexOf(a) > -1) return;
-    typeof collection[0][a] === 'string' && !document.getElementsByName(a) ?
+    typeof collection[0][a] === 'string' ?
       state._strings.push(a) :
       state._customs.push(a) && router.filters.push(a);
   });
@@ -41,7 +41,7 @@ function init () {
 
 function reset () {
   location.hash = '';
-  location.search = '';
+  if (location.search) location.search = '';
   filter.reset();
   state.refresh();
 }

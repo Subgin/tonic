@@ -19,8 +19,8 @@ function hasEquals (item, type, attrs, i) {
 
 function hasRanges (item, type, attrs, i) {
   if (!attrs[i]) return true;
-  return item[attrs[i]] >= state[type][attrs].a &&
-    item[attrs[i]] < state[type][attrs].b &&
+  return item[attrs[i]] >= state[type][attrs].min &&
+    item[attrs[i]] < state[type][attrs].max &&
     hasRanges(item, attrs, ++i);
 }
 

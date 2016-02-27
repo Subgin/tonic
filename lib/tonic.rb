@@ -74,7 +74,7 @@ module Tonic
     end
 
     def search()
-      input_tag(:text, onkeyup: "filter.text(this.value)")
+      input_tag(:text, name: 'search', onkeyup: "filter.text(this.value)")
     end
 
     def text_filter(attribute)
@@ -84,7 +84,7 @@ module Tonic
 
     def numeric_filter(attribute)
       label(attribute) +
-      input_tag(:number, onkeyup: "numericFilter(this.value, '#{attribute}')")
+      input_tag(:number, name: attribute, onkeyup: "numericFilter(this.value, '#{attribute}')")
     end
 
     def numeric_range_filter(attribute)

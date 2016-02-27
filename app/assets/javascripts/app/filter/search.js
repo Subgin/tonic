@@ -16,10 +16,10 @@ function hasAnySearch (item, regexp, attrs, a) {
 
 function useSearch (text) {
   state.search = text;
-  document.getElementsByTagName('input')[0].value = text;
+  document.filters.search.value = text;
 }
 
 function resetSearch () {
   state.search = '';
-  document.getElementsByTagName('input')[0].value = '';
+  document.filters.search.value = '';
 }

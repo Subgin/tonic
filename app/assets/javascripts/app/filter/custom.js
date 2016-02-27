@@ -42,25 +42,71 @@ function typeFilter (value, attribute) {
   state.refresh();
 }
 
+var MIN = 'min', AND = ',';
 function numericRangeFilter (value, attribute, direction) {
-  router.applied[attribute + '.' + direction] = String(value);
+  if (direction === MIN) {
+    if (router.applied[attribute] && router.applied[attribute].indexOf(AND) > -1) {
+      router.applied[attribute] = value + AND + router.applied[attribute].split(AND)[1];
+    } else {
+      router.applied[attribute] = value;
+    }
+  } else {
+    if (router.applied[attribute] && router.applied[attribute].indexOf(AND) === -1) {
+      router.applied[attribute] = router.applied[attribute].split(AND)[0] + AND + value;
+    } else {
+      router.applied[attribute] = AND + value;
+    }
+  }
   if (!state.sliders[attribute]) state.sliders[attribute] = {};
   state.sliders[attribute][direction] = Number(value);
   state.refresh();
 }
 
 function useCustom (name, value){
-  // TODO how to know which type of custom is ? has functions will not work
   if (document.filters[name]) {
     switch (document.filters[name].type) {
       case 'select-one':
-        document.filters[name].value = value;
+        if (selectorHas(name,value)) {
+          state.types[name] = value;
+          document.filters[name].value = value;
+        }
+        break;
+      case 'number':
+        if (numericHas(name,value)) {
+          state.numerics[name] = value;
+          document.filters[name].value = value;
+        }
         break;
       default:
     }
   }
 }
 
+function numericHas (name, value) {
+  value = Number(value);
+  var range = document.filters[name];
+  if (!range.length || range.length < 2) {
+    if (range.max) {
+      return value < Number(range.max) && value > Number(range.min);
+    } else return value > Number(range.min);
+  }
+}
+
+function selectorHas (name, value) {
+  var options = document.filters[name].options;
+  for (var o in options) if (options[o].value === value) return true;
+  return false;
+}
+
 function resetCustom () {
-  // TODO apply default values, same as init
+  Object.keys(state.numerics).forEach(resetCustomFilter);
+  Object.keys(state.numerics).forEach(resetCustomFilter);
+  Object.keys(state.sliders).forEach(resetCustomFilter);
+  Object.keys(state.ranges).forEach(resetCustomFilter);
+  Object.keys(state.types).forEach(resetCustomFilter);
+}
+
+function resetCustomFilter (custom) {
+  document.filters[custom] = null;
+  delete router.applied[custom];
 }

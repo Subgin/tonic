@@ -37,5 +37,5 @@ function changedRouter () {
   state._customs.forEach(function (c) {
     if (router.applied[c]) url += s + c + s + router.applied[c];
   });
-  if (url) location.hash = url;
+  location.hash = url;
 }

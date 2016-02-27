@@ -41,6 +41,7 @@ function init () {
 
 function reset () {
   location.hash = '';
+  location.search = '';
   filter.reset();
   state.refresh();
 }

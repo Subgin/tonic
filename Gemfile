@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-gem "middleman", "~> 3.4.0"
+gem "middleman", "~> 4.1.6"
+gem 'middleman-sprockets', '>= 4.0.0.rc.1'
+gem "middleman-livereload"
 
 group :development do
-  gem "middleman-livereload", "~> 3.1.0"
   gem "byebug"
 end

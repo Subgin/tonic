@@ -11,18 +11,18 @@ module Tonic
   end
 
   module Helpers
-    def collection
+    def tonic_collection
       data.collection
     end
 
     def render_collection
-      collection.map do |item|
+      tonic_collection.map do |item|
         partial("templates/collection/item", locals: { item: item })
       end.join
     end
 
     def render_filters
-      attributes = collection.map(&:keys).flatten.uniq
+      attributes = tonic_collection.map(&:keys).flatten.uniq
 
       attributes.map do |attribute|
         next if data.config.filters.exclude.include?(attribute)
@@ -36,7 +36,7 @@ module Tonic
 
     def render_filter(attribute, type = nil)
       # HACK: take a sample value from first elem
-      sample = collection[0][attribute]
+      sample = tonic_collection[0][attribute]
 
       if type
         custom_filter(type, attribute)
@@ -88,7 +88,7 @@ module Tonic
     end
 
     def numeric_range_filter(attribute)
-      range = collection.map(&:"#{attribute}").compact.uniq
+      range = tonic_collection.map(&:"#{attribute}").compact.uniq
       min = range.min
       max = range.max
 
@@ -97,14 +97,14 @@ module Tonic
     end
 
     def tags_filter(attribute)
-      tags = collection.flat_map(&:"#{attribute}").uniq
+      tags = tonic_collection.flat_map(&:"#{attribute}").uniq
 
       label(attribute) +
       partial("templates/filters/tags", locals: { tags: tags })
     end
 
     def select_filter(attribute)
-      options = collection.flat_map(&:"#{attribute}").uniq
+      options = tonic_collection.flat_map(&:"#{attribute}").uniq
       options = ["all"] + options
 
       label(attribute) +
@@ -112,7 +112,7 @@ module Tonic
     end
 
     def slider_range_filter(attribute)
-      range = collection.map(&:"#{attribute}").uniq
+      range = tonic_collection.map(&:"#{attribute}").uniq
       min = range.min
       max = range.max
 

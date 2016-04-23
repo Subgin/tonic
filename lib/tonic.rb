@@ -5,7 +5,7 @@ module Tonic
   def self.run(context)
     context.helpers Helpers
 
-    context.app.data.collection.each do |item|
+    context.data.collection.each do |item|
       context.proxy "/#{item.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}", "/templates/collection/detail.html", locals: { item: item }, ignore: true
     end
   end

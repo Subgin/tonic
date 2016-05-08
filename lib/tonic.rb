@@ -6,19 +6,15 @@ module Tonic
     context.helpers Helpers
 
     context.data.collection.each do |item|
-      context.proxy "/#{item.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}", "/templates/collection/detail.html", locals: { item: item }, ignore: true
+      context.proxy "/#{Helpers.slugify(item.name)}", "/templates/collection/detail.html", locals: { item: item }, ignore: true
     end
   end
 
   module Helpers
+    extend self
+
     def tonic_collection
       data.collection
-    end
-
-    def render_collection
-      tonic_collection.map do |item|
-        partial("templates/collection/item", locals: { item: item })
-      end.join
     end
 
     def render_filters
@@ -31,7 +27,7 @@ module Tonic
           type = data.config.filters.type[attribute]
           render_filter(attribute, type)
         end
-      end.compact.join
+      end.compact.join("<br>")
     end
 
     def render_filter(attribute, type = nil)
@@ -51,7 +47,7 @@ module Tonic
 
     def label(attribute)
       attribute = data.config.filters.label[attribute] || attribute.capitalize
-      content_tag(:span, attribute) + " "
+      content_tag(:label, attribute, class: "label")
     end
 
     def custom_filter(type, attribute)
@@ -73,18 +69,14 @@ module Tonic
       end
     end
 
-    def search()
-      input_tag(:text, name: 'search', onkeyup: "filter.text(this.value)")
-    end
-
     def text_filter(attribute)
       label(attribute) +
-      input_tag(:text, onkeyup: "filter.text(this.value, '#{attribute}')")
+      input_tag(:text, onkeyup: "filter.text(this.value, '#{attribute}')", class: "input")
     end
 
     def numeric_filter(attribute)
       label(attribute) +
-      input_tag(:number, name: attribute, onkeyup: "numericFilter(this.value, '#{attribute}')")
+      input_tag(:number, name: attribute, onkeyup: "numericFilter(this.value, '#{attribute}')", class: "input")
     end
 
     def numeric_range_filter(attribute)
@@ -125,16 +117,12 @@ module Tonic
       partial("templates/filters/boolean", locals: { attribute: attribute })
     end
 
-    def data_attributes(elem)
-      elem.map do |name, value|
-        value = value.join(" ") if value.is_a?(Array)
-
-        "data-#{name}='#{value}'"
-      end.join(" ")
+    def identify(elem)
+      "id='#{slugify(elem.name)}'"
     end
 
-    def identify(elem)
-      "id='#{elem.name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')}'"
+    def slugify(text)
+      text.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
     end
   end
 end

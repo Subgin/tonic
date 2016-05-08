@@ -1,7 +1,7 @@
 <p>
   <span>Yes</span>
-  <%= radio_button_tag(:type, name: attribute, value: "true", onchange: "filter.boolean(true, '#{attribute}')") %>
+  <%= radio_button_tag(:type, name: attribute, value: "true", onchange: "filter.boolean(true, '#{attribute}')", class: "radio") %>
 
   <span>No</span>
-  <%= radio_button_tag(:type, name: attribute, value: "false", onchange: "filter.boolean(false, '#{attribute}')") %>
+  <%= radio_button_tag(:type, name: attribute, value: "false", onchange: "filter.boolean(false, '#{attribute}')", class: "radio") %>
 </p>

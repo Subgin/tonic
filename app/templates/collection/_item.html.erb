@@ -1,21 +1,22 @@
 <article class="box all <%= item.tags.join(" ") %> <%= item.category %>">
   <h2 class="title">
     <%= link_to item.name, "/#{slugify(item.name)}" %>
-    <small><%= item.category %></small>
+    <small> <%= item.category %></small>
   </h2>
 
   <p><small><%= link_to item.link, item.link %></small></p>
   <p><small><%= "Stars: #{item.stars} | Downloads: #{item.downloads}" %></small></p>
 
-  <%= item.description %>
+  <%= item.description[0..64] %>
 
-  <% if item.price %>
-    <p><b><%= item.price %>$</b></p>
-  <% end %>
-
-  <p>
-    <% item.tags.each do |tag| %>
-      <button onclick="filter.tag('<%= "#{tag}" %>')" class="button is-primary is-small"><%= "##{tag}" %></button>
+  <nav class="level">
+    <p class="level-left">
+      <% item.tags.each do |tag| %>
+        <button onclick="filter.tag('<%= "#{tag}" %>')" class="button is-primary is-small"><%= "##{tag}" %></button>
+      <% end %>
+    </p>
+    <% if item.price %>
+      <span class="level-right"><%= item.price %>€</span>
     <% end %>
-  </p>
+  </nav>
 </article>

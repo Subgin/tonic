@@ -1,9 +1,9 @@
-<p>
+<p class="control">
   <span>From (<%= min %>)</span>
-  <%= input_tag(:range, name: attribute, min: min, max: max, onchange: "filter.range(this.value, '#{attribute}', 'min')") %>
+    <%= input_tag(:range, name: attribute, min: min, max: max, onchange: "filter.range(this.value, '#{attribute}', 'min')") %>
 </p>
 
-<p>
+<p class="control">
   <span>To (<%= max %>)</span>
-  <%= input_tag(:range, name: attribute, min: min, max: max, onchange: "filter.range(this.value, '#{attribute}', 'max')") %>
+    <%= input_tag(:range, name: attribute, min: min, max: max, onchange: "filter.range(this.value, '#{attribute}', 'max')") %>
 </p>

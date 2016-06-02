@@ -1,13 +1,14 @@
 <div class="section">
   <div class="columns">
     <div class="colum sidebar">
-      <form name="filters">
-        <a class="is-small" onclick="state.reset(true)">
+      <form name="filters" onsubmit="return false">
+        <ul><%= render_filters %></ul>
+        <hr>
+        <a class="is-small level-right" onclick="state.reset(true)">
           <span class="tag is-danger">
             Reset state <button class="delete"></button>
           </span>
         </a>
-        <ul><%= render_filters %></ul>
       </form>
     </div>
 

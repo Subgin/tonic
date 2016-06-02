@@ -13,7 +13,7 @@
       </span>
     </span>
 
-    <form name="filters">
+    <form name="box" onsubmit="return false">
       <%= input_tag(:text, placeholder: "Search ...", name: 'search', onkeyup: "filter.text(this.value)", class: "input nav-item") %>
     </form>
   </div>

@@ -1,12 +1,27 @@
-<div class="wrapper">
-  <form name="filters" class="sidebar">
-    <button onclick="state.reset(true)">Reset filters</button>
-    </p></p>
-    <%= search %>
-    <ul><%= render_filters %></ul>
-  </form>
+<div class="section">
+  <div class="columns">
+    <div class="colum sidebar">
+      <form name="filters" onsubmit="return false">
+        <ul><%= render_filters %></ul>
+        <hr>
+        <a class="is-small level-right" onclick="state.reset(true)">
+          <span class="tag is-danger">
+            Reset state <button class="delete"></button>
+          </span>
+        </a>
+      </form>
+    </div>
 
-  <div class="collection">
-    <%= render_collection %>
+    <div class="column is-three-quarters">
+      <% tonic_collection.each_slice(3) do |items| %>
+        <div class="columns">
+          <% items.each do |item| %>
+            <div <%= identify(item) %> class="column">
+              <%= partial("templates/collection/item", locals: { item: item }) %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

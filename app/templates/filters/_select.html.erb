@@ -1,0 +1,6 @@
+<p class="control">
+  <%= label(attribute) %>
+  <span class="select">
+    <%=  select_tag(attribute, name: attribute, options: options, onchange: "filter.type(this.value, '#{attribute}')", class: "input") %>
+  </span>
+</p>

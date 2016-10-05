@@ -6,20 +6,18 @@
 
     <title><%= data.config.title %></title>
 
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.26/css/bulma.min.css" %>
     <%= stylesheet_link_tag "normalize", "all" %>
   </head>
 
-  <body class="<%= page_classes %>">
-
-    <header class="welcome">
-      <h1><%= data.config.title %></h1>
-    </header>
+  <body>
+    <%= partial("layouts/nav") %>
 
     <%= yield %>
 
-    <footer>
-      <p><%= data.config.title %> - powered by <%= link_to "Tonic", Tonic::REPO %> <%= Tonic::VERSION %></p>
-    </footer>
+    <%= partial("layouts/footer") %>
+
     <%= javascript_include_tag  "all" %>
   </body>
 </html>

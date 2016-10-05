@@ -1,0 +1,33 @@
+<nav class="nav has-shadow">
+  <div class="nav-left">
+    <a class="nav-item" href="/">
+      <img src="../assets/images/logo.png">
+      <h1><%= data.config.title %></h1>
+    </a>
+  </div>
+
+  <div class="nav-center">
+    <span class="nav-item">
+      <span class="icon">
+        <i class="fa fa-search"></i>
+      </span>
+    </span>
+
+    <form name="nav" onsubmit="return false">
+      <%= input_tag(:text, placeholder: "Search ...", name: 'search', onkeyup: "filter.text(this.value)", class: "input nav-item") %>
+    </form>
+  </div>
+
+  <div class="nav-right nav-menu">
+    <a class="nav-item" href="#">About</a>
+    <a class="nav-item" href="#">Contact</a>
+    <a class="nav-item" href="#">Blog</a>
+
+    <span class="nav-item">
+      <a class="button" >
+        <span class="icon"><i class="fa fa-twitter"></i></span>
+        <span>Tweet</span>
+      </a>
+    </span>
+  </div>
+</nav>

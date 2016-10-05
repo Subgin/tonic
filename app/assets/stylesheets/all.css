@@ -1,14 +1,7 @@
 @charset "utf-8";
 
 html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  background: #d4d4d4 url("../images/background.png");
-  text-align: center;
-  font-family: sans-serif;
+  background: #fff;
 }
 
 footer {
@@ -17,80 +10,40 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
+  text-align: center;
+  height: 40px;
 }
 
-h1 {
-  color: rgba(0, 0, 0, .3);
-  font-weight: bold;
-  font-size: 32px;
-  letter-spacing: -1px;
-  text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
-  background: url("../images/tonic.png") no-repeat center;
-  background-size: auto 128px;
-  padding: 160px 0 0;
-  margin: 0; }
+.nav {
+  position: fixed;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+}
 
-.welcome {
-  -webkit-animation-name: welcome;
-  -webkit-animation-duration: .9s; }
+.nav-item img {
+  max-height: 40px;
+}
 
-@-webkit-keyframes welcome {
-  from {
-    -webkit-transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-   -webkit-transform: scale(0);
-   opacity: 0;
-  }
-  82.5% {
-    -webkit-transform: scale(1.03);
-    -webkit-animation-timing-function: ease-out;
-    opacity: 1;
-  }
-  to {
-    -webkit-transform: scale(1);
-  }
+.nav input {
+  margin: 1em;
+}
+
+.section {
+  padding: 90px 40px;
+}
+
+.active {
+  background-color: orange;
 }
 
 .sidebar {
-  width: 25%;
+  padding-right: 30px;
 }
 
-.sidebar ul {
-  float: left;
-  list-style: none;
+.hidden {
+  display: none;
 }
-
-.sidebar li {
-  margin-bottom: 20px;
-}
-
-.collection {
-  width: 65%;
-  float: left;
-  margin-left: 5em;
-}
-
-.collection article {
-  max-width: 200px;
-  margin: 1em;
-  float: left;
-  height: 400px;
-}
-
-article h2 a {
-  text-decoration: none;
-}
-
-.detail {
-  width: 900px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: 5em;
-}
-
-.active { background-color: orange; }
-
-.hidden { display: none; }

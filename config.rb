@@ -5,6 +5,8 @@ set :css_dir, "assets/stylesheets"
 set :js_dir, "assets/javascripts"
 set :images_dir, "assets/images"
 
+activate :sprockets
+
 configure :development do
   activate :livereload
 end

@@ -1,0 +1,29 @@
+---
+title: Home
+---
+
+<div class="flex">
+  <div id="sidebar" class="transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start  w-full sm:w-64 bg-gray-800 flex-col">
+    <%= render_filters %>
+  </div>
+
+  <div class="p-6 mb-12">
+    <div class="mb-4">
+      <h1><%= data.config.title %></h1>
+      <%= data.config.description %>
+    </div>
+
+    <div class="relative">
+      <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+        <svg class="w-5 text-gray-600 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      </div>
+      <input type="text" name="q" id="search" placeholder="Search ..." class="search-input p-3 pl-10 text-sm" onkeyup="filterBy('global_text')" />
+    </div>
+
+    <div class="mt-8 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 list">
+      <% sort_collection(tonic_collection).each do |item| %>
+        <%= partial 'templates/collection/item_card', locals: { item: item } %>
+      <% end %>
+    </div>
+  </div>
+</div>

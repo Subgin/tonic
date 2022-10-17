@@ -1,0 +1,5 @@
+<span>From (<%= min %>)</span>
+<%= input_tag(:number, name: attribute, onkeyup: "filterBy('numeric_range', '#{attribute}', { range: 'min' })") %>
+
+<span>To (<%= max %>)</span>
+<%= input_tag(:number, name: attribute, onkeyup: "filterBy('numeric_range', '#{attribute}', { range: 'max' })") %>

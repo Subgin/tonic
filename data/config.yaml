@@ -1,22 +1,20 @@
+# Main info
 title: Tonic Example
+description: Example of a magic collection. For testing purposes. Find your items fast!
 
-slug: # wip
+# Style
+main_color: "#b45309"
+logo: "https://tuk-cdn.s3.amazonaws.com/can-uploader/sidebar2-svg1.svg"
 
-theme: # wip
+# Sorting
+sorting:
+  default_order: price_desc
 
-default_order: # wip
-
-main_color: # wip
-
+# Filters
 filters:
   exclude:
-    - name
-    - description
-    - link
+    - nil
   type:
     category: "select"
-    downloads: "slider_range"
-    image: "boolean"
+    downloads: "numeric_range"
     price: "numeric_range"
-  label:
-    image: "With image?"

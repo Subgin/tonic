@@ -1,9 +1,8 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem "middleman", '4.1.10'
-gem 'middleman-sprockets', '4.0.0'
-gem "middleman-livereload"
+# Core
+gem "middleman", "~> 4.4"
+gem "middleman-livereload", "~> 3.4"
 
-group :development do
-  gem "byebug"
-end
+# Debugging
+gem 'byebug'

@@ -1,0 +1,37 @@
+---
+layout: layout
+---
+
+<% @title = item.name %>
+
+<div class="py-12 px-24 mb-12">
+  <span><%= item.category %></span>
+  <h1>
+    <%= @title %>
+  </h1>
+  <% item.images.each do |img| %>
+    <%= image_tag img, width: 200, class: 'm-1' %>
+  <% end if item.images %>
+
+  <p><%= render_tags(item.tags) %></p>
+
+  <%= item.description %>
+
+  <div class="my-6">
+    <% rest_of_attrs(item).each do |k| %>
+      <% value = item[k] %>
+      <p>
+        <b><%= k %></b>
+        <% if value.is_a?(Array) %>
+          <%= render_tags(value) %>
+        <% elsif is_url?(value) %>
+          <%= link_to value, value %>
+        <% else %>
+          <%= value %>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= link_to "Back", "/", class: 'btn btn-outline' %>
+</div>

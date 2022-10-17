@@ -1,0 +1,21 @@
+<div class="flex justify-between w-full px-6 py-4 items-center header">
+  <div class="flex justify-between items-center space-x-3">
+    <% if data.config.logo %>
+      <a href="/"><img src="<%= data.config.logo %>" alt="logo" /></a>
+    <% end %>
+    <a href="/" class="text-2xl leading-6 text-white"><%= data.config.title %></a>
+  </div>
+  <div aria-label="toggler" class="flex justify-center items-center">
+    <div class="flex items-baseline space-x-2">
+      <a href="#" class="nav-link">About us</a>
+      <a href="#" class="nav-link">Contact us</a>
+
+      <button aria-label="open" id="open" onclick="toggleSidebar()" class="hidden focus:outline-none">
+        <%= image_tag 'icons/menu.svg' %>
+      </button>
+      <button aria-label="close" id="close" onclick="toggleSidebar()" class="md:hidden focus:outline-none">
+        <%= image_tag 'icons/close.svg' %>
+      </button>
+    </div>
+  </div>
+</div>

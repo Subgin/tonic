@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'faker'
+end
+
+items = []
+
+(ARGV[0] || 50).to_i.times do
+  items << {
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.paragraph,
+    summary: Faker::Company.catch_phrase,
+    category: Faker::Company.industry,
+    tags: rand(1..5).times.map { Faker::Company.profession.gsub(" ", "-") },
+    price: %w(10 15 20 25 30 50 75 100 300 1000).sample.to_i,
+    downloads: %w(50 100 200 500 1000 2000).sample.to_i,
+    likes: %w(50 100 200 500 1000 2000).sample.to_i,
+    images: rand(1..5).times.map { "https://picsum.photos/300" }
+  }.transform_keys(&:to_s)
+end
+
+File.write('data/collection.yaml', items.to_yaml)

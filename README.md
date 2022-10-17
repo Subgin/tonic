@@ -2,40 +2,42 @@
 
 :cocktail: Self meta-described collections framework
 
-> **:construction::construction::construction: In progress ...**
+> **:construction: In progress ...**
 
 ## Usage
 
 ```
-bin/tonic server
-bin/tonic build
+bin/setup
+bin/start
+bin/build
 ```
 
 ## Customization
 
 Via `data/config.yaml`.
 
+### Magic attributes
+
+- name (required! should be unique!)
+- description
+- category
+- tags (array)
+- images (array)
+
 ### Filters
 
 Types:
 
-- `tags`
-- `select`
 - `text`
-- `numeric`
+- `select`
 - `numeric_range`
-- `slider`
-- `slider_range`
+- `tags`
 - `boolean`
 
 More options:
 
 - `exclude` Exclude attributes from filters
-- `labels` Customize label
 
-## Development
+### Sorting
 
-```
-script/bootstrap
-script/test
-```
+- `default_order`

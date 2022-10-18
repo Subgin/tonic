@@ -25,11 +25,11 @@ module Tonic
 
     def sort_collection(collection)
       default_order = data.config.sorting&.default_order
-      attribute, direction = (default_order || 'name_asc').split("_")
+      attribute, direction = (default_order || "name_asc").split("_")
       type = collection[0][attribute]
 
       collection.sort_by do |item|
-        if direction == 'asc'
+        if direction == "asc"
           type.is_a?(Integer) ? item[attribute].to_i : item[attribute].to_s.downcase
         else
           type.is_a?(Integer) ? -item[attribute].to_i : -item[attribute].to_s.downcase
@@ -44,7 +44,7 @@ module Tonic
         next if SKIP_FOR_FILTERS.include?(attribute)
         next if data.config.filters.exclude.include?(attribute)
 
-        content_tag(:div, class: 'flex flex-col justify-start px-6 py-3 border-b border-gray-500 w-full') do |li|
+        content_tag(:div, class: "flex flex-col justify-start px-6 py-3 border-b border-gray-500 w-full") do |li|
           type = data.config.filters.type[attribute]
           render_filter(attribute, type)
         end
@@ -52,25 +52,17 @@ module Tonic
     end
 
     def render_filter(attribute, type = nil)
-      # TODO improve me please, maybe a cache?
+      # Take sample value from 1st element
       sample = tonic_collection[0][attribute]
 
-      if type
-        custom_filter(type, attribute)
-      elsif sample.is_a?(String)
-        text_filter(attribute)
-      elsif sample.is_a?(Array)
-        tags_filter(attribute)
-      elsif sample.is_a?(Integer)
-        numeric_range_filter(attribute)
-      elsif sample.is_a?(TrueClass) || sample.is_a?(FalseClass)
-        boolean_filter(attribute)
+      if !type
+        type = "text" if sample.is_a?(String)
+        type = "numeric_range" if sample.is_a?(Integer)
+        type = "tags" if sample.is_a?(Array)
+        type = "boolean" if sample.is_a?(TrueClass) || sample.is_a?(FalseClass)
       end
-    end
 
-    def label(attribute)
-      attribute = attribute.capitalize
-      content_tag(:label, attribute, class: "text-left text-white flex justify-between items-center w-full py-1")
+      custom_filter(type, attribute)
     end
 
     def custom_filter(type, attribute)
@@ -88,6 +80,11 @@ module Tonic
       end
     end
 
+    def label(attribute)
+      attribute = attribute.capitalize
+      content_tag(:label, attribute, class: "text-left text-white flex justify-between items-center w-full py-1")
+    end
+
     def text_filter(attribute)
       label(attribute) +
       partial("templates/filters/text", locals: { attribute: attribute })
@@ -103,7 +100,7 @@ module Tonic
     end
 
     def tags_filter(attribute)
-      tags = tonic_collection.flat_map(&:"#{attribute}").compact.uniq
+      tags = tonic_collection.flat_map(&:"#{attribute}").compact.uniq.sort
 
       label(attribute) +
       partial("templates/filters/tags", locals: { attribute: attribute, tags: tags })
@@ -111,7 +108,7 @@ module Tonic
 
     def select_filter(attribute)
       options = tonic_collection.flat_map(&:"#{attribute}").uniq
-      options = ["All"] + options
+      options = ["All"] + options.sort
 
       partial("templates/filters/select", locals: { options: options, attribute: attribute })
     end
@@ -122,7 +119,7 @@ module Tonic
     end
 
     def slugify(text)
-      text.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+      text.parameterize
     end
 
     def rest_of_attrs(item)
@@ -130,7 +127,7 @@ module Tonic
     end
 
     def render_tags(tags)
-      tags.map do |tag|
+      tags.sort.map do |tag|
         "<span class='tag'>##{tag}</span>"
       end.join(" ")
     end

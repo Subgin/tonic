@@ -1,71 +1,83 @@
 export default class AppCtrl {
   constructor() {
-    self.filteredCollection = []
+    self.currentFilters = {}
   }
 
   toggleSidebar() {
-    toggleClass("#sidebar", "hidden")
-    toggleClass("#open", "hidden")
-    toggleClass("#close", "hidden")
+    toggleClass('#sidebar', 'hidden')
+    toggleClass('#open', 'hidden')
+    toggleClass('#close', 'hidden')
   }
 
-  filterBy(type, attribute = null, options = {}) {
+  filterBy(type, attribute = 'all', options = {}) {
     addClass('.card', 'hidden')
 
     const el = currentElement()
     const currentValue = el.value
 
-    const currentCollection = !self.filteredCollection.length ? window.collection : self.filteredCollection
-    self.filteredCollection = []
+    self.currentFilters[attribute] = { type, currentValue, options }
 
-    currentCollection.forEach((item) => {
-      const itemVal = item[attribute]
+    window.collection.forEach((item) => {
+      let show = true
 
-      switch(type) {
-        case 'global_text':
-          const attrs = Object.values(item).filter(isString)
+      Object.values(self.currentFilters).forEach((filter) => {
+        show = show && applyFilter(item, attribute, filter)
+      })
 
-          if (attrs.join(" ").match(currentValue))
-            showItem(item)
-
-          break;
-        case 'text':
-          if (currentValue.match(itemVal))
-            showItem(item)
-
-          break;
-        case 'select':
-          if (currentValue == itemVal)
-            showItem(item)
-
-          break;
-        case 'numeric_range':
-          if (options['range'] == 'min' && itemVal > currentValue)
-            showItem(item)
-
-          if (options['range'] == 'max' && itemVal < currentValue)
-            showItem(item)
-
-          break;
-        case 'tags':
-          if (itemVal && itemVal.includes(options['tag']))
-            showItem(item)
-
-          break;
-        case 'boolean':
-          if (currentValue == 'true' && itemVal)
-            showItem(item)
-
-          if (currentValue == 'false' && !itemVal)
-            showItem(item)
-
-          break;
-      }
+      if (show) showItem(item)
     })
+
+    console.log(findAll('article:not(.hidden)').length)
+  }
+
+  applyFilter(item, attribute, filter) {
+    const itemValue = item[attribute]
+
+    switch(filter.type) {
+      case 'global_text':
+        const attrs = Object.values(item).filter(isString)
+
+        if (attrs.join(' ').match(filter.currentValue))
+          return true
+
+        break;
+      case 'text':
+        if (filter.currentValue.match(itemValue))
+          return true
+
+        break;
+      case 'select':
+        if (filter.currentValue == itemValue)
+          return true
+
+        break;
+      case 'numeric_range':
+        if (filter.options['range'] == 'min' && itemValue > filter.currentValue)
+          return true
+
+        if (filter.options['range'] == 'max' && itemValue <= filter.currentValue)
+          return true
+
+        break;
+      case 'tags':
+        if (itemValue && itemValue.includes(filter.options['tag']))
+          return true
+
+        break;
+      case 'boolean':
+        if (filter.currentValue == 'true' && itemValue)
+          return true
+
+        if (filter.currentValue == 'false' && !itemValue)
+          return true
+
+        break;
+      default:
+        return false
+    }
   }
 
   showItem(item) {
-    self.filteredCollection.push(item)
     removeClass(`#${item.dom_id}`, 'hidden')
   }
 

@@ -3,7 +3,7 @@ title: Home
 ---
 
 <div class="flex">
-  <div id="sidebar" class="transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start  w-full sm:w-64 bg-gray-800 flex-col">
+  <div id="sidebar" class="flex flex-col justify-start items-start w-full sm:w-64 bg-gray-800">
     <%= render_filters %>
   </div>
 
@@ -14,8 +14,8 @@ title: Home
     </div>
 
     <div class="relative">
-      <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-        <svg class="w-5 text-gray-600 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      <div class="flex absolute inset-y-0 left-0 items-center pl-3">
+        <%= inline_svg 'icons/search.svg' %>
       </div>
       <input type="text" name="q" id="search" placeholder="Search ..." class="search-input p-3 pl-10 text-sm" onkeyup="filterBy('global_text')" />
     </div>

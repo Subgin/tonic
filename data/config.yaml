@@ -1,10 +1,10 @@
 # Main info
 title: Tonic Example
-description: Example of a magic collection. For testing purposes. Find your items fast!
+description: This is just an example of a Tonic collection. Use all the filters to search your items!
 
 # Style
 main_color: "#b45309"
-logo: "https://tuk-cdn.s3.amazonaws.com/can-uploader/sidebar2-svg1.svg"
+font_family: "Fira Sans"
 
 # Sorting
 sorting:
@@ -12,9 +12,5 @@ sorting:
 
 # Filters
 filters:
-  exclude:
-    - nil
   type:
     category: "select"
-    downloads: "numeric_range"
-    price: "numeric_range"

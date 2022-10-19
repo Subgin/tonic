@@ -4,6 +4,8 @@ module Tonic
 
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
+  DEFAULT_COLOR = "#1d4ed8"
+  DEFAULT_ORDER = "name_asc"
 
   def self.start(context)
     context.helpers Helpers
@@ -25,7 +27,7 @@ module Tonic
 
     def sort_collection(collection)
       default_order = data.config.sorting&.default_order
-      attribute, direction = (default_order || "name_asc").split("_")
+      attribute, direction = (default_order || DEFAULT_ORDER).split("_")
       type = collection[0][attribute]
 
       collection.sort_by do |item|
@@ -42,7 +44,7 @@ module Tonic
 
       attributes.map do |attribute|
         next if SKIP_FOR_FILTERS.include?(attribute)
-        next if data.config.filters.exclude.include?(attribute)
+        next if data.config.filters.exclude&.include?(attribute)
 
         content_tag(:div, class: "flex flex-col justify-start px-6 py-3 border-b border-gray-500 w-full") do |li|
           type = data.config.filters.type[attribute]

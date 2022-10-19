@@ -21,7 +21,7 @@ layout: layout
     <% rest_of_attrs(item).each do |k| %>
       <% value = item[k] %>
       <p>
-        <b><%= k %></b>
+        <b><%= k.titleize %></b>
         <% if value.is_a?(Array) %>
           <%= render_tags(value) %>
         <% elsif is_url?(value) %>
@@ -33,5 +33,5 @@ layout: layout
     <% end %>
   </div>
 
-  <%= link_to "Back", "/", class: 'btn btn-outline' %>
+  <%= link_to "Back", "/", class: 'btn' %>
 </div>

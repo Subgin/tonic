@@ -4,9 +4,13 @@
     <title><%= data.config.title %> - <%= @title || current_page.data.title %></title>
     <meta name="description" content="<%= data.config.description %>" />
     <%= stylesheet_link_tag "application" %>
+    <% if data.config.font_family %>
+      <link href="https://fonts.googleapis.com/css2?family=<%= data.config.font_family %>&display=swap" rel="stylesheet">
+    <% end %>
     <style>
       :root {
-        --main-color: <%= data.config.main_color || "#1d4ed8" %>;
+        --main-color: <%= data.config.main_color || Tonic::DEFAULT_COLOR %>;
+        --font-family: <%= data.config.font_family %>;
       }
     </style>
   </head>

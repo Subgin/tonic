@@ -4,18 +4,19 @@
 
 body {
   @apply bg-gray-100 leading-relaxed;
+  font-family: var(--font-family);
 }
 
 h1 {
-  @apply text-4xl font-bold mt-2 my-4;
+  @apply text-4xl font-bold mt-1 mb-2;
 }
 
 h2 {
-  @apply text-3xl font-bold mt-2 my-4;
+  @apply text-3xl font-bold mt-1 mb-2;
 }
 
 h3 {
-  @apply text-2xl font-bold my-2;
+  @apply text-2xl font-bold mt-1 mb-2;
 }
 
 p {
@@ -27,7 +28,7 @@ a {
   color: var(--main-color);
 }
 
-img {
+img, svg {
   display: inline-block;
 }
 
@@ -66,17 +67,12 @@ img {
 }
 
 .btn {
-  @apply text-white border-2 py-3 px-6 rounded cursor-pointer outline-none;
-  background-color: var(--main-color);
+  @apply bg-transparent text-white border-2 py-3 px-6 rounded cursor-pointer outline-none;
   border-color: var(--main-color);
-}
-
-.btn-outline {
-  @apply bg-transparent;
   color: var(--main-color);
 }
 
-.btn-outline:hover {
+.btn:hover {
   @apply text-white;
   background-color: var(--main-color);
 }
@@ -89,6 +85,11 @@ img {
   color: var(--main-color);
 }
 
-input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea, select {
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
   @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  @apply ml-1 mr-2 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  color: var(--main-color);
 }

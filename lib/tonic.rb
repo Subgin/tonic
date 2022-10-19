@@ -48,12 +48,12 @@ module Tonic
 
         content_tag(:div, class: "flex flex-col justify-start px-6 py-3 border-b border-gray-500 w-full") do |li|
           type = data.config.filters.type[attribute]
-          render_filter(attribute, type)
+          smart_filter(attribute, type)
         end
       end.compact.join
     end
 
-    def render_filter(attribute, type = nil)
+    def smart_filter(attribute, type = nil)
       # Take sample value from 1st element
       sample = tonic_collection[0][attribute]
 
@@ -64,10 +64,10 @@ module Tonic
         type = "boolean" if sample.is_a?(TrueClass) || sample.is_a?(FalseClass)
       end
 
-      custom_filter(type, attribute)
+      render_filter(type, attribute)
     end
 
-    def custom_filter(type, attribute)
+    def render_filter(type, attribute)
       case type
       when "text"
         text_filter(attribute)
@@ -83,12 +83,10 @@ module Tonic
     end
 
     def label(attribute)
-      attribute = attribute.capitalize
-      content_tag(:label, attribute, class: "text-left text-white flex justify-between items-center w-full py-1")
+      content_tag(:label, attribute.capitalize, class: "text-white py-1")
     end
 
     def text_filter(attribute)
-      label(attribute) +
       partial("templates/filters/text", locals: { attribute: attribute })
     end
 
@@ -97,14 +95,12 @@ module Tonic
       min = range.min
       max = range.max
 
-      label(attribute) +
       partial("templates/filters/numeric_range", locals: { min: min, max: max, attribute: attribute })
     end
 
     def tags_filter(attribute)
       tags = tonic_collection.flat_map(&:"#{attribute}").compact.uniq.sort
 
-      label(attribute) +
       partial("templates/filters/tags", locals: { attribute: attribute, tags: tags })
     end
 
@@ -116,7 +112,6 @@ module Tonic
     end
 
     def boolean_filter(attribute)
-      label(attribute) +
       partial("templates/filters/boolean", locals: { attribute: attribute })
     end
 
@@ -125,7 +120,7 @@ module Tonic
     end
 
     def rest_of_attrs(item)
-      item.keys - MAGIC_ATTRS
+      (item.keys - MAGIC_ATTRS).sort
     end
 
     def render_tags(tags)

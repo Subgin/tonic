@@ -1,9 +1,12 @@
 # Main info
 title: Tonic Example
-description: This is just an example of a Tonic collection. Use all the filters to search your items!
+description: This is just an example of a <i>Tonic</i> project.
+links:
+  - text: About Us
+    url: '#'
 
 # Style
-main_color: "#b45309"
+main_color: "#4338ca"
 font_family: "Fira Sans"
 
 # Sorting

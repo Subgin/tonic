@@ -7,8 +7,9 @@
   </div>
   <div aria-label="toggler" class="flex justify-center items-center">
     <div class="flex items-baseline space-x-2">
-      <a href="#" class="nav-link">About us</a>
-      <a href="#" class="nav-link">Contact us</a>
+      <% data.config.links.each do |link| %>
+        <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
+      <% end %>
 
       <button aria-label="open" id="open" onclick="toggleSidebar()" class="hidden focus:outline-none">
         <%= inline_svg 'icons/menu.svg' %>

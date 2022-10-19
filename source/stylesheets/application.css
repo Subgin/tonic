@@ -32,6 +32,15 @@ img, svg {
   display: inline-block;
 }
 
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
+  @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  @apply ml-1 mr-2 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  color: var(--main-color);
+}
+
 .card {
   @apply shadow rounded bg-white p-4;
 }
@@ -45,7 +54,7 @@ img, svg {
 }
 
 .card-actions {
-  @apply mt-8 mb-4;
+  @apply my-4;
 }
 
 .header {
@@ -58,7 +67,7 @@ img, svg {
 }
 
 .header .nav-link {
-  @apply text-white px-3 py-2 rounded-md font-medium;
+  @apply text-white p-2 font-medium;
 }
 
 #sidebar {
@@ -82,14 +91,5 @@ img, svg {
 }
 
 .tag:hover {
-  color: var(--main-color);
-}
-
-input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
-  @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
-}
-
-input[type="radio"], input[type="checkbox"] {
-  @apply ml-1 mr-2 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
   color: var(--main-color);
 }

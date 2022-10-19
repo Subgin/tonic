@@ -1,3 +1,5 @@
+<%= label(attribute) %>
+
 <span>From (<%= min %>)</span>
 <%= input_tag(:number, name: "#{attribute}_min", onkeyup: "filterBy('numeric_range', '#{attribute}', { range: 'min' })") %>
 

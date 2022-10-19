@@ -9,8 +9,8 @@ export default class AppCtrl {
     toggleClass('#close', 'hidden')
   }
 
-  filterBy(type, attribute = 'all', options = {}) {
-    addClass('.card', 'hidden')
+  filterBy(type, attribute = '_global_', options = {}) {
+    addClass('article', 'hidden')
 
     const el = currentElement()
     const currentValue = el.value
@@ -35,19 +35,19 @@ export default class AppCtrl {
 
     switch(filter.type) {
       case 'global_text':
-        const attrs = Object.values(item).filter(isString)
+        const values = Object.values(item).filter(isString)
 
-        if (attrs.join(' ').match(filter.currentValue))
+        if (values.join(' ').match(new RegExp(filter.currentValue, 'i')))
           return true
 
         break;
       case 'text':
-        if (filter.currentValue.match(itemValue))
+        if (itemValue.match(new RegExp(filter.currentValue, 'i')))
           return true
 
         break;
       case 'select':
-        if (filter.currentValue == itemValue)
+        if (filter.currentValue == 'All' || filter.currentValue == itemValue)
           return true
 
         break;

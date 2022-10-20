@@ -12,9 +12,7 @@ bin/start
 bin/build
 ```
 
-## Customization
-
-Via `data/config.yaml`.
+Add your collection in `data/collection.yaml`
 
 ### Magic attributes
 
@@ -24,7 +22,37 @@ Via `data/config.yaml`.
 - tags (array)
 - images (array)
 
-### Filters
+### Customization
+
+Via `data/config.yaml`:
+
+```yaml
+# Main info
+title: My Collection
+description: This is an example of a Tonic collection.
+links:
+  - text: About Us
+    url: '/about'
+
+# Style
+main_color: "#4338ca"
+font_family: "Fira Sans"
+
+# Sorting
+sorting:
+  default_order: price_desc
+
+# Filters
+filters:
+  type:
+    category: "select"
+```
+
+#### Sorting
+
+- `default_order`
+
+#### Filters
 
 Types:
 
@@ -37,7 +65,3 @@ Types:
 More options:
 
 - `exclude` Exclude attributes from filters
-
-### Sorting
-
-- `default_order`

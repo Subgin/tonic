@@ -14,14 +14,15 @@ export default class AppCtrl {
 
     const el = currentElement()
     const currentValue = el.value
+    attribute = el.name || attribute
 
-    self.currentFilters[el.name || attribute] = { type, currentValue, options }
+    self.currentFilters[attribute] = { type, attribute, currentValue, options }
 
     window.collection.forEach((item) => {
       let show = true
 
       Object.values(self.currentFilters).forEach((filter) => {
-        show = show && applyFilter(item, attribute, filter)
+        show = show && applyFilter(item, filter)
       })
 
       if (show) showItem(item)
@@ -30,8 +31,8 @@ export default class AppCtrl {
     insertHTML('#counter', findAll('article:not(.hidden)').length)
   }
 
-  applyFilter(item, attribute, filter) {
-    const itemValue = item[attribute]
+  applyFilter(item, filter) {
+    let itemValue = item[filter.attribute]
 
     switch(filter.type) {
       case 'global_text':
@@ -52,6 +53,7 @@ export default class AppCtrl {
 
         break;
       case 'numeric_range':
+        itemValue = item[filter.attribute.replace(/_min$|_max$/, '')]
         const currentValue = parseInt(filter.currentValue)
 
         if (filter.options['range'] == 'min' && itemValue > currentValue)

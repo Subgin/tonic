@@ -8,7 +8,7 @@ Tonic parses your collection, defined in a `YAML` file, and automatically genera
 
 *Built with: [Middleman](https://github.com/middleman/middleman), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
-## Usage
+## Install
 
 **Requirements**
 
@@ -21,6 +21,8 @@ Clone/fork this repository (or use the GitHub *template* button), then `cd` into
 > bin/setup
 ```
 
+## Usage
+
 Start the development server by:
 
 ```
@@ -32,6 +34,8 @@ Or compile the site by:
 ```
 > bin/build
 ```
+
+### Collection
 
 Add your collection in `data/collection.yaml`. Example:
 

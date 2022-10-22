@@ -15,7 +15,7 @@ tags = 20.times.map { Faker::Company.profession.gsub(" ", "-") }
 (ARGV[0] || 20).to_i.times do
   items << {
     name: Faker::Commerce.product_name,
-    description: Faker::Lorem.paragraph,
+    description: Faker::Lorem.paragraphs(number: 5).join,
     summary: Faker::Company.catch_phrase,
     category: categories.sample,
     tags: tags.sample(rand(1..3)),

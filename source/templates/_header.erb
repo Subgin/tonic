@@ -12,12 +12,14 @@
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
 
-      <button aria-label="open" id="open" onclick="toggleSidebar()" class="hidden focus:outline-none">
-        <%= inline_svg 'icons/menu.svg' %>
-      </button>
-      <button aria-label="close" id="close" onclick="toggleSidebar()" class="md:hidden focus:outline-none">
-        <%= inline_svg 'icons/close.svg' %>
-      </button>
+      <% if current_page.url == '/' %>
+        <button aria-label="open" id="open" onclick="toggleSidebar()" class="hidden focus:outline-none">
+          <%= inline_svg 'icons/menu.svg' %>
+        </button>
+        <button aria-label="close" id="close" onclick="toggleSidebar()" class="md:hidden focus:outline-none">
+          <%= inline_svg 'icons/close.svg' %>
+        </button>
+      <% end %>
     </div>
   </div>
 </div>

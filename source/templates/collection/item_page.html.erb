@@ -4,7 +4,7 @@ layout: layout
 
 <% @title = item.name %>
 
-<div class="py-12 px-24 mb-12">
+<div class="mt-12 mb-24 mx-12 md:mx-24">
   <span><%= item.category %></span>
   <h1><%= @title %></h1>
 
@@ -21,13 +21,17 @@ layout: layout
       <% value = item[k] %>
       <p>
         <b><%= k.titleize %></b>
-        <% if value.is_a?(Array) %>
-          <%= render_tags(value) %>
-        <% elsif is_url?(value) %>
-          <%= link_to value, value %>
-        <% else %>
-          <%= value %>
-        <% end %>
+        <span class="text-gray-500">
+          <% if value.is_a?(Array) %>
+            <%= render_tags(value) %>
+          <% elsif is_bool?(value) %>
+            <%= value ? "Yes" : "No" %>
+          <% elsif is_url?(value) %>
+            <%= link_to value, value %>
+          <% else %>
+            <%= value %>
+          <% end %>
+        </span>
       </p>
     <% end %>
   </div>

@@ -43,10 +43,10 @@ module Tonic
 
       attributes.map do |attribute|
         next if SKIP_FOR_FILTERS.include?(attribute)
-        next if data.config.filters.exclude&.include?(attribute)
+        next if data.config.filters&.exclude&.include?(attribute)
 
-        content_tag(:div, class: "flex flex-col justify-start px-6 py-3 border-b border-gray-500 w-full") do |li|
-          type = data.config.filters.type[attribute]
+        content_tag(:div, class: "px-6 py-3 border-b border-gray-500 w-full") do |li|
+          type = data.config.filters&.type&.dig(attribute)
           smart_filter(attribute, type)
         end
       end.compact.join
@@ -54,13 +54,14 @@ module Tonic
 
     def smart_filter(attribute, type = nil)
       # Take sample value from 1st element
-      sample = tonic_collection[0][attribute]
+      value = tonic_collection[0][attribute]
 
       if !type
-        type = "text" if sample.is_a?(String)
-        type = "numeric_range" if sample.is_a?(Integer)
-        type = "tags" if sample.is_a?(Array)
-        type = "boolean" if sample.is_a?(TrueClass) || sample.is_a?(FalseClass)
+        type = "select"        if attribute == "category"
+        type = "text"          if value.is_a?(String)
+        type = "numeric_range" if value.is_a?(Integer)
+        type = "tags"          if value.is_a?(Array)
+        type = "boolean"       if is_bool?(value)
       end
 
       render_filter(type, attribute)
@@ -136,8 +137,12 @@ module Tonic
 
     def render_tags(tags)
       tags.sort.map do |tag|
-        "<span class='tag'>##{tag}</span>"
+        "<span class='tag'>#{tag}</span>"
       end.join(" ")
+    end
+
+    def is_bool?(value)
+      value.is_a?(TrueClass) || value.is_a?(FalseClass)
     end
 
     def is_url?(string)

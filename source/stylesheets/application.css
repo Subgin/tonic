@@ -90,6 +90,11 @@ input[type="radio"], input[type="checkbox"] {
   @apply contents mr-2 mb-2 font-semibold;
 }
 
-.tag:hover {
+.tag:hover, .tag.active {
   color: var(--main-color);
+}
+
+.sorting-options a:hover, .sorting-options a.active {
+  @apply text-white font-bold first:rounded-t last:rounded-b;
+  background-color: var(--main-color);
 }

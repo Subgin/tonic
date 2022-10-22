@@ -123,6 +123,13 @@ module Tonic
       (item.keys - MAGIC_ATTRS).sort
     end
 
+    def sorting_options
+      options = tonic_collection[0].select { |k, v| k == 'name' || v.is_a?(Integer) }.keys
+      options.map do |option|
+        ["#{option.titleize} ASC", "#{option.titleize} DESC"]
+      end.flatten
+    end
+
     def render_tags(tags)
       tags.sort.map do |tag|
         "<span class='tag'>##{tag}</span>"

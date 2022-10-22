@@ -9,6 +9,10 @@ export default class AppCtrl {
     toggleClass('#close', 'hidden')
   }
 
+  toggleSorting() {
+    toggleClass('.sorting-options', 'hidden')
+  }
+
   filterBy(type, attribute = '_global_', options = {}) {
     addClass('article', 'hidden')
 
@@ -18,7 +22,12 @@ export default class AppCtrl {
 
     self.currentFilters[attribute] = { type, attribute, currentValue, options }
 
-    window.collection.forEach((item) => {
+    if (type == 'tags') {
+      removeClass('.tag', 'active')
+      addClass(el, 'active')
+    }
+
+    window.collection.forEach(item => {
       let show = true
 
       Object.values(self.currentFilters).forEach((filter) => {
@@ -56,7 +65,7 @@ export default class AppCtrl {
         itemValue = item[filter.attribute.replace(/_min$|_max$/, '')]
         const currentValue = parseInt(filter.currentValue)
 
-        if (filter.options['range'] == 'min' && itemValue > currentValue)
+        if (filter.options['range'] == 'min' && itemValue >= currentValue)
           return true
 
         if (filter.options['range'] == 'max' && itemValue <= currentValue)
@@ -79,6 +88,36 @@ export default class AppCtrl {
       default:
         return false
     }
+  }
+
+  sortBy(sorting) {
+    const [attribute, direction] = sorting.split(" ")
+    const itemsContainer = find('.items-container')
+    const items = []
+
+    removeClass('.sorting-options a', 'active')
+    addClass(currentElement(), 'active')
+
+    findAll('article:not(.hidden)').forEach(itemDom => {
+      let item = window.collection.find(item => item.dom_id == itemDom.id)
+      items.push(item)
+    })
+
+    items.sort((a, b) => {
+      if (direction == 'asc') {
+        if (a[attribute] < b[attribute]) return -1
+        if (a[attribute] > b[attribute]) return 1
+        return 0
+      } else {
+        if (a[attribute] < b[attribute]) return 1
+        if (a[attribute] > b[attribute]) return -1
+        return 0
+      }
+    }).forEach(item => {
+      itemsContainer.appendChild(find(`#${item.dom_id}`))
+    })
+
+    toggleSorting()
   }
 
   showItem(item) {

@@ -6,16 +6,15 @@ layout: layout
 
 <div class="py-12 px-24 mb-12">
   <span><%= item.category %></span>
-  <h1>
-    <%= @title %>
-  </h1>
+  <h1><%= @title %></h1>
+
   <% item.images.each do |img| %>
     <%= image_tag img, width: 200, class: 'm-1' %>
   <% end if item.images %>
 
   <p><%= render_tags(item.tags) %></p>
 
-  <%= item.description %>
+  <div class="text-gray-500"><%= item.description %></div>
 
   <div class="my-6">
     <% rest_of_attrs(item).each do |k| %>

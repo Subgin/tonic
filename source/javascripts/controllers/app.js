@@ -32,6 +32,7 @@ export default class AppCtrl {
 
       Object.values(self.currentFilters).forEach((filter) => {
         show = show && applyFilter(item, filter)
+        if (!show) return
       })
 
       if (show) showItem(item)

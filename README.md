@@ -95,6 +95,10 @@ filters:
 
 - `default_order` By default: "name_asc".
 
+More options:
+
+- `exclude` Exclude attributes from sorting options.
+
 #### Filters
 
 Types:

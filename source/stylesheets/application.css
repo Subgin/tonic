@@ -41,32 +41,16 @@ input[type="radio"], input[type="checkbox"] {
   color: var(--main-color);
 }
 
-.card {
-  @apply shadow rounded bg-white p-4;
-}
-
-.card-title a {
-  @apply text-gray-900;
-}
-
-.card-body {
-  @apply text-gray-600 my-2;
-}
-
-.card-actions {
-  @apply my-4;
-}
-
-.header {
+#header {
   background-color: var(--main-color);
 }
 
-.header img {
+#header img {
   max-width: 200px;
   max-height: 60px;
 }
 
-.header .nav-link {
+#header .nav-link {
   @apply text-white p-2 font-medium;
 }
 
@@ -84,6 +68,22 @@ input[type="radio"], input[type="checkbox"] {
 .btn:hover {
   @apply text-white;
   background-color: var(--main-color);
+}
+
+.card {
+  @apply shadow rounded bg-white p-4;
+}
+
+.card-title a {
+  @apply text-gray-900;
+}
+
+.card-body {
+  @apply text-gray-600 my-2;
+}
+
+.card-actions {
+  @apply my-4;
 }
 
 .tag {

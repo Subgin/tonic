@@ -1,7 +1,6 @@
 module Tonic
   VERSION = "0.1.0"
   REPO = "https://github.com/Subgin/tonic"
-
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
   DEFAULT_COLOR = "#1d4ed8"
@@ -125,6 +124,11 @@ module Tonic
 
     def sorting_options
       options = tonic_collection[0].select { |k, v| k == 'name' || v.is_a?(Integer) }.keys
+
+      if exclude = data.config.sorting&.exclude
+        options = options - exclude
+      end
+
       options.map do |option|
         ["#{option.titleize} ASC", "#{option.titleize} DESC"]
       end.flatten

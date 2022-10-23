@@ -1,5 +1,5 @@
 module Tonic
-  VERSION = "0.2.0"
+  VERSION = "0.3.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -34,7 +34,7 @@ module Tonic
         next if SKIP_FOR_FILTERS.include?(attribute)
         next if data.config.filters&.exclude&.include?(attribute)
 
-        content_tag(:div, class: "px-6 py-3 border-b border-gray-500 w-full") do |li|
+        content_tag(:div, class: "px-6 py-3 border-b border-gray-500 w-full") do
           type = data.config.filters&.type&.dig(attribute)
           smart_filter(attribute, type)
         end
@@ -51,6 +51,7 @@ module Tonic
         type = "tags"          if value.is_a?(Array)
         type = "boolean"       if is_bool?(value)
         type = "select"        if attribute == "category"
+        type = "date_range"    if attribute.end_with?("_at") && is_date?(value)
       end
 
       render_filter(type, attribute)
@@ -62,6 +63,8 @@ module Tonic
         text_filter(attribute)
       when "numeric_range"
         numeric_range_filter(attribute)
+      when "date_range"
+        date_range_filter(attribute)
       when "select"
         select_filter(attribute)
       when "tags"
@@ -74,7 +77,7 @@ module Tonic
     end
 
     def label(attribute)
-      content_tag(:label, attribute.capitalize, class: "text-white py-1")
+      content_tag(:label, attribute.humanize.capitalize, class: "text-white py-1")
     end
 
     def text_filter(attribute)
@@ -86,7 +89,15 @@ module Tonic
       min = range.min
       max = range.max
 
-      partial("templates/filters/numeric_range", locals: { min: min, max: max, attribute: attribute })
+      partial("templates/filters/numeric_range", locals: { attribute: attribute, min: min, max: max })
+    end
+
+    def date_range_filter(attribute)
+      range = tonic_collection.map(&:"#{attribute}").compact.uniq
+      min = range.min
+      max = range.max
+
+      partial("templates/filters/date_range", locals: { attribute: attribute, min: min, max: max })
     end
 
     def tags_filter(attribute)
@@ -99,7 +110,7 @@ module Tonic
       options = tonic_collection.flat_map(&:"#{attribute}").uniq
       options = ["All"] + options.sort
 
-      partial("templates/filters/select", locals: { options: options, attribute: attribute })
+      partial("templates/filters/select", locals: { attribute: attribute, options: options })
     end
 
     def boolean_filter(attribute)
@@ -110,7 +121,7 @@ module Tonic
       options = tonic_collection.flat_map(&:"#{attribute}").uniq
       options = ["All"] + options.sort
 
-      partial("templates/filters/radio_buttons", locals: { options: options, attribute: attribute })
+      partial("templates/filters/radio_buttons", locals: { attribute: attribute, options: options })
     end
 
     def rest_of_attrs(item)
@@ -137,6 +148,12 @@ module Tonic
 
     def is_bool?(value)
       value.is_a?(TrueClass) || value.is_a?(FalseClass)
+    end
+
+    def is_date?(value)
+      Date.parse(value)
+    rescue Date::Error
+      false
     end
 
     def is_url?(string)

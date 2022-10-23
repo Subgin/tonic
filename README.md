@@ -1,6 +1,6 @@
 # Tonic
 
-> :cocktail: Self meta-described collections framework
+> 🍸 Self meta-described collections framework
 
 Transform your collection into a beautiful website!
 
@@ -48,6 +48,7 @@ Define your collection in the `data/collection.yaml` file. Example:
     - tag2
   likes: 200
   downloads: 400
+  published_at: "2021-06-10"
 - name: Item 2
   description: Incidunt cupiditate rerum. Enim quo pariatur. Commodi provident dolores.
   category: Accounting
@@ -55,6 +56,7 @@ Define your collection in the `data/collection.yaml` file. Example:
     - tag2
   likes: 60
   downloads: 100
+  published_at: "2022-10-10"
 ```
 
 ### Magic attributes
@@ -102,7 +104,7 @@ filters:
 
 #### Sorting
 
-By default, the `name` attribute and all "integer" attributes are used to build the sorting options.
+By default, the `name` attribute and all integer attributes are used to build the sorting options.
 
 Options
 
@@ -116,6 +118,7 @@ Options
   - `select`
   - `radio_buttons`
   - `numeric_range`
+  - `date_range`
   - `tags`
   - `boolean`
 - `exclude` Exclude attributes from filters.

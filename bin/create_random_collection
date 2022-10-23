@@ -24,7 +24,8 @@ tags = 20.times.map { Faker::Company.profession.gsub(" ", "-") }
     downloads: %w(50 100 200 500 1000 2000).sample.to_i,
     images: rand(1..5).times.map { "https://picsum.photos/300" },
     premium: [true, false].sample,
-    website: Faker::Internet.url
+    website: Faker::Internet.url,
+    published_at: Faker::Date.between(from: '2018-01-01', to: Date.today).to_s
   }.transform_keys(&:to_s)
 end
 

@@ -80,6 +80,17 @@ export default class AppCtrl {
           return true
 
         break;
+      case 'date_range':
+        itemValue = Date.parse(item[filter.attribute.replace(/_min$|_max$/, '')])
+        const date = Date.parse(filter.currentValue)
+
+        if (filter.options['range'] == 'min' && itemValue >= date)
+          return true
+
+        if (filter.options['range'] == 'max' && itemValue <= date)
+          return true
+
+        break;
       case 'tags':
         if (itemValue && itemValue.includes(filter.options['tag']))
           return true

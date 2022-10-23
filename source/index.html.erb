@@ -22,14 +22,12 @@ title: Home
       <div class="text-sm text-gray-600"><span id="counter"><%= tonic_collection.size %></span> items found</div>
 
       <div class="relative inline-block text-left">
-        <div>
-          <a href="#" onclick="toggleSorting()">
-            Sort by
-            <%= inline_svg 'icons/chevron-down.svg' %>
-          </a>
-        </div>
+        <a href="#" onclick="toggleSorting()">
+          Sort by
+          <%= inline_svg 'icons/chevron-down.svg' %>
+        </a>
 
-        <div class="absolute right-0 z-10 w-48 rounded bg-white font-bold shadow-lg hidden sorting-options">
+        <div class="absolute right-0 z-10 w-48 rounded bg-white shadow-lg hidden sorting-options">
           <% sorting_options.each do |option| %>
             <a href="#" class="block px-4 py-2 text-sm" onclick="sortBy('<%= option.downcase %>')"><%= option %></a>
           <% end %>
@@ -38,7 +36,7 @@ title: Home
     </div>
 
     <div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-container">
-      <% sort_collection(tonic_collection).each do |item| %>
+      <% tonic_collection.each do |item| %>
         <%= partial 'templates/collection/item_card', locals: { item: item } %>
       <% end %>
     </div>

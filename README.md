@@ -37,7 +37,7 @@ Or compile the site by:
 
 ### Collection
 
-Add your collection in `data/collection.yaml`. Example:
+Define your collection in the `data/collection.yaml` file. Example:
 
 ```yaml
 - name: Item 1
@@ -62,8 +62,8 @@ Add your collection in `data/collection.yaml`. Example:
 - name (required! should be unique!)
 - description
 - category
-- tags (array)
-- images (array)
+- tags (shoud be an array)
+- images (shoud be an array)
 
 ### Customization
 
@@ -76,6 +76,8 @@ description: This is an example of a Tonic collection.
 links:
   - text: About Us
     url: '/about'
+  - text: Contact
+    url: '/contact'
 
 # Style
 main_color: "#4338ca"
@@ -84,12 +86,15 @@ logo: "/images/logo.png"
 
 # Sorting
 sorting:
-  default_order: price_desc
+  default_order: "price desc"
+  exclude:
+    - clicks
 
 # Filters
 filters:
   type:
-    category: "select"
+    category: text
+    status: radio_buttons
   exclude:
     - summary
     - long_description
@@ -97,24 +102,22 @@ filters:
 
 #### Sorting
 
-- `default_order` By default: "name_asc".
+By default, the `name` attribute and all "integer" attributes are used to build the sorting options.
 
-More options:
+Options
 
+- `default_order` By default: "name asc".
 - `exclude` Exclude attributes from sorting options.
 
 #### Filters
 
-Types:
-
-- `text`
-- `select`
-- `numeric_range`
-- `tags`
-- `boolean`
-
-More options:
-
+- `type` Force an attribute to render a specific filter type. Available types:
+  - `text`
+  - `select`
+  - `radio_buttons`
+  - `numeric_range`
+  - `tags`
+  - `boolean`
 - `exclude` Exclude attributes from filters.
 
 ## License

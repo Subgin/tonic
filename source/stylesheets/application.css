@@ -41,7 +41,7 @@ input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea,
 }
 
 input[type="radio"], input[type="checkbox"] {
-  @apply ml-1 mr-2 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  @apply mx-1 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
   color: var(--main-color);
 }
 
@@ -74,7 +74,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 .card {
-  @apply shadow rounded bg-white p-4;
+  @apply shadow-md rounded bg-white p-4;
 }
 
 .card-title a {

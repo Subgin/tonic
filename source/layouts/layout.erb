@@ -22,6 +22,7 @@
     <%= javascript_include_tag "application" %>
     <script>
       window.collection = JSON.parse('<%= tonic_collection.to_json %>');
+      window.config = JSON.parse('<%= data.config.to_json %>');
     </script>
   </body>
 </html>

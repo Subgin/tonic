@@ -1,6 +1,12 @@
 export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
+
+    const defaultOrder =
+      window.config.sorting && window.config.sorting.default_order ||
+      'name asc'
+
+    this.sortBy(defaultOrder, false)
   }
 
   toggleSidebar() {
@@ -58,6 +64,7 @@ export default class AppCtrl {
 
         break;
       case 'select':
+      case 'radio_buttons':
         if (filter.currentValue == 'All' || filter.currentValue == itemValue)
           return true
 
@@ -91,13 +98,10 @@ export default class AppCtrl {
     }
   }
 
-  sortBy(sorting) {
-    const [attribute, direction] = sorting.split(" ")
+  sortBy(sorting, toggleSorting = true) {
+    const [attribute, direction] = sorting.split(' ')
     const itemsContainer = find('.items-container')
     const items = []
-
-    removeClass('.sorting-options a', 'active')
-    addClass(currentElement(), 'active')
 
     findAll('article:not(.hidden)').forEach(itemDom => {
       let item = window.collection.find(item => item.dom_id == itemDom.id)
@@ -118,7 +122,13 @@ export default class AppCtrl {
       itemsContainer.appendChild(find(`#${item.dom_id}`))
     })
 
-    toggleSorting()
+    removeClass('.sorting-options a', 'active')
+    findAll('.sorting-options a').forEach(option => {
+      if (option.innerText.toLowerCase() == sorting)
+        addClass(option, 'active')
+    })
+
+    if (toggleSorting) this.toggleSorting()
   }
 
   showItem(item) {

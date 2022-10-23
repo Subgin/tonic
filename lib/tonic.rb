@@ -1,10 +1,9 @@
 module Tonic
-  VERSION = "0.1.0"
+  VERSION = "0.2.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
-  DEFAULT_COLOR = "#1d4ed8"
-  DEFAULT_ORDER = "name_asc"
+  DEFAULT_COLOR = "#2563eb"
 
   def self.start(context)
     context.helpers Helpers
@@ -17,24 +16,14 @@ module Tonic
   module Helpers
     extend self
 
+    def slugify(text)
+      text.parameterize
+    end
+
     def tonic_collection
       data.collection.each do |item|
         item.id = slugify(item.name)
         item.dom_id = "item_#{item.id}"
-      end
-    end
-
-    def sort_collection(collection)
-      default_order = data.config.sorting&.default_order
-      attribute, direction = (default_order || DEFAULT_ORDER).split("_")
-      type = collection[0][attribute]
-
-      collection.sort_by do |item|
-        if direction == "asc"
-          type.is_a?(Integer) ? item[attribute].to_i : item[attribute].to_s.downcase
-        else
-          type.is_a?(Integer) ? -item[attribute].to_i : -item[attribute].to_s.downcase
-        end
       end
     end
 
@@ -57,11 +46,11 @@ module Tonic
       value = tonic_collection[0][attribute]
 
       if !type
-        type = "select"        if attribute == "category"
         type = "text"          if value.is_a?(String)
         type = "numeric_range" if value.is_a?(Integer)
         type = "tags"          if value.is_a?(Array)
         type = "boolean"       if is_bool?(value)
+        type = "select"        if attribute == "category"
       end
 
       render_filter(type, attribute)
@@ -79,6 +68,8 @@ module Tonic
         tags_filter(attribute)
       when "boolean"
         boolean_filter(attribute)
+      when "radio_buttons"
+        radio_buttons_filter(attribute)
       end
     end
 
@@ -115,8 +106,11 @@ module Tonic
       partial("templates/filters/boolean", locals: { attribute: attribute })
     end
 
-    def slugify(text)
-      text.parameterize
+    def radio_buttons_filter(attribute)
+      options = tonic_collection.flat_map(&:"#{attribute}").uniq
+      options = ["All"] + options.sort
+
+      partial("templates/filters/radio_buttons", locals: { options: options, attribute: attribute })
     end
 
     def rest_of_attrs(item)

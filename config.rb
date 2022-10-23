@@ -1,21 +1,22 @@
 require "lib/tonic"
 
-set :source, "app"
-set :css_dir, "assets/stylesheets"
-set :js_dir, "assets/javascripts"
-set :images_dir, "assets/images"
-
-activate :sprockets
+activate :directory_indexes
+activate :inline_svg
+activate :external_pipeline,
+         name: :webpack,
+         command: build? ? "yarn run build" : "yarn run start",
+         source: "dist",
+         latency: 1
 
 configure :development do
   activate :livereload
 end
 
 configure :build do
-  activate :minify_css
-  activate :minify_javascript
+  ignore File.join(config[:js_dir], "*") # handled by Webpack
   activate :asset_hash
+  activate :minify_css
   activate :relative_assets
 end
 
-Tonic.run(self)
+Tonic.start(self)

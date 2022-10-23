@@ -1,9 +1,0 @@
-<p class="control">
-  <span>From (<%= min %>)</span>
-  <%= input_tag(:number, name: attribute, onchange: "filter.range(this.value, '#{attribute}', 'min')", class: "input") %>
-</p>
-
-<p class="control">
-  <span>To (<%= max %>)</span>
-  <%= input_tag(:number, name: attribute, onchange: "filter.range(this.value, '#{attribute}', 'max')", class: "input") %>
-</p>

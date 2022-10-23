@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-100 leading-relaxed;
+  font-family: var(--font-family);
+}
+
+h1 {
+  @apply text-4xl font-bold mt-1 mb-2;
+}
+
+h2 {
+  @apply text-3xl font-bold mt-1 mb-2;
+}
+
+h3 {
+  @apply text-2xl font-bold mt-1 mb-2;
+}
+
+p {
+  @apply mt-2 mb-3;
+}
+
+a {
+  @apply outline-none font-bold;
+  color: var(--main-color);
+}
+
+img, svg {
+  display: inline-block;
+}
+
+label {
+  @apply block;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
+  @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  @apply mx-1 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  color: var(--main-color);
+}
+
+#header {
+  background-color: var(--main-color);
+}
+
+#header img {
+  max-width: 200px;
+  max-height: 60px;
+}
+
+#header .nav-link {
+  @apply text-white p-2 font-medium rounded;
+}
+
+#header .nav-link:hover {
+  @apply bg-white;
+  color: var(--main-color);
+}
+
+#sidebar {
+  @apply text-gray-500 pb-24;
+  min-width: 280px;
+}
+
+.btn {
+  @apply text-white py-3 px-6 rounded cursor-pointer outline-none;
+  background-color: var(--main-color);
+}
+
+.card {
+  @apply shadow-md rounded bg-white p-4;
+}
+
+.card-title a {
+  @apply text-gray-900;
+}
+
+.card-body {
+  @apply my-2;
+}
+
+.card-actions {
+  @apply my-4;
+}
+
+.tag {
+  @apply inline-block mb-1 px-2 font-semibold border-2 rounded-full text-sm;
+  color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.tag:hover, .tag.active {
+  @apply text-white;
+  background-color: var(--main-color);
+}
+
+.sorting-options a:hover, .sorting-options a.active {
+  @apply text-white font-bold first:rounded-t last:rounded-b;
+  background-color: var(--main-color);
+}

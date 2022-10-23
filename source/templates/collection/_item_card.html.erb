@@ -1,0 +1,14 @@
+<article class="card flex flex-col justify-between" id="<%= item.dom_id %>">
+  <span><%= item.category %></span>
+  <h3 class="card-title">
+    <%= link_to item.name, "/#{item.id}" %>
+  </h3>
+  <div class="card-body">
+    <span class="text-gray-500"><%= item.description[0..50] %></span>
+
+    <p><%= render_tags(item.tags) %></p>
+  </div>
+  <div class="card-actions">
+    <%= link_to 'More', "/#{item.id}", class: 'btn' %>
+  </div>
+</article>

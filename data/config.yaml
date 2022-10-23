@@ -1,22 +1,21 @@
+# Main info
 title: Tonic Example
+description: This is just an example of a <i>Tonic</i> project.
+links:
+  - text: About Us
+    url: "#"
+  - text: Contact
+    url: "#"
 
-slug: # wip
+# Style
+main_color: "#0d9488"
+font_family: "Fira Sans"
 
-theme: # wip
+# Sorting
+sorting:
+  default_order: "price asc"
 
-default_order: # wip
-
-main_color: # wip
-
+# Filters
 filters:
-  exclude:
-    - name
-    - description
-    - link
   type:
-    category: "select"
-    downloads: "slider_range"
-    image: "boolean"
-    price: "numeric_range"
-  label:
-    image: "With image?"
+    status: radio_buttons

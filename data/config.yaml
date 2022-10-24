@@ -1,15 +1,15 @@
 # Main info
 title: Tonic Example
 description: This is just an example of a <i>Tonic</i> project.
+
+# Style/UI
+main_color: "#0d9488"
+font_family: "Fira Sans"
 links:
   - text: About Us
     url: "#"
   - text: Contact
     url: "#"
-
-# Style
-main_color: "#0d9488"
-font_family: "Fira Sans"
 
 # Sorting
 sorting:

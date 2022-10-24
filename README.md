@@ -4,7 +4,7 @@
 
 Transform your collection into a beautiful website!
 
-Tonic parses your collection, defined in a `YAML` file, and automatically generates a static website to explore your collection in a smart way, with a lot of filtering and sorting options.
+Tonic parses your collection, defined in a `YAML` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
 
 *Built with: [Middleman](https://github.com/middleman/middleman), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
@@ -75,16 +75,18 @@ Via `data/config.yaml`:
 # Main info
 title: My Collection
 description: This is an example of a Tonic collection.
+
+# Style/UI
+main_color: "#4338ca"
+font_family: "Fira Sans"
+logo: "/images/logo.png"
 links:
   - text: About Us
     url: '/about'
   - text: Contact
     url: '/contact'
-
-# Style
-main_color: "#4338ca"
-font_family: "Fira Sans"
-logo: "/images/logo.png"
+hide_filters: true
+hide_sorting: true
 
 # Sorting
 sorting:
@@ -106,12 +108,14 @@ filters:
 
 By default, the `name` attribute and all integer attributes are used to build the sorting options.
 
-Options
+Options:
 
 - `default_order` By default: "name asc".
 - `exclude` Exclude attributes from sorting options.
 
 #### Filters
+
+Options:
 
 - `type` Force an attribute to render a specific filter type. Available types:
   - `text`

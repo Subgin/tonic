@@ -12,7 +12,7 @@
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
 
-      <% if current_page.url == '/' %>
+      <% if current_page.url == '/' && !data.config.hide_filters %>
         <button id="open" onclick="toggleSidebar()" class="hidden focus:outline-none">
           <%= inline_svg 'icons/menu.svg' %>
         </button>

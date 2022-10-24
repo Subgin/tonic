@@ -3,7 +3,7 @@ title: Home
 ---
 
 <div class="flex">
-  <%= partial "templates/sidebar" %>
+  <%= partial "templates/sidebar" unless data.config.hide_filters %>
 
   <div class="p-8 mb-12 w-full">
     <div class="mb-4">
@@ -21,18 +21,20 @@ title: Home
     <div class="flex justify-between items-center">
       <div class="text-sm text-gray-600"><span id="counter"><%= tonic_collection.size %></span> items found</div>
 
-      <div class="relative inline-block text-left">
-        <a href="#" onclick="toggleSorting()">
-          Sort by
-          <%= inline_svg 'icons/chevron-down.svg' %>
-        </a>
+      <% unless data.config.hide_sorting %>
+        <div class="relative inline-block text-left">
+          <a href="#" onclick="toggleSorting()">
+            Sort by
+            <%= inline_svg 'icons/chevron-down.svg' %>
+          </a>
 
-        <div class="absolute right-0 z-10 w-48 rounded bg-white shadow-lg hidden sorting-options">
-          <% sorting_options.each do |option| %>
-            <a href="#" class="block px-4 py-2 text-sm" onclick="sortBy('<%= option.downcase %>')"><%= option %></a>
-          <% end %>
+          <div class="absolute right-0 z-10 w-48 rounded bg-white shadow-lg hidden sorting-options">
+            <% sorting_options.each do |option| %>
+              <a href="#" class="block px-4 py-2 text-sm" onclick="sortBy('<%= option.downcase %>')"><%= option %></a>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
 
     <div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-container">

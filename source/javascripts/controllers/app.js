@@ -1,10 +1,12 @@
+const DEFAULT_ORDER = 'name asc'
+
 export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
     const defaultOrder =
       window.config.sorting && window.config.sorting.default_order ||
-      'name asc'
+      DEFAULT_ORDER
 
     this.sortBy(defaultOrder, false)
   }
@@ -29,8 +31,7 @@ export default class AppCtrl {
     self.currentFilters[attribute] = { type, attribute, currentValue, options }
 
     if (type == 'tags') {
-      removeClass('.tag', 'active')
-      addClass(el, 'active')
+      toggleClass(el, 'active')
     }
 
     window.collection.forEach(item => {
@@ -92,7 +93,9 @@ export default class AppCtrl {
 
         break;
       case 'tags':
-        if (itemValue && itemValue.includes(filter.options['tag']))
+        let activeTags = Array.from(findAll('.tag.active')).map(tag => tag.value)
+
+        if (itemValue && activeTags.every(tag => itemValue.includes(tag)))
           return true
 
         break;

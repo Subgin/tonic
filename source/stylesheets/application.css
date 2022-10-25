@@ -69,7 +69,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 .btn {
-  @apply text-white py-3 px-6 rounded cursor-pointer outline-none;
+  @apply text-white py-3 px-6 rounded;
   background-color: var(--main-color);
 }
 
@@ -95,7 +95,7 @@ input[type="radio"], input[type="checkbox"] {
   border-color: var(--main-color);
 }
 
-.tag:hover, .tag.active {
+button.tag:hover, button.tag.active {
   @apply text-white;
   background-color: var(--main-color);
 }

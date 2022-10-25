@@ -6,7 +6,7 @@ Transform your collection into a beautiful website!
 
 Tonic parses your collection, defined in a `YAML` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
 
-*Built with: [Middleman](https://github.com/middleman/middleman), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
+*Built with: [Middleman](https://middlemanapp.com), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
 ## Install
 
@@ -62,7 +62,7 @@ Define your collection in the `data/collection.yaml` file. Example:
 ### Magic attributes
 
 - name (required! should be unique!)
-- description
+- description (required!)
 - category
 - tags (shoud be an array)
 - images (shoud be an array)

@@ -141,6 +141,8 @@ module Tonic
     end
 
     def render_tags(tags)
+      return if !tags
+
       tags.sort.map do |tag|
         "<span class='tag'>#{tag}</span>"
       end.join(" ")

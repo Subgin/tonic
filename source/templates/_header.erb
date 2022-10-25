@@ -13,10 +13,10 @@
       <% end %>
 
       <% if current_page.url == '/' && !data.config.hide_filters %>
-        <button id="open" onclick="toggleSidebar()" class="hidden focus:outline-none">
+        <button id="open" onclick="toggleSidebar()" class="text-white hidden focus:outline-none">
           <%= inline_svg 'icons/menu.svg' %>
         </button>
-        <button id="close" onclick="toggleSidebar()" class="lg:hidden focus:outline-none">
+        <button id="close" onclick="toggleSidebar()" class="text-white lg:hidden focus:outline-none">
           <%= inline_svg 'icons/close.svg' %>
         </button>
       <% end %>

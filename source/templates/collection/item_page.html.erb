@@ -5,7 +5,11 @@ layout: layout
 <% @title = item.name %>
 <% @description = item.description %>
 
-<div class="mt-12 mb-24 mx-12 md:mx-24">
+<div class="mt-6 mb-24 mx-12 md:mx-24">
+  <a href="/" class="flex items-center gap-1 mb-4">
+    <%= inline_svg 'icons/angle-left.svg' %> Back
+  </a>
+
   <span><%= item.category %></span>
   <h1><%= @title %></h1>
 
@@ -15,7 +19,7 @@ layout: layout
 
   <p><%= render_tags(item.tags) %></p>
 
-  <div class="text-gray-500"><%= item.description %></div>
+  <div class="text-gray-500"><%= @description %></div>
 
   <div class="my-6">
     <% rest_of_attrs(item).each do |k| %>
@@ -36,6 +40,4 @@ layout: layout
       </p>
     <% end %>
   </div>
-
-  <%= link_to "Back", "/", class: 'btn' %>
 </div>

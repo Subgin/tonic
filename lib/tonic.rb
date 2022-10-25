@@ -1,5 +1,5 @@
 module Tonic
-  VERSION = "0.4.0"
+  VERSION = "0.5.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -137,7 +137,7 @@ module Tonic
 
       options.map do |option|
         ["#{option.titleize} ASC", "#{option.titleize} DESC"]
-      end.flatten
+      end.flatten.sort
     end
 
     def render_tags(tags)

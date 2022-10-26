@@ -46,34 +46,18 @@ module Tonic
       value = tonic_collection[0][attribute]
 
       if !type
-        type = "text"          if value.is_a?(String)
         type = "numeric_range" if value.is_a?(Integer)
-        type = "tags"          if value.is_a?(Array)
-        type = "boolean"       if is_bool?(value)
-        type = "select"        if attribute == "category"
-        type = "date_range"    if attribute.end_with?("_at") && is_date?(value)
+        type = "tags" if value.is_a?(Array)
+        type = "boolean" if is_bool?(value)
+
+        if value.is_a?(String)
+          type = "text"
+          type = "select" if attribute == "category"
+          type = "date_range" if attribute.end_with?("_at") && is_date?(value)
+        end
       end
 
-      render_filter(type, attribute)
-    end
-
-    def render_filter(type, attribute)
-      case type
-      when "text"
-        text_filter(attribute)
-      when "numeric_range"
-        numeric_range_filter(attribute)
-      when "date_range"
-        date_range_filter(attribute)
-      when "select"
-        select_filter(attribute)
-      when "tags"
-        tags_filter(attribute)
-      when "boolean"
-        boolean_filter(attribute)
-      when "radio_buttons"
-        radio_buttons_filter(attribute)
-      end
+      public_send("#{type}_filter", attribute)
     end
 
     def label(attribute)

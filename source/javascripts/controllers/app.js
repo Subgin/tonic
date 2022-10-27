@@ -55,12 +55,12 @@ export default class AppCtrl {
       case 'global_text':
         const values = Object.values(item).filter(isString)
 
-        if (values.join(' ').match(new RegExp(filterValue, 'i')))
+        if (contains(values.join(' '), filterValue))
           return true
 
         break;
       case 'text':
-        if (itemValue.match(new RegExp(filterValue, 'i')))
+        if (contains(itemValue, filterValue))
           return true
 
         break;
@@ -74,10 +74,10 @@ export default class AppCtrl {
         itemValue = item[attribute.replace(/_min$|_max$/, '')]
         filterValue = parseInt(filterValue) || 0
 
-        if (attribute.match(/_min$/) && itemValue >= filterValue)
+        if (contains(attribute, '_min$') && itemValue >= filterValue)
           return true
 
-        if (attribute.match(/_max$/) && itemValue <= filterValue)
+        if (contains(attribute, '_max$') && itemValue <= filterValue)
           return true
 
         break;
@@ -85,10 +85,10 @@ export default class AppCtrl {
         itemValue = Date.parse(item[attribute.replace(/_min$|_max$/, '')])
         const filterDate = Date.parse(filterValue)
 
-        if (attribute.match(/_min$/) && itemValue >= filterDate)
+        if (contains(attribute, '_min$') && itemValue >= filterDate)
           return true
 
-        if (attribute.match(/_max$/) && itemValue <= filterDate)
+        if (contains(attribute, '_max$') && itemValue <= filterDate)
           return true
 
         break;
@@ -152,5 +152,10 @@ export default class AppCtrl {
   isString(string) {
     if (typeof string === 'string' || string instanceof String)
       return true
+  }
+
+  contains(content, search) {
+    const regexp = new RegExp(search, 'i')
+    return regexp.test(content)
   }
 }

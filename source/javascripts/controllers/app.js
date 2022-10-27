@@ -21,18 +21,15 @@ export default class AppCtrl {
     toggleClass('.sorting-options', 'hidden')
   }
 
-  filterBy(type, attribute = '_global_', options = {}) {
-    addClass('article', 'hidden')
-
+  filterBy(type) {
     const el = currentElement()
-    const currentValue = el.value
-    attribute = el.name || attribute
-
-    self.currentFilters[attribute] = { type, attribute, currentValue, options }
-
-    if (type == 'tags') {
-      toggleClass(el, 'active')
+    self.currentFilters[el.name] = {
+      element: el,
+      type: type
     }
+
+    addClass('article', 'hidden')
+    if (type == 'tags') toggleClass(el, 'active')
 
     window.collection.forEach(item => {
       let show = true
@@ -49,46 +46,49 @@ export default class AppCtrl {
   }
 
   applyFilter(item, filter) {
-    let itemValue = item[filter.attribute]
+    const el = filter.element
+    const attribute = el.name
+    let filterValue = el.value
+    let itemValue = item[attribute]
 
     switch(filter.type) {
       case 'global_text':
         const values = Object.values(item).filter(isString)
 
-        if (values.join(' ').match(new RegExp(filter.currentValue, 'i')))
+        if (values.join(' ').match(new RegExp(filterValue, 'i')))
           return true
 
         break;
       case 'text':
-        if (itemValue.match(new RegExp(filter.currentValue, 'i')))
+        if (itemValue.match(new RegExp(filterValue, 'i')))
           return true
 
         break;
       case 'select':
       case 'radio_buttons':
-        if (filter.currentValue == 'All' || filter.currentValue == itemValue)
+        if (filterValue == 'All' || filterValue == itemValue)
           return true
 
         break;
       case 'numeric_range':
-        itemValue = item[filter.attribute.replace(/_min$|_max$/, '')]
-        const currentValue = parseInt(filter.currentValue)
+        itemValue = item[attribute.replace(/_min$|_max$/, '')]
+        filterValue = parseInt(filterValue) || 0
 
-        if (filter.options['range'] == 'min' && itemValue >= currentValue)
+        if (attribute.match(/_min$/) && itemValue >= filterValue)
           return true
 
-        if (filter.options['range'] == 'max' && itemValue <= currentValue)
+        if (attribute.match(/_max$/) && itemValue <= filterValue)
           return true
 
         break;
       case 'date_range':
-        itemValue = Date.parse(item[filter.attribute.replace(/_min$|_max$/, '')])
-        const date = Date.parse(filter.currentValue)
+        itemValue = Date.parse(item[attribute.replace(/_min$|_max$/, '')])
+        const filterDate = Date.parse(filterValue)
 
-        if (filter.options['range'] == 'min' && itemValue >= date)
+        if (attribute.match(/_min$/) && itemValue >= filterDate)
           return true
 
-        if (filter.options['range'] == 'max' && itemValue <= date)
+        if (attribute.match(/_max$/) && itemValue <= filterDate)
           return true
 
         break;
@@ -100,10 +100,10 @@ export default class AppCtrl {
 
         break;
       case 'boolean':
-        if (filter.currentValue == 'true' && itemValue)
+        if (filterValue == 'true' && itemValue)
           return true
 
-        if (filter.currentValue == 'false' && !itemValue)
+        if (filterValue == 'false' && !itemValue)
           return true
 
         break;

@@ -9,7 +9,7 @@ module Tonic
     context.helpers Helpers
 
     context.data.collection.each do |item|
-      context.proxy "/#{Helpers.slugify(item.name)}", "/templates/collection/item_page.html", locals: { item: item }, ignore: true
+      context.proxy "/#{Helpers.slugify(item.name)}.html", "/templates/collection/item_page.html", locals: { item: item }, ignore: true
     end
   end
 

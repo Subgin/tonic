@@ -8,6 +8,8 @@ Tonic parses your collection, defined in a `YAML` file, and automatically genera
 
 *Built with: [Middleman](https://middlemanapp.com), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
+🌐 [**Live demo**](https://tonic-demo.netlify.app)
+
 ## Install
 
 **Requirements**
@@ -29,7 +31,7 @@ Start the development server by:
 > bin/start
 ```
 
-Or compile the site by:
+Or compile the site (into the `build/` folder) by:
 
 ```
 > bin/build

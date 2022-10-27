@@ -1,5 +1,5 @@
 module Tonic
-  VERSION = "0.5.0"
+  VERSION = "0.6.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)

@@ -3,6 +3,7 @@
   <head>
     <title><%= data.config.title %> | <%= @title || current_page.data.title %></title>
     <meta name="description" content="<%= @description || data.config.description %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
     <% if data.config.font_family %>
       <link href="https://fonts.googleapis.com/css2?family=<%= data.config.font_family %>&display=swap" rel="stylesheet">

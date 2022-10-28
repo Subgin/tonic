@@ -13,9 +13,11 @@ layout: layout
   <span><%= item.category %></span>
   <h1><%= @title %></h1>
 
-  <% item.images.each do |img| %>
-    <%= image_tag img, width: 200, class: 'm-1' %>
-  <% end if item.images %>
+  <div class="flex overflow-auto gap-4 content-center lg:grid lg:grid-cols-4 my-4">
+    <% item.images.each do |img| %>
+      <%= image_tag img, width: 300 %>
+    <% end if item.images %>
+  </div>
 
   <p><%= render_tags(item.tags) %></p>
 

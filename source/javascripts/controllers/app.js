@@ -4,17 +4,12 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
-    const defaultOrder =
-      window.config.sorting && window.config.sorting.default_order ||
-      DEFAULT_ORDER
-
+    const defaultOrder = window.config.sorting?.default_order || DEFAULT_ORDER
     this.sortBy(defaultOrder, false)
   }
 
   toggleSidebar() {
     toggleClass('#sidebar', 'hidden')
-    toggleClass('#open', 'hidden')
-    toggleClass('#close', 'hidden')
   }
 
   toggleSorting() {
@@ -112,7 +107,7 @@ export default class AppCtrl {
     }
   }
 
-  sortBy(sorting, toggleSorting = true) {
+  sortBy(sorting, interactive = true) {
     const [attribute, direction] = sorting.split(' ')
     const itemsContainer = find('.items-container')
     const items = []
@@ -142,7 +137,7 @@ export default class AppCtrl {
         addClass(option, 'active')
     })
 
-    if (toggleSorting) this.toggleSorting()
+    if (interactive) this.toggleSorting()
   }
 
   showItem(item) {

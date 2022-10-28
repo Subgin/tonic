@@ -55,7 +55,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 #header .nav-link {
-  @apply text-white p-2 font-medium rounded;
+  @apply text-white p-2 inline-block font-medium rounded;
 }
 
 #header .nav-link:hover {
@@ -64,7 +64,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 #sidebar {
-  @apply text-gray-500 pb-24;
+  @apply text-gray-500 bg-gray-800 pb-24 w-full w-64;
   min-width: 280px;
 }
 

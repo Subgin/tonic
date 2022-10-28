@@ -5,7 +5,7 @@ layout: layout
 <% @title = item.name %>
 <% @description = item.description %>
 
-<div class="mt-6 mb-24 mx-12 md:mx-24">
+<div class="mt-6 mb-24 mx-6 md:mx-24">
   <a href="/" class="flex items-center gap-1 mb-4">
     <%= inline_svg 'icons/angle-left.svg' %> Back
   </a>
@@ -13,9 +13,9 @@ layout: layout
   <span><%= item.category %></span>
   <h1><%= @title %></h1>
 
-  <div class="flex overflow-auto gap-4 content-center lg:grid lg:grid-cols-4 my-4">
+  <div class="flex overflow-auto gap-4 lg:grid lg:grid-cols-4 my-4">
     <% item.images.each do |img| %>
-      <%= image_tag img, width: 300 %>
+      <%= image_tag img, width: 300, class: 'rounded shadow' %>
     <% end if item.images %>
   </div>
 

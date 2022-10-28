@@ -14,7 +14,7 @@
     </div>
 
     <% if current_page.url == '/' && !data.config.hide_filters %>
-      <button onclick="toggleSidebar()" class="text-white">
+      <button onclick="toggleSidebar()" class="text-white focus:outline-none">
         <%= inline_svg 'icons/menu.svg' %>
       </button>
     <% end %>

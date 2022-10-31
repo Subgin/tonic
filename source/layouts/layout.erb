@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><%= data.config.title %> | <%= @title || current_page.data.title %></title>
-    <meta name="description" content="<%= @description || data.config.description %>" />
+    <meta name="description" content="<%= strip_truncate(@description || data.config.description, 100) %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
     <% if data.config.font_family %>
@@ -22,8 +22,8 @@
 
     <%= javascript_include_tag "application" %>
     <script>
-      window.collection = JSON.parse('<%= tonic_collection.to_json %>');
-      window.config = JSON.parse('<%= data.config.to_json %>');
+      window.collection = JSON.parse(JSON.stringify(<%= tonic_collection.to_json %>));
+      window.config = JSON.parse(JSON.stringify(<%= data.config.to_json %>));
     </script>
   </body>
 </html>

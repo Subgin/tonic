@@ -61,7 +61,17 @@ Define your collection in the `data/collection.yaml` file. Example:
   published_at: "2022-10-10"
 ```
 
+The string attributes can contain HTML:
+
+```yaml
+description: |
+  <p>This thing is fantastic!</p>
+  <p>Check out <b>more information</b> in the <a href="/about">following section</a></p>
+```
+
 ### Magic attributes
+
+Some names help Tonic to automatically render your items (and its related filters) as beautiful as possible by default:
 
 - name (required! should be unique!)
 - description (required!)
@@ -128,6 +138,17 @@ Options:
   - `tags`
   - `boolean`
 - `exclude` Exclude attributes from filters.
+
+### Advanced customization
+
+If you want to fully customize your Tonic instance, you can do it by editing the files under the `source/*` folder.
+
+For example, if you want to customize the auto-generated HTML for your items, you can do it by editing these files:
+
+- Item card partial: [`source/templates/collection/_item_card.html.erb`](source/templates/collection/_item_card.html.erb)
+- Item detail page: [`source/templates/collection/item_page.html.erb`](source/templates/collection/item_page.html.erb)
+
+You can also add more pages to your Tonic site by just adding HTML templates (`*.html.erb`) under the `source/*` directory. After all, Tonic uses [Middleman](https://middlemanapp.com) under the hood.
 
 ## License
 

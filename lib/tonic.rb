@@ -124,6 +124,10 @@ module Tonic
       end.flatten.sort
     end
 
+    def strip_truncate(html, length = 50)
+      truncate(strip_tags(html), length: length)
+    end
+
     def render_tags(tags)
       return if !tags
 

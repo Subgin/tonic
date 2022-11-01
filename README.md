@@ -109,7 +109,7 @@ description: This is an example of a Tonic collection.
 
 # Style/UI
 main_color: "#6366f1"
-font_family: "Fira Sans"
+font_family: "Fira Sans" # from Google Fonts
 logo: "/images/logo.png"
 links:
   - text: About Us
@@ -169,7 +169,7 @@ For example, if you want to customize the auto-generated HTML for your items, yo
 - Item card partial: [`source/templates/collection/_item_card.html.erb`](source/templates/collection/_item_card.html.erb)
 - Item detail page: [`source/templates/collection/item_page.html.erb`](source/templates/collection/item_page.html.erb)
 
-You can also add more pages to your Tonic site by just adding HTML templates (`*.html.erb`) under the `source/*` directory. After all, Tonic uses [Middleman](https://middlemanapp.com) under the hood.
+You can also add more pages to your Tonic site by just adding HTML templates (`*.html.erb`) under the `source/*` directory. After all, Tonic uses [Middleman](https://middlemanapp.com) under the hood, so you can also use Markdown and many other template engines.
 
 ## License
 

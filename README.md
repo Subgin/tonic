@@ -4,7 +4,7 @@
 
 Transform your collection into a beautiful website!
 
-Tonic parses your collection, defined in a `YAML` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
+Tonic parses your collection, defined in a `YAML` or `JSON` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
 
 *Built with: [Middleman](https://middlemanapp.com), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
@@ -67,6 +67,25 @@ The string attributes can contain HTML:
 description: |
   <p>This thing is fantastic!</p>
   <p>Check out <b>more information</b> in the <a href="/about">following section</a></p>
+```
+
+You can also use a `JSON` file (`data/collection.json`), as the following example:
+
+```json
+[
+  {
+    "name": "Item 1",
+    "description": "Ad aut libero. Adipisci asperiores repudiandae. Sunt expedita sunt.",
+    "tags": ["tag1", "tag2", "tag3"],
+    "price": 200
+  },
+  {
+    "name": "Item 2",
+    "description": "Incidunt cupiditate rerum. Enim quo pariatur. Commodi provident dolores.",
+    "tags": ["tag2"],
+    "price": 100
+  }
+]
 ```
 
 ### Magic attributes

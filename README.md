@@ -139,16 +139,18 @@ filters:
 
 By default, the `name` attribute and all integer attributes are used to build the sorting options.
 
-Options:
+Available options:
 
 - `default_order` By default: "name asc".
 - `exclude` Exclude attributes from sorting options.
 
 #### Filters
 
-Options:
+Tonic analyzes your collection (especially the *1st item*) to infer the best option given the attribute type and other parameters. It can be overridden in case you want a different filter type for X reasons.
 
-- `type` Force an attribute to render a specific filter type. Available types:
+Available options:
+
+- `type` Forces an attribute to render a specific filter type. Available types:
   - `text`
   - `select`
   - `radio_buttons`

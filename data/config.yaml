@@ -14,8 +14,3 @@ links:
 # Sorting
 sorting:
   default_order: "price asc"
-
-# Filters
-filters:
-  type:
-    status: radio_buttons

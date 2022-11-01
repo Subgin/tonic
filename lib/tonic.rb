@@ -49,15 +49,23 @@ module Tonic
         type = "numeric_range" if value.is_a?(Integer)
         type = "tags" if value.is_a?(Array)
         type = "boolean" if is_bool?(value)
-
-        if value.is_a?(String)
-          type = "text"
-          type = "select" if attribute == "category"
-          type = "date_range" if attribute.end_with?("_at") && is_date?(value)
-        end
+        type = smart_text_filter(attribute, value) if value.is_a?(String)
       end
 
       public_send("#{type}_filter", attribute)
+    end
+
+    def smart_text_filter(attribute, value)
+      if attribute == "category"
+        "select"
+      elsif attribute.end_with?("_at") && is_date?(value)
+        "date_range"
+      elsif single_word?(value) && !is_url?(value)
+        uniq_values = tonic_collection.map(&:"#{attribute}").compact.uniq.size
+        uniq_values >= 5 ? "select" : "radio_buttons"
+      else
+        "text"
+      end
     end
 
     def label(attribute)
@@ -148,6 +156,10 @@ module Tonic
 
     def is_url?(string)
       string =~ URI::regexp
+    end
+
+    def single_word?(string)
+      !string.strip.include? " "
     end
   end
 end

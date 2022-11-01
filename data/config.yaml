@@ -3,8 +3,8 @@ title: My Collection
 description: This is an example of a <a href="https://github.com/Subgin/tonic">Tonic</a> project.
 
 # Style/UI
-main_color: "#0d9488"
-font_family: "Fira Sans"
+main_color: "#6366f1"
+font_family: "Lato"
 links:
   - text: About Us
     url: "#"

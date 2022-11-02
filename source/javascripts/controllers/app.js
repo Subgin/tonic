@@ -4,6 +4,10 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
+    // Open Sidebar by default on bigger screens
+    if (window.innerWidth > 900) this.toggleSidebar()
+
+    // Apply default sorting
     const defaultOrder = window.config.sorting?.default_order || DEFAULT_ORDER
     this.sortBy(defaultOrder, false)
   }

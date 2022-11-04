@@ -1,19 +1,19 @@
 <div id="header" class="flex justify-between w-full px-6 py-4 items-center">
   <div class="flex items-center">
-    <% if data.config.logo %>
-      <a href="/"><img src="<%= data.config.logo %>" alt="logo"></a>
+    <% if config.logo %>
+      <a href="/"><img src="<%= config.logo %>" alt="logo"></a>
     <% else %>
-      <a href="/" class="text-2xl leading-6 text-white"><%= data.config.title %></a>
+      <a href="/" class="text-2xl leading-6 text-white"><%= config.title %></a>
     <% end %>
   </div>
   <div class="flex space-x-4">
     <div class="hidden sm:inline">
-      <% data.config.links&.each do |link| %>
+      <% config.links&.each do |link| %>
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
     </div>
 
-    <% if current_page.url == '/' && !data.config.hide_filters %>
+    <% if current_page.url == '/' && !config.hide_filters %>
       <button onclick="toggleSidebar()" class="text-white focus:outline-none">
         <%= inline_svg 'icons/menu.svg' %>
       </button>

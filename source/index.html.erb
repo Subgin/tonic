@@ -3,12 +3,12 @@ title: Home
 ---
 
 <div class="flex min-h-screen">
-  <%= partial "templates/sidebar" unless data.config.hide_filters %>
+  <%= partial "templates/sidebar" unless config.hide_filters %>
 
   <div class="p-6 mb-24 w-full">
     <div class="mb-4">
-      <h1><%= data.config.title %></h1>
-      <%= data.config.description %>
+      <h1><%= config.title %></h1>
+      <%= config.description %>
     </div>
 
     <div class="relative">
@@ -21,7 +21,7 @@ title: Home
     <div class="flex justify-between items-center">
       <div class="text-sm text-gray-600"><span id="counter"><%= tonic_collection.size %></span> items found</div>
 
-      <% unless data.config.hide_sorting %>
+      <% unless config.hide_sorting %>
         <div class="relative inline-block text-left">
           <a href="#" onclick="toggleSorting()">
             Sort by <%= inline_svg 'icons/angle-down.svg' %>

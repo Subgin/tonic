@@ -1,6 +1,11 @@
 <article class="card flex flex-col justify-between" id="<%= item.dom_id %>">
-  <span><%= item.category %></span>
-  <h3 class="card-title"><%= link_to item.name, "/#{item.id}" %></h3>
+  <% if config.item_card.image && bg_image = item.images&.first %>
+    <a class="card-image" href="<%= "/#{item.id}" %>" style="background-image: url('<%= bg_image %>')"></a>
+  <% end %>
+  <div class="card-header">
+    <span><%= item.category %></span>
+    <h3><%= link_to item.name, "/#{item.id}" %></h3>
+  </div>
   <div class="card-body">
     <span class="text-gray-500"><%= strip_truncate(item.description, 50) %></span>
 

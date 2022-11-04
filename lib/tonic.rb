@@ -1,9 +1,10 @@
 module Tonic
-  VERSION = "0.7.1"
+  VERSION = "0.8.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
   DEFAULT_COLOR = "#3e76d1"
+  DEFAULT_ORDER = "name asc"
 
   def self.start(context)
     context.helpers Helpers
@@ -27,15 +28,22 @@ module Tonic
       end
     end
 
+    def config
+      data.config.reverse_merge(
+        item_card: { image: true },
+        sorting: { default_order: Tonic::DEFAULT_ORDER }
+      )
+    end
+
     def render_filters
       attributes = tonic_collection.map(&:keys).flatten.uniq.sort
 
       attributes.map do |attribute|
         next if SKIP_FOR_FILTERS.include?(attribute)
-        next if data.config.filters&.exclude&.include?(attribute)
+        next if config.filters&.exclude&.include?(attribute)
 
         content_tag(:div, class: "px-6 py-3 border-b border-gray-500 w-full") do
-          type = data.config.filters&.type&.dig(attribute)
+          type = config.filters&.type&.dig(attribute)
           smart_filter(attribute, type)
         end
       end.compact.join
@@ -123,7 +131,7 @@ module Tonic
     def sorting_options
       options = tonic_collection[0].select { |k, v| k == 'name' || v.is_a?(Integer) }.keys
 
-      if exclude = data.config.sorting&.exclude
+      if exclude = config.sorting.exclude
         options = options - exclude
       end
 

@@ -50,7 +50,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 #header img {
-  max-width: 200px;
+  max-width: 220px;
   max-height: 60px;
 }
 
@@ -74,19 +74,27 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 .card {
-  @apply shadow-md rounded bg-white p-4;
+  @apply shadow-md rounded bg-white;
 }
 
-.card-title a {
+.card-image {
+  @apply rounded-t bg-cover bg-center h-48;
+}
+
+.card-header {
+  @apply px-4 pt-2;
+}
+
+.card-header a {
   @apply text-gray-900;
 }
 
 .card-body {
-  @apply my-2;
+  @apply px-4 py-2;
 }
 
 .card-actions {
-  @apply my-4;
+  @apply px-4 pt-4 pb-6;
 }
 
 .tag {

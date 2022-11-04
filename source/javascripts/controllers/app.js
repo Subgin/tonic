@@ -1,5 +1,3 @@
-const DEFAULT_ORDER = 'name asc'
-
 export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
@@ -8,7 +6,7 @@ export default class AppCtrl {
     if (window.innerWidth > 900) this.toggleSidebar()
 
     // Apply default sorting
-    const defaultOrder = window.config.sorting?.default_order || DEFAULT_ORDER
+    const defaultOrder = window.config.sorting.default_order
     this.sortBy(defaultOrder, false)
   }
 

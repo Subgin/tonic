@@ -119,7 +119,7 @@ links:
 hide_filters: true
 hide_sorting: true
 item_card:
-  image: true
+  image: false
 
 # Sorting
 sorting:

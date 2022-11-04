@@ -10,6 +10,10 @@ Tonic parses your collection, defined in a `YAML` or `JSON` file, and automatica
 
 🌐 [**Live demo**](https://tonic-demo.netlify.app)
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/576701/200078092-344ec8b1-ea09-4a89-9973-01cf53ec2eb7.png">
+</p>
+
 ## Install
 
 **Requirements**

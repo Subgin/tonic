@@ -16,7 +16,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: false
-  website: http://pfannerstill.biz/emory.lubowitz
+  website: https://pfannerstill.biz/emory.lubowitz
   published_at: '2022-02-22'
 - name: Intelligent Granite Hat
   description: Et aut natus. Incidunt non autem. Magnam optio accusantium. Quis aut
@@ -37,7 +37,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: false
-  website: http://ratke.com/domenic.runte
+  website: https://ratke.com/domenic.runte
   published_at: '2022-09-12'
 - name: Sleek Leather Plate
   description: Vitae animi id. Amet a enim. Ipsa autem praesentium. Voluptatum tenetur
@@ -57,7 +57,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: false
-  website: http://lebsack.net/nanette
+  website: https://lebsack.net/nanette
   published_at: '2018-05-22'
 - name: Aerodynamic Leather Car
   description: Iusto laboriosam ut. Dolore minus voluptatibus. Qui iusto ipsam. Explicabo
@@ -74,7 +74,7 @@
   images:
   - https://picsum.photos/600
   premium: false
-  website: http://nikolaus.io/armando.braun
+  website: https://nikolaus.io/armando.braun
   published_at: '2018-02-16'
 - name: Heavy Duty Marble Bottle
   description: Asperiores numquam tempore. Omnis ipsam voluptatem. Inventore dolorem
@@ -96,7 +96,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://christiansen.info/bradley.durgan
+  website: https://christiansen.info/bradley.durgan
   published_at: '2019-05-13'
 - name: Ergonomic Silk Watch
   description: Itaque nisi inventore. Est consequatur blanditiis. Et quidem delectus. Quia
@@ -116,7 +116,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://johnson.net/nickie
+  website: https://johnson.net/nickie
   published_at: '2018-12-28'
 - name: Lightweight Concrete Shirt
   description: Voluptas vitae enim. Sit est voluptatibus. Harum corporis ut. Eaque
@@ -136,7 +136,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://kreiger.com/delphia_doyle
+  website: https://kreiger.com/delphia_doyle
   published_at: '2018-09-16'
 - name: Aerodynamic Copper Knife
   description: Assumenda earum quas. Mollitia beatae voluptatem. Nisi dolor voluptate. Id
@@ -156,7 +156,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://krajcik.io/lyman.greenfelder
+  website: https://krajcik.io/lyman.greenfelder
   published_at: '2018-07-11'
 - name: Awesome Iron Hat
   description: Temporibus quos aut. Totam commodi et. Nihil voluptas veniam. Dolorem
@@ -177,7 +177,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://wiza.name/yong
+  website: https://wiza.name/yong
   published_at: '2021-03-02'
 - name: Durable Bronze Watch
   description: Quia sed neque. Quibusdam eos eaque. Cumque soluta ullam. Voluptates
@@ -196,7 +196,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://bogan.name/erik
+  website: https://bogan.name/erik
   published_at: '2020-08-01'
 - name: Lightweight Granite Shirt
   description: Molestiae veniam ducimus. Harum veniam eligendi. Inventore quis explicabo. Sit
@@ -217,7 +217,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: false
-  website: http://stracke-feil.info/sonya
+  website: https://stracke-feil.info/sonya
   published_at: '2019-09-11'
 - name: Gorgeous Plastic Bench
   description: Earum sint molestiae. Odio sed voluptatem. Maxime magni earum. Aut voluptatibus
@@ -234,7 +234,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: false
-  website: http://cummerata.org/luke
+  website: https://cummerata.org/luke
   published_at: '2021-01-16'
 - name: Ergonomic Leather Coat
   description: Nihil sed ut. Aperiam voluptatibus architecto. Velit ullam rerum. Distinctio
@@ -253,7 +253,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: false
-  website: http://heathcote.info/lashawn_schaefer
+  website: https://heathcote.info/lashawn_schaefer
   published_at: '2019-08-09'
 - name: Ergonomic Iron Wallet
   description: Deserunt molestiae incidunt. Sit quis repellendus. Necessitatibus impedit
@@ -271,7 +271,7 @@
   images:
   - https://picsum.photos/600
   premium: false
-  website: http://leannon.org/jefferey
+  website: https://leannon.org/jefferey
   published_at: '2018-02-16'
 - name: Sleek Iron Pants
   description: Eum autem est. Suscipit et sed. Error ut quis. Ex voluptatibus adipisci.
@@ -287,7 +287,7 @@
   images:
   - https://picsum.photos/600
   premium: false
-  website: http://kessler-mcglynn.com/josue
+  website: https://kessler-mcglynn.com/josue
   published_at: '2019-02-14'
 - name: Incredible Rubber Clock
   description: Voluptatibus qui quaerat. Aut ea enim. Laboriosam laborum veritatis. Doloremque
@@ -309,7 +309,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://marvin-franecki.org/crystle_mclaughlin
+  website: https://marvin-franecki.org/crystle_mclaughlin
   published_at: '2018-07-12'
 - name: Synergistic Wooden Chair
   description: Voluptas dolores delectus. Atque exercitationem eius. In est consequuntur. Maiores
@@ -327,7 +327,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://jaskolski.org/katharyn
+  website: https://jaskolski.org/katharyn
   published_at: '2021-11-08'
 - name: Enormous Paper Car
   description: Quis sequi dignissimos. Quis illum ratione. Illum dolorem voluptates. Cupiditate
@@ -349,7 +349,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: true
-  website: http://schultz.info/kerry
+  website: https://schultz.info/kerry
   published_at: '2021-01-19'
 - name: Aerodynamic Wool Table
   description: Earum iure rerum. Sequi in est. Delectus ducimus sint. Aspernatur perspiciatis
@@ -370,7 +370,7 @@
   - https://picsum.photos/600
   - https://picsum.photos/600
   premium: false
-  website: http://gottlieb.name/dewayne
+  website: https://gottlieb.name/dewayne
   published_at: '2022-07-30'
 - name: Sleek Iron Hat
   description: Rerum possimus vitae. Aspernatur saepe qui. Harum rem voluptas. Inventore
@@ -386,5 +386,5 @@
   images:
   - https://picsum.photos/600
   premium: false
-  website: http://gutmann.info/charley
+  website: https://gutmann.info/charley
   published_at: '2020-08-22'

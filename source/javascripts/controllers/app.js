@@ -50,9 +50,9 @@ export default class AppCtrl {
 
     switch(filter.type) {
       case 'global_text':
-        const values = Object.values(item).filter(isString)
+        const itemContent = Object.values(item).filter(isString).join(' ')
 
-        if (contains(values.join(' '), filterValue))
+        if (contains(stripTags(itemContent), filterValue))
           return true
 
         break;
@@ -111,7 +111,7 @@ export default class AppCtrl {
 
   sortBy(sorting, interactive = true) {
     const [attribute, direction] = sorting.split(' ')
-    const itemsContainer = find('.items-container')
+    const container = find('.collection-container')
     const items = []
 
     findAll('article:not(.hidden)').forEach(itemDom => {
@@ -130,7 +130,7 @@ export default class AppCtrl {
         return 0
       }
     }).forEach(item => {
-      itemsContainer.appendChild(find(`#${item.dom_id}`))
+      container.appendChild(find(`#${item.dom_id}`))
     })
 
     removeClass('.sorting-options a', 'active')
@@ -154,5 +154,10 @@ export default class AppCtrl {
   contains(content, search) {
     const regexp = new RegExp(search, 'i')
     return regexp.test(content)
+  }
+
+  stripTags(string) {
+    const parseHTML = new DOMParser().parseFromString(string, 'text/html')
+    return parseHTML.body.textContent || ''
   }
 }

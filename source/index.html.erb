@@ -36,7 +36,7 @@ title: Home
       <% end %>
     </div>
 
-    <div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-container">
+    <div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 collection-container">
       <% tonic_collection.each do |item| %>
         <%= partial 'templates/collection/item_card', locals: { item: item } %>
       <% end %>

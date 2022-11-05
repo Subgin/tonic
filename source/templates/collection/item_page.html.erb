@@ -34,7 +34,7 @@ layout: layout
           <% elsif is_bool?(value) %>
             <%= value ? "Yes" : "No" %>
           <% elsif is_url?(value) %>
-            <%= link_to value, value %>
+            <%= link_to value, value, target: "_blank" %>
           <% else %>
             <%= value %>
           <% end %>

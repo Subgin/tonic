@@ -112,7 +112,7 @@ title: My Collection
 description: This is an example of a Tonic collection.
 
 # Style/UI
-main_color: "#6366f1"
+main_color: "#14b8a6"
 font_family: "Fira Sans" # from Google Fonts
 logo: "/images/logo.png"
 links:

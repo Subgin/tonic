@@ -8,7 +8,7 @@
   - musician
   - lifeguard
   status: Beta
-  price: 10
+  price: 9.9
   downloads: 2000
   images:
   - https://picsum.photos/600
@@ -28,8 +28,8 @@
   - doctor
   - librarian
   status: Updated
-  price: 100
-  downloads: 2000
+  price: 100.5
+  downloads: 1500
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -48,8 +48,8 @@
   tags:
   - painter
   status: Beta
-  price: 25
-  downloads: 50
+  price: 750.0
+  downloads: 120
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -69,7 +69,7 @@
   tags:
   - optician
   status: Beta
-  price: 15
+  price: 900.5
   downloads: 500
   images:
   - https://picsum.photos/600
@@ -87,8 +87,8 @@
   - librarian
   - philosopher
   status: Updated
-  price: 10
-  downloads: 200
+  price: 10.2
+  downloads: 250
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -108,8 +108,8 @@
   - receptionist
   - doctor
   status: Updated
-  price: 300
-  downloads: 500
+  price: 299.9
+  downloads: 900
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -129,8 +129,8 @@
   - soldier
   - politician
   status: New
-  price: 1000
-  downloads: 500
+  price: 1200.0
+  downloads: 540
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -149,8 +149,8 @@
   - physicist
   - politician
   status: New
-  price: 15
-  downloads: 2000
+  price: 660.25
+  downloads: 1800
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -169,7 +169,7 @@
   - scientist
   - painter
   status: Beta
-  price: 100
+  price: 99.9
   downloads: 1000
   images:
   - https://picsum.photos/600
@@ -190,8 +190,8 @@
   - musician
   - scientist
   status: New
-  price: 20
-  downloads: 50
+  price: 20.5
+  downloads: 60
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -209,7 +209,7 @@
   - painter
   - soldier
   status: New
-  price: 100
+  price: 89.9
   downloads: 200
   images:
   - https://picsum.photos/600
@@ -228,8 +228,8 @@
   tags:
   - librarian
   status: New
-  price: 30
-  downloads: 50
+  price: 30.9
+  downloads: 20
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -246,7 +246,7 @@
   tags:
   - doctor
   status: Beta
-  price: 15
+  price: 15.5
   downloads: 500
   images:
   - https://picsum.photos/600
@@ -266,8 +266,8 @@
   - painter
   - lawyer
   status: New
-  price: 300
-  downloads: 500
+  price: 300.5
+  downloads: 400
   images:
   - https://picsum.photos/600
   premium: false
@@ -282,8 +282,8 @@
   tags:
   - receptionist
   status: New
-  price: 20
-  downloads: 1000
+  price: 250.0
+  downloads: 1200
   images:
   - https://picsum.photos/600
   premium: false
@@ -300,8 +300,8 @@
   - web-developer
   - politician
   status: New
-  price: 25
-  downloads: 100
+  price: 19.9
+  downloads: 90
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -321,8 +321,8 @@
   - librarian
   - musician
   status: Updated
-  price: 100
-  downloads: 2000
+  price: 160.4
+  downloads: 1600
   images:
   - https://picsum.photos/600
   - https://picsum.photos/600
@@ -340,7 +340,7 @@
   - lawyer
   - scientist
   status: Updated
-  price: 30
+  price: 30.0
   downloads: 200
   images:
   - https://picsum.photos/600
@@ -361,7 +361,7 @@
   - philosopher
   - physicist
   status: Updated
-  price: 25
+  price: 24.9
   downloads: 100
   images:
   - https://picsum.photos/600
@@ -381,8 +381,8 @@
   tags:
   - painter
   status: New
-  price: 50
-  downloads: 100
+  price: 55.0
+  downloads: 220
   images:
   - https://picsum.photos/600
   premium: false

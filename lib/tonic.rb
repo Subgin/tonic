@@ -1,5 +1,5 @@
 module Tonic
-  VERSION = "0.8.2"
+  VERSION = "0.8.3"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -55,7 +55,7 @@ module Tonic
       value = tonic_collection[0][attribute]
 
       if !type
-        type = "numeric_range" if value.is_a?(Integer)
+        type = "numeric_range" if value.is_a?(Numeric)
         type = "tags" if value.is_a?(Array)
         type = "boolean" if is_bool?(value)
         type = smart_text_filter(attribute, value) if value.is_a?(String)
@@ -130,7 +130,7 @@ module Tonic
     end
 
     def sorting_options
-      options = tonic_collection[0].select { |k, v| k == 'name' || v.is_a?(Integer) }.keys
+      options = tonic_collection[0].select { |k, v| k == 'name' || v.is_a?(Numeric) }.keys
 
       if exclude = config.sorting.exclude
         options = options - exclude

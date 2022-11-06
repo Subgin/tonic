@@ -69,7 +69,7 @@ export default class AppCtrl {
         break;
       case 'numeric_range':
         itemValue = item[attribute.replace(/_min$|_max$/, '')]
-        filterValue = parseInt(filterValue) || 0
+        filterValue = parseFloat(filterValue) || 0
 
         if (contains(attribute, '_min$') && itemValue >= filterValue)
           return true

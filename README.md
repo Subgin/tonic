@@ -153,7 +153,7 @@ Available options:
 
 #### Filters
 
-Tonic analyzes your collection (especially the *1st item*) to infer the best option given the attribute type and other parameters. It can be overridden in case you want a different filter type for X reasons.
+Tonic analyzes your collection (especially the *1st item*) to infer the best option given the attribute type and other parameters (like number of unique values). It can be overridden in case you want a different filter type for X reasons.
 
 Available options:
 

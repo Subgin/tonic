@@ -1,9 +1,9 @@
-<div id="header" class="flex justify-between w-full px-6 py-4 items-center">
+<div id="header" class="flex justify-between w-full px-6 py-3 items-center">
   <div class="flex items-center">
     <% if config.logo %>
-      <a href="/"><img src="<%= config.logo %>" alt="logo"></a>
+      <a href="/"><%= image_tag config.logo %></a>
     <% else %>
-      <a href="/" class="text-2xl leading-6 text-white"><%= config.title %></a>
+      <a href="/" class="text-2xl text-white"><%= config.title %></a>
     <% end %>
   </div>
   <div class="flex space-x-4">

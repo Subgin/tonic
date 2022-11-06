@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base */
 body {
   @apply bg-gray-100 leading-relaxed;
   font-family: var(--font-family);
@@ -45,13 +46,19 @@ input[type="radio"], input[type="checkbox"] {
   color: var(--main-color);
 }
 
+.btn {
+  @apply text-white py-3 px-6 rounded;
+  background-color: var(--main-color);
+}
+
+/* Header */
 #header {
   background-color: var(--main-color);
 }
 
 #header img {
   max-width: 220px;
-  max-height: 60px;
+  max-height: 50px;
 }
 
 #header .nav-link {
@@ -63,16 +70,13 @@ input[type="radio"], input[type="checkbox"] {
   color: var(--main-color);
 }
 
+/* Sidebar */
 #sidebar {
   @apply text-gray-500 bg-gray-800 pb-24 w-full w-64;
   min-width: 280px;
 }
 
-.btn {
-  @apply text-white py-3 px-6 rounded;
-  background-color: var(--main-color);
-}
-
+/* Cards */
 .card {
   @apply shadow-md rounded bg-white;
 }
@@ -97,6 +101,7 @@ input[type="radio"], input[type="checkbox"] {
   @apply px-4 pt-4 pb-6;
 }
 
+/* Tags */
 .tag {
   @apply inline-block mb-1 px-2 font-semibold border-2 rounded-full text-sm;
   color: var(--main-color);
@@ -108,6 +113,7 @@ button.tag:hover, button.tag.active {
   background-color: var(--main-color);
 }
 
+/* Sorting menu */
 .sorting-options a:hover, .sorting-options a.active {
   @apply text-white font-bold first:rounded-t last:rounded-b;
   background-color: var(--main-color);

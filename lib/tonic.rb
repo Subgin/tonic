@@ -1,5 +1,5 @@
 module Tonic
-  VERSION = "0.8.1"
+  VERSION = "0.8.2"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -30,6 +30,7 @@ module Tonic
 
     def config
       data.config.reverse_merge(
+        title: "Tonic Example",
         item_card: { image: true },
         sorting: { default_order: DEFAULT_ORDER }
       )

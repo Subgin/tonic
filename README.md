@@ -120,6 +120,7 @@ links:
     url: '/about'
   - text: Contact
     url: '/contact'
+footer_content: Follow us on <a href="#">Twitter</a> and <a href="#">Instagram</a>
 hide_filters: true
 hide_sorting: true
 item_card:

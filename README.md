@@ -52,7 +52,7 @@ Define your collection in the `data/collection.yaml` file. Example:
   tags:
     - tag1
     - tag2
-  likes: 200
+  price: 99.9
   downloads: 400
   published_at: "2021-06-10"
 - name: Item 2
@@ -60,9 +60,9 @@ Define your collection in the `data/collection.yaml` file. Example:
   category: Accounting
   tags:
     - tag2
-  likes: 60
+  price: 149.9
   downloads: 100
-  published_at: "2022-10-10"
+  published_at: "2022-09-01"
 ```
 
 The string attributes can contain HTML:
@@ -80,14 +80,14 @@ You can also use a `JSON` file (`data/collection.json`), as the following exampl
   {
     "name": "Item 1",
     "description": "Ad aut libero. Adipisci asperiores repudiandae. Sunt expedita sunt.",
-    "tags": ["tag1", "tag2", "tag3"],
-    "price": 200
+    "tags": ["tag1", "tag2"],
+    "price": 99.9
   },
   {
     "name": "Item 2",
     "description": "Incidunt cupiditate rerum. Enim quo pariatur. Commodi provident dolores.",
     "tags": ["tag2"],
-    "price": 100
+    "price": 149.9
   }
 ]
 ```

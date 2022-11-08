@@ -33,7 +33,7 @@ layout: layout
             <%= render_tags(value) %>
           <% elsif is_bool?(value) %>
             <%= value ? "Yes" : "No" %>
-          <% elsif is_url?(value) %>
+          <% elsif value.is_a?(String) && is_url?(value) %>
             <%= link_to value, value, target: "_blank" %>
           <% else %>
             <%= value %>

@@ -1,5 +1,5 @@
 module Tonic
-  VERSION = "0.8.3"
+  VERSION = "0.8.4"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -37,7 +37,7 @@ module Tonic
     end
 
     def render_filters
-      attributes = tonic_collection.map(&:keys).flatten.uniq.sort
+      attributes = tonic_collection.flat_map(&:keys).uniq.sort
 
       attributes.map do |attribute|
         next if SKIP_FOR_FILTERS.include?(attribute)
@@ -136,9 +136,9 @@ module Tonic
         options = options - exclude
       end
 
-      options.map do |option|
+      options.flat_map do |option|
         ["#{option.titleize} ASC", "#{option.titleize} DESC"]
-      end.flatten.sort
+      end.sort
     end
 
     def strip_truncate(html, length = 50)
@@ -164,7 +164,7 @@ module Tonic
     end
 
     def is_url?(string)
-      string =~ URI::regexp
+      string.match?(URI.regexp)
     end
 
     def single_word?(string)

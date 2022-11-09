@@ -1,6 +1,9 @@
 <%= label(attribute) %>
 
 <p>
+  <%= radio_button_tag(:type, name: attribute, value: 'All', onchange: "filterBy('boolean')") %>
+  <span class="mr-2">All</span>
+
   <%= radio_button_tag(:type, name: attribute, value: 'true', onchange: "filterBy('boolean')") %>
   <span class="mr-2">Yes</span>
 

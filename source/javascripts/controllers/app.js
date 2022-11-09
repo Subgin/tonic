@@ -97,6 +97,9 @@ export default class AppCtrl {
 
         break;
       case 'boolean':
+        if (filterValue == 'All')
+          return true
+
         if (filterValue == 'true' && itemValue)
           return true
 

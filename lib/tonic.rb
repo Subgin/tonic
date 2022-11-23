@@ -1,9 +1,10 @@
 module Tonic
-  VERSION = "0.8.5"
+  VERSION = "0.8.6"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
   DEFAULT_COLOR = "#3e76d1"
+  DEFAULT_BG_COLOR = "#f3f4f6"
   DEFAULT_ORDER = "name asc"
 
   def self.start(context)

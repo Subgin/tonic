@@ -4,7 +4,8 @@
 
 /* Base */
 body {
-  @apply bg-gray-100 leading-relaxed;
+  @apply leading-relaxed;
+  background-color: var(--background-color);
   font-family: var(--font-family);
 }
 

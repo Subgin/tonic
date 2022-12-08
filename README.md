@@ -100,6 +100,22 @@ You can also host your collection remotely. To do so, you should define the `rem
 remote_collection: https://example.com/collection.json
 ```
 
+#### Nested attributes
+
+Your items can have nested attributes too:
+
+```yaml
+- name: Leanne Graham
+  email: leanne_graham@example.com
+  address:
+    street: Kulas Light
+    city: Gwenborough
+    zipcode: 92998-3874
+    geo:
+      lat: -37.3159
+      lng: 81.1496
+```
+
 ### Magic attributes
 
 Some names help Tonic to automatically render your items (and its related filters) as beautiful as possible by default:

@@ -1,5 +1,8 @@
+require "yaml"
+require "open-uri"
+
 module Tonic
-  VERSION = "0.8.6"
+  VERSION = "0.9.0.beta"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -8,8 +11,16 @@ module Tonic
   DEFAULT_ORDER = "name asc"
 
   def self.start(context)
+    # Fetch remote collection if any
+    if collection_url = YAML.load_file("data/config.yaml")["remote_collection"]
+      remote_collection = URI.open(collection_url).read rescue nil
+      File.write("data/collection.yaml", remote_collection) if remote_collection
+    end
+
+    # Inject helpers
     context.helpers Helpers
 
+    # Create all detail pages for each item
     context.data.collection.each do |item|
       context.proxy "/#{Helpers.slugify(item.name)}.html", "/templates/collection/item_page.html", locals: { item: item }, ignore: true
     end

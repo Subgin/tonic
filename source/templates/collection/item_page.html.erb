@@ -24,10 +24,10 @@ layout: layout
   <div class="text-gray-500"><%= @description %></div>
 
   <div class="my-6">
-    <% rest_of_attrs(item).each do |k| %>
-      <% value = item[k] %>
+    <% rest_of_attrs(item).each do |attribute| %>
+      <% value = item[attribute] %>
       <p>
-        <b><%= k.titleize %></b>
+        <b><%= attribute.titleize %></b>
         <span class="text-gray-500">
           <% if value.is_a?(Array) %>
             <%= render_tags(value) %>

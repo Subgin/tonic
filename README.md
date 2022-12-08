@@ -92,6 +92,14 @@ You can also use a `JSON` file (`data/collection.json`), as the following exampl
 ]
 ```
 
+#### Remote Collection
+
+You can also host your collection remotely. To do so, you should define the `remote_collection` setting in the [configuration file](#customization):
+
+```yaml
+remote_collection: https://example.com/collection.json
+```
+
 ### Magic attributes
 
 Some names help Tonic to automatically render your items (and its related filters) as beautiful as possible by default:
@@ -110,6 +118,7 @@ Via `data/config.yaml`:
 # Main info
 title: My Collection
 description: This is an example of a Tonic collection.
+remote_collection: https://example.com/collection.json
 
 # Style/UI
 main_color: "#0891b2"

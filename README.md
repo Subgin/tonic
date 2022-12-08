@@ -92,6 +92,30 @@ You can also use a `JSON` file (`data/collection.json`), as the following exampl
 ]
 ```
 
+#### Remote Collection
+
+You can also fetch your collection from a remote resource. To do so, you should define the `remote_collection` setting in the [configuration file](#customization):
+
+```yaml
+remote_collection: https://example.com/collection.json
+```
+
+#### Nested attributes
+
+Your items can have nested attributes too:
+
+```yaml
+- name: Leanne Graham
+  email: leanne_graham@example.com
+  address:
+    street: Kulas Light
+    city: Gwenborough
+    zipcode: 92998-3874
+    geo:
+      lat: -37.3159
+      lng: 81.1496
+```
+
 ### Magic attributes
 
 Some names help Tonic to automatically render your items (and its related filters) as beautiful as possible by default:
@@ -110,6 +134,7 @@ Via `data/config.yaml`:
 # Main info
 title: My Collection
 description: This is an example of a Tonic collection.
+remote_collection: https://example.com/collection.json
 
 # Style/UI
 main_color: "#0891b2"

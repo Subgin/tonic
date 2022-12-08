@@ -24,10 +24,10 @@ layout: layout
   <div class="text-gray-500"><%= @description %></div>
 
   <div class="my-6">
-    <% rest_of_attrs(item).each do |k| %>
-      <% value = item[k] %>
+    <% rest_of_attrs(item).each do |attribute| %>
+      <% value = item[attribute] %>
       <p>
-        <b><%= k.titleize %></b>
+        <b><%= attribute.titleize %></b>
         <span class="text-gray-500">
           <% if value.is_a?(Array) %>
             <%= render_tags(value) %>
@@ -35,6 +35,8 @@ layout: layout
             <%= value ? "Yes" : "No" %>
           <% elsif value.is_a?(String) && is_url?(value) %>
             <%= link_to value, value, target: "_blank" %>
+          <% elsif is_hash?(value) %>
+            <%= render_hash(value) %>
           <% else %>
             <%= value %>
           <% end %>

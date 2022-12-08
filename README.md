@@ -94,7 +94,7 @@ You can also use a `JSON` file (`data/collection.json`), as the following exampl
 
 #### Remote Collection
 
-You can also host your collection remotely. To do so, you should define the `remote_collection` setting in the [configuration file](#customization):
+You can also fetch your collection from a remote resource. To do so, you should define the `remote_collection` setting in the [configuration file](#customization):
 
 ```yaml
 remote_collection: https://example.com/collection.json

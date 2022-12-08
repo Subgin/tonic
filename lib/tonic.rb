@@ -2,7 +2,7 @@ require "yaml"
 require "open-uri"
 
 module Tonic
-  VERSION = "0.9.1"
+  VERSION = "0.9.2"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -82,7 +82,7 @@ module Tonic
         "select"
       elsif attribute.end_with?("_at") && is_date?(value)
         "date_range"
-      elsif single_word?(value) && !is_url?(value)
+      elsif single_word?(value) && !is_url?(value) && !is_email?(value)
         uniq_values = tonic_collection.map(&:"#{attribute}").compact.uniq.size
         uniq_values >= 5 ? "select" : "radio_buttons"
       else
@@ -188,6 +188,10 @@ module Tonic
 
     def is_url?(string)
       string.match?(URI.regexp)
+    end
+
+    def is_email?(string)
+      string.match?(URI::MailTo::EMAIL_REGEXP)
     end
 
     def is_hash?(object)

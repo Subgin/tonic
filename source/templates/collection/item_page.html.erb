@@ -35,6 +35,8 @@ layout: layout
             <%= value ? "Yes" : "No" %>
           <% elsif value.is_a?(String) && is_url?(value) %>
             <%= link_to value, value, target: "_blank" %>
+          <% elsif value.is_a?(String) && is_email?(value) %>
+            <%= mail_to value %>
           <% elsif is_hash?(value) %>
             <%= render_hash(value) %>
           <% else %>

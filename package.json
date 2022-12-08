@@ -6,7 +6,7 @@
     "build": "webpack --mode=production"
   },
   "dependencies": {
-    "ralix": "^1.2.0"
+    "ralix": "^1.3.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

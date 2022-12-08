@@ -50,13 +50,16 @@ export default class AppCtrl {
 
     switch(filter.type) {
       case 'global_text':
-        const itemContent = Object.values(item).filter(isString).join(' ')
+        const itemContent = deepValues(item)
 
         if (contains(stripTags(itemContent), filterValue))
           return true
 
         break;
       case 'text':
+        if (itemValue instanceof Object)
+          itemValue = deepValues(itemValue)
+
         if (contains(itemValue, filterValue))
           return true
 
@@ -149,11 +152,6 @@ export default class AppCtrl {
     removeClass(`#${item.dom_id}`, 'hidden')
   }
 
-  isString(string) {
-    if (typeof string === 'string' || string instanceof String)
-      return true
-  }
-
   contains(content, search) {
     const regexp = new RegExp(search, 'i')
     return regexp.test(content)
@@ -162,5 +160,16 @@ export default class AppCtrl {
   stripTags(string) {
     const parseHTML = new DOMParser().parseFromString(string, 'text/html')
     return parseHTML.body.textContent || ''
+  }
+
+  deepValues(obj, values = []) {
+    Object.values(obj).forEach(val => {
+      if (val instanceof Object)
+        deepValues(val, values)
+      else
+        values.push(val)
+    })
+
+    return values.join(' ')
   }
 }

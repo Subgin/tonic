@@ -70,6 +70,7 @@ module Tonic
         type = "numeric_range" if value.is_a?(Numeric)
         type = "tags" if value.is_a?(Array)
         type = "boolean" if is_bool?(value)
+        type = "text" if is_hash?(value)
         type = smart_text_filter(attribute, value) if value.is_a?(String)
       end
 
@@ -142,7 +143,7 @@ module Tonic
     end
 
     def sorting_options
-      options = tonic_collection[0].select { |k, v| k == 'name' || v.is_a?(Numeric) }.keys
+      options = tonic_collection[0].select { |k, v| k == "name" || v.is_a?(Numeric) }.keys
 
       if exclude = config.sorting.exclude
         options = options - exclude
@@ -165,6 +166,16 @@ module Tonic
       end.join(" ")
     end
 
+    def render_hash(hash)
+      hash.map do |k, v|
+        if is_hash?(v)
+          render_hash(v)
+        else
+          "#{k.titleize}: #{v}"
+        end
+      end.join(" | ")
+    end
+
     def is_bool?(value)
       value.is_a?(TrueClass) || value.is_a?(FalseClass)
     end
@@ -177,6 +188,10 @@ module Tonic
 
     def is_url?(string)
       string.match?(URI.regexp)
+    end
+
+    def is_hash?(object)
+      object.class.name.match?("Hash")
     end
 
     def single_word?(string)

@@ -121,7 +121,7 @@ Your items can have nested attributes too:
 Some names help Tonic to automatically render your items (and its related filters) as beautiful as possible by default:
 
 - name (required! should be unique!)
-- description (required!)
+- description
 - category
 - tags (shoud be an array)
 - images (shoud be an array)

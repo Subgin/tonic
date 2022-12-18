@@ -30,13 +30,25 @@ module Tonic
     extend self
 
     def slugify(text)
-      text.parameterize
+      text&.parameterize
     end
 
     def tonic_collection
       data.collection.each do |item|
         item.id = slugify(item.name)
         item.dom_id = "item_#{item.id}"
+
+        validate_item!(item)
+      end
+    end
+
+    def validate_item!(item)
+      if item.name.blank?
+        raise "[Tonic] Name can't be blank:\n#{item.to_h}\n"
+      end
+
+      if data.collection.count { |el| el.name == item.name } > 1
+        raise "[Tonic] Name should be unique:\n#{item.to_h}\n"
       end
     end
 

@@ -2,7 +2,7 @@ require "yaml"
 require "open-uri"
 
 module Tonic
-  VERSION = "0.9.3"
+  VERSION = "0.9.4"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -207,7 +207,7 @@ module Tonic
     end
 
     def is_hash?(object)
-      object.class.name.match?("Hash")
+      object.class.name.end_with?("Hash")
     end
 
     def single_word?(string)

@@ -128,18 +128,20 @@ Some names help Tonic to automatically render your items (and its related filter
 
 ### Customization
 
-Via `data/config.yaml`:
+Configure your site via the `data/config.yaml` file. All options:
 
 ```yaml
 # Main info
 title: My Collection
-description: This is an example of a Tonic collection.
+description: |
+  Welcome to my <u>awesome</u> collection!<br>
+  More information in the <a href="#">following section</a>.
 remote_collection: https://example.com/collection.json
 
 # Style/UI
 main_color: "#0891b2"
 background_color: "#e0f2fe"
-font_family: "Fira Sans" # from Google Fonts
+font_family: "Fira Sans"
 logo: "/images/logo.png"
 links:
   - text: About Us
@@ -166,6 +168,14 @@ filters:
   exclude:
     - summary
     - long_description
+```
+
+#### Font family
+
+You can use remote fonts from [Google Fonts](https://fonts.google.com) by adding the family name in the `font_family` option:
+
+```yaml
+font_family: "Fira Sans" # other examples: Lato, Roboto, Oswald, Montserrat, ...
 ```
 
 #### Sorting

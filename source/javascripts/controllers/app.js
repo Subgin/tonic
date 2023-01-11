@@ -65,12 +65,13 @@ export default class AppCtrl {
     }
 
     addClass('article', 'hidden')
-    if (type == 'tags') toggleClass(el, 'active')
 
-    if (type == 'tags')
-      setParam(el.name, activeTags().join(','))
-    else
+    if (type == 'tags') {
+      toggleClass(el, 'active')
+      setParam(el.name, activeTags())
+    } else {
       setParam(el.name, el.value)
+    }
 
     window.collection.forEach(item => {
       let show = true
@@ -204,11 +205,13 @@ export default class AppCtrl {
 
   contains(content, search) {
     const regexp = new RegExp(search, 'i')
+
     return regexp.test(content)
   }
 
   stripTags(string) {
     const parseHTML = new DOMParser().parseFromString(string, 'text/html')
+
     return parseHTML.body.textContent || ''
   }
 

@@ -27,8 +27,7 @@ export default class AppCtrl {
     Object.entries(params).forEach(([key, value]) => {
       if (!value) return
 
-      let el = find(`#${key}`)
-      if (!el) el = find(`#${key}_${value}`)
+      const el = find(`#${key}`) || find(`#${key}_${value}`)
 
       switch(el.type) {
         case 'number':

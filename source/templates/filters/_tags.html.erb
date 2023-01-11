@@ -1,5 +1,7 @@
 <%= label(attribute) %>
 
 <% tags.each do |tag| %>
-  <button class="tag" id="<%= "#{attribute}_#{tag}" %>" value="<%= tag %>" name="<%= attribute %>" onclick="filterBy('tags')"><%= tag %></button>
+  <button class="tag" id="<%= "#{attribute}_#{tag}" %>" value="<%= tag %>" name="<%= attribute %>" onclick="filterBy('tags')">
+    <%= tag %>
+  </button>
 <% end %>

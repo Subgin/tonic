@@ -49,7 +49,7 @@ export default class AppCtrl {
           break;
         case 'submit':
           value.split(',').forEach(tag => {
-            el.click()
+            find(`#tags_${tag}`).click()
           })
 
           break;
@@ -68,7 +68,7 @@ export default class AppCtrl {
     if (type == 'tags') toggleClass(el, 'active')
 
     if (type == 'tags')
-      setParam(el.name, Array.from(findAll('.tag.active')).map(tag => tag.value).join(','))
+      setParam(el.name, activeTags().join(','))
     else
       setParam(el.name, el.value)
 
@@ -83,7 +83,7 @@ export default class AppCtrl {
       if (show) showItem(item)
     })
 
-    insertHTML('#counter', findAll('article:not(.hidden)').length)
+    insertHTML('#counter', activeItems().length)
   }
 
   applyFilter(item, filter) {
@@ -137,9 +137,7 @@ export default class AppCtrl {
 
         break;
       case 'tags':
-        let activeTags = Array.from(findAll('.tag.active')).map(tag => tag.value)
-
-        if (itemValue && activeTags.every(tag => itemValue.includes(tag)))
+        if (itemValue && activeTags().every(tag => itemValue.includes(tag)))
           return true
 
         break;
@@ -164,7 +162,7 @@ export default class AppCtrl {
     const container = find('.collection-container')
     const items = []
 
-    findAll('article:not(.hidden)').forEach(itemDom => {
+    this.activeItems().forEach(itemDom => {
       let item = window.collection.find(item => item.dom_id == itemDom.id)
       items.push(item)
     })
@@ -194,6 +192,14 @@ export default class AppCtrl {
 
   showItem(item) {
     removeClass(`#${item.dom_id}`, 'hidden')
+  }
+
+  activeTags() {
+    return Array.from(findAll('.tag.active')).map(tag => tag.value)
+  }
+
+  activeItems() {
+    return findAll('article:not(.hidden)')
   }
 
   contains(content, search) {

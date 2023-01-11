@@ -1,7 +1,7 @@
 <%= label(attribute) %>
 
 <span>From (<%= min %>)</span>
-<%= input_tag(:number, name: "#{attribute}_min", min: min, onkeyup: "filterBy('numeric_range')") %>
+<%= input_tag(:number, id: "#{attribute}_min", name: "#{attribute}_min", min: min, onkeyup: "filterBy('numeric_range')") %>
 
 <span>To (<%= max %>)</span>
-<%= input_tag(:number, name: "#{attribute}_max", max: max, onkeyup: "filterBy('numeric_range')") %>
+<%= input_tag(:number, id: "#{attribute}_max", name: "#{attribute}_max", max: max, onkeyup: "filterBy('numeric_range')") %>

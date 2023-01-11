@@ -5,6 +5,11 @@ export default class AppCtrl {
     // Open Sidebar by default on bigger screens
     if (window.innerWidth > 900) this.toggleSidebar()
 
+    // Apply filtering by params
+    setTimeout(() => {
+      this.defaultFilters(getParam())
+    })
+
     // Apply default sorting
     const defaultOrder = window.config.sorting.default_order
     this.sortBy(defaultOrder, false)
@@ -18,6 +23,40 @@ export default class AppCtrl {
     toggleClass('.sorting-options', 'hidden')
   }
 
+  defaultFilters(params = {}) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (!value) return
+
+      let el = find(`#${key}`)
+      if (!el) el = find(`#${key}_${value}`)
+
+      switch(el.type) {
+        case 'number':
+        case 'text':
+          el.value = value
+          el.dispatchEvent(new KeyboardEvent('keyup'))
+
+          break;
+        case 'date':
+        case 'select-one':
+          el.value = value
+          el.dispatchEvent(new KeyboardEvent('change'))
+
+          break;
+        case 'radio':
+          el.click()
+
+          break;
+        case 'submit':
+          value.split(',').forEach(tag => {
+            el.click()
+          })
+
+          break;
+      }
+    })
+  }
+
   filterBy(type) {
     const el = currentElement()
     self.currentFilters[el.name] = {
@@ -27,6 +66,11 @@ export default class AppCtrl {
 
     addClass('article', 'hidden')
     if (type == 'tags') toggleClass(el, 'active')
+
+    if (type == 'tags')
+      setParam(el.name, Array.from(findAll('.tag.active')).map(tag => tag.value).join(','))
+    else
+      setParam(el.name, el.value)
 
     window.collection.forEach(item => {
       let show = true

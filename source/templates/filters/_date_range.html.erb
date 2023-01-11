@@ -1,7 +1,7 @@
 <%= label(attribute) %>
 
 <span>From (<%= min %>)</span>
-<%= input_tag(:date, name: "#{attribute}_min", min: min, onchange: "filterBy('date_range')") %>
+<%= input_tag(:date, id: "#{attribute}_min", name: "#{attribute}_min", min: min, onchange: "filterBy('date_range')") %>
 
 <span>To (<%= max %>)</span>
-<%= input_tag(:date, name: "#{attribute}_max", max: max, onchange: "filterBy('date_range')") %>
+<%= input_tag(:date, id: "#{attribute}_max", name: "#{attribute}_max", max: max, onchange: "filterBy('date_range')") %>

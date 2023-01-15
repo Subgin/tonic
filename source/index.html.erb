@@ -19,7 +19,9 @@ title: Home
     </div>
 
     <div class="flex justify-between items-center">
-      <div class="text-sm text-gray-600"><span id="counter"><%= tonic_collection.size %></span> items found</div>
+      <div class="text-sm text-gray-600">
+        <span id="counter"><%= tonic_collection.size %></span> items found
+      </div>
 
       <% unless config.hide_sorting %>
         <div class="relative inline-block text-left">

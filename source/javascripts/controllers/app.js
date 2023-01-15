@@ -5,6 +5,11 @@ export default class AppCtrl {
     // Open Sidebar by default on bigger screens
     if (window.innerWidth > 900) this.toggleSidebar()
 
+    // Apply filtering by params
+    setTimeout(() => {
+      this.defaultFilters(getParam())
+    })
+
     // Apply default sorting
     const defaultOrder = window.config.sorting.default_order
     this.sortBy(defaultOrder, false)
@@ -18,6 +23,39 @@ export default class AppCtrl {
     toggleClass('.sorting-options', 'hidden')
   }
 
+  defaultFilters(params = {}) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (!value) return
+
+      const el = find(`#${key}`) || find(`#${key}_${value}`)
+
+      switch(el.type) {
+        case 'number':
+        case 'text':
+          el.value = value
+          el.dispatchEvent(new KeyboardEvent('keyup'))
+
+          break;
+        case 'date':
+        case 'select-one':
+          el.value = value
+          el.dispatchEvent(new KeyboardEvent('change'))
+
+          break;
+        case 'radio':
+          el.click()
+
+          break;
+        case 'submit':
+          value.split(',').forEach(tag => {
+            find(`#tags_${tag}`).click()
+          })
+
+          break;
+      }
+    })
+  }
+
   filterBy(type) {
     const el = currentElement()
     self.currentFilters[el.name] = {
@@ -26,7 +64,13 @@ export default class AppCtrl {
     }
 
     addClass('article', 'hidden')
-    if (type == 'tags') toggleClass(el, 'active')
+
+    if (type == 'tags') {
+      toggleClass(el, 'active')
+      setParam(el.name, activeTags())
+    } else {
+      setParam(el.name, el.value)
+    }
 
     window.collection.forEach(item => {
       let show = true
@@ -39,7 +83,7 @@ export default class AppCtrl {
       if (show) showItem(item)
     })
 
-    insertHTML('#counter', findAll('article:not(.hidden)').length)
+    insertHTML('#counter', activeItems().length)
   }
 
   applyFilter(item, filter) {
@@ -93,9 +137,7 @@ export default class AppCtrl {
 
         break;
       case 'tags':
-        let activeTags = Array.from(findAll('.tag.active')).map(tag => tag.value)
-
-        if (itemValue && activeTags.every(tag => itemValue.includes(tag)))
+        if (itemValue && activeTags().every(tag => itemValue.includes(tag)))
           return true
 
         break;
@@ -120,7 +162,7 @@ export default class AppCtrl {
     const container = find('.collection-container')
     const items = []
 
-    findAll('article:not(.hidden)').forEach(itemDom => {
+    this.activeItems().forEach(itemDom => {
       let item = window.collection.find(item => item.dom_id == itemDom.id)
       items.push(item)
     })
@@ -152,13 +194,23 @@ export default class AppCtrl {
     removeClass(`#${item.dom_id}`, 'hidden')
   }
 
+  activeTags() {
+    return Array.from(findAll('.tag.active')).map(tag => tag.value)
+  }
+
+  activeItems() {
+    return findAll('article:not(.hidden)')
+  }
+
   contains(content, search) {
     const regexp = new RegExp(search, 'i')
+
     return regexp.test(content)
   }
 
   stripTags(string) {
     const parseHTML = new DOMParser().parseFromString(string, 'text/html')
+
     return parseHTML.body.textContent || ''
   }
 

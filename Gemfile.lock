@@ -120,7 +120,7 @@ PLATFORMS
 
 DEPENDENCIES
   middleman (~> 4.4)
-  middleman-inline_svg
+  middleman-inline_svg (~> 0.1)
   middleman-livereload (~> 3.4)
 
 BUNDLED WITH

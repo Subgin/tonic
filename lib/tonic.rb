@@ -2,7 +2,7 @@ require "yaml"
 require "open-uri"
 
 module Tonic
-  VERSION = "0.10.1"
+  VERSION = "0.10.2"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -166,7 +166,7 @@ module Tonic
       end.sort
     end
 
-    def strip_truncate(html, length = 50)
+    def strip_truncate(html, length)
       truncate(strip_tags(html), length: length)
     end
 

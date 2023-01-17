@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><%= config.title %> | <%= @title || current_page.data.title %></title>
-    <meta name="description" content="<%= strip_truncate(@description || config.description, 100) %>">
+    <meta name="description" content="<%= strip_truncate(@description || config.description, 120) %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
     <% if config.font_family %>

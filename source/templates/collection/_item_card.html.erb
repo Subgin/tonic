@@ -7,7 +7,7 @@
     <h3><%= link_to item.name, "/#{item.id}" %></h3>
   </div>
   <div class="card-body">
-    <span class="text-gray-500"><%= strip_truncate(item.description, 50) %></span>
+    <span class="text-gray-500"><%= strip_truncate(item.description, 60) %></span>
 
     <p><%= render_tags(item.tags) %></p>
   </div>

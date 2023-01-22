@@ -25,6 +25,10 @@ title: Home
 
       <% unless config.hide_sorting %>
         <div class="relative inline-block text-left">
+          <a id="reset" href="/" class="mr-4 hidden">
+            <%= inline_svg 'icons/close.svg' %> Reset
+          </a>
+
           <a href="#" onclick="toggleSorting()">
             Sort by <%= inline_svg 'icons/angle-down.svg' %>
           </a>

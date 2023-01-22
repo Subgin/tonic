@@ -170,7 +170,7 @@ module Tonic
       end.sort
     end
 
-    def sorting_link(option)
+    def sort_link(option)
       attribute, direction = option.split(" ")
 
       link_to "#{attribute.humanize} #{direction.upcase}", "#", onclick: "sortBy('#{option}')"

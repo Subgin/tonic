@@ -1,6 +1,6 @@
 # Tonic
 
-> 🍸 Self meta-described collections framework
+> 🍸 Digital Collections Framework
 
 Transform your collection into a beautiful website!
 

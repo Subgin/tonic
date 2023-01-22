@@ -2,7 +2,7 @@ require "yaml"
 require "open-uri"
 
 module Tonic
-  VERSION = "0.10.2"
+  VERSION = "0.11.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -103,7 +103,7 @@ module Tonic
     end
 
     def label(attribute)
-      content_tag(:label, attribute.humanize.capitalize, class: "text-white py-1")
+      content_tag(:label, attribute.humanize, class: "text-white py-1")
     end
 
     def text_filter(attribute)
@@ -155,15 +155,25 @@ module Tonic
     end
 
     def sorting_options
-      options = tonic_collection[0].select { |k, v| k == "name" || v.is_a?(Numeric) }.keys
+      options = tonic_collection[0].select do |k, v|
+        k == "name" ||
+        v.is_a?(Numeric) ||
+        (v.is_a?(String) && k.end_with?("_at") && is_date?(v))
+      end.keys
 
       if exclude = config.sorting.exclude
         options = options - exclude
       end
 
       options.flat_map do |option|
-        ["#{option.titleize} ASC", "#{option.titleize} DESC"]
+        ["#{option} asc", "#{option} desc"]
       end.sort
+    end
+
+    def sort_link(option)
+      attribute, direction = option.split(" ")
+
+      link_to "#{attribute.humanize} #{direction.upcase}", "#", onclick: "sortBy('#{option}')"
     end
 
     def strip_truncate(html, length)

@@ -31,7 +31,7 @@ title: Home
 
           <div class="absolute right-0 z-10 w-48 rounded bg-white shadow-lg hidden sorting-options">
             <% sorting_options.each do |option| %>
-              <a href="#" class="block px-4 py-2 text-sm" onclick="sortBy('<%= option.downcase %>')"><%= option %></a>
+              <%= sort_link(option) %>
             <% end %>
           </div>
         </div>

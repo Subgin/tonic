@@ -2,7 +2,7 @@ require "yaml"
 require "open-uri"
 
 module Tonic
-  VERSION = "0.11.0"
+  VERSION = "0.12.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -198,6 +198,10 @@ module Tonic
       end.join(" | ")
     end
 
+    def single_word?(string)
+      !string.strip.include? " "
+    end
+
     def is_bool?(value)
       value.is_a?(TrueClass) || value.is_a?(FalseClass)
     end
@@ -220,8 +224,14 @@ module Tonic
       object.class.name.end_with?("Hash")
     end
 
-    def single_word?(string)
-      !string.strip.include? " "
+    def is_video?(string)
+      string.match?(/youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com/)
+    end
+
+    def video_embed_url(video_url)
+      return if !is_video?(video_url)
+
+      VideoInfo.new(video_url).embed_url
     end
   end
 end

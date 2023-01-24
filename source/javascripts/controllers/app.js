@@ -63,7 +63,11 @@ export default class AppCtrl {
       type: type
     }
 
+    // Hide all items
     addClass('article', 'hidden')
+
+    // Display reset link
+    removeClass('#reset', 'hidden')
 
     if (type == 'tags') {
       toggleClass(el, 'active')
@@ -83,6 +87,7 @@ export default class AppCtrl {
       if (show) showItem(item)
     })
 
+    // Update counter with visible items
     insertHTML('#counter', activeItems().length)
   }
 
@@ -127,12 +132,12 @@ export default class AppCtrl {
         break;
       case 'date_range':
         itemValue = Date.parse(item[attribute.replace(/_min$|_max$/, '')])
-        const filterDate = Date.parse(filterValue)
+        filterValue = Date.parse(filterValue)
 
-        if (contains(attribute, '_min$') && itemValue >= filterDate)
+        if (contains(attribute, '_min$') && itemValue >= filterValue)
           return true
 
-        if (contains(attribute, '_max$') && itemValue <= filterDate)
+        if (contains(attribute, '_max$') && itemValue <= filterValue)
           return true
 
         break;

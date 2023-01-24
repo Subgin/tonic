@@ -34,7 +34,13 @@ layout: layout
           <% elsif is_bool?(value) %>
             <%= value ? "Yes" : "No" %>
           <% elsif value.is_a?(String) && is_url?(value) %>
-            <%= link_to value, value, target: "_blank" %>
+            <% if embed_url = video_embed_url(value) %>
+              <div class="max-w-2xl">
+                <iframe class="w-full aspect-video" src="<%= embed_url %>" frameborder="0" allowfullscreen></iframe>
+              </div>
+            <% else %>
+              <%= link_to value, value, target: "_blank" %>
+            <% end %>
           <% elsif value.is_a?(String) && is_email?(value) %>
             <%= mail_to value %>
           <% elsif is_hash?(value) %>

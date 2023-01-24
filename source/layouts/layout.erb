@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
     <% if config.font_family %>
-      <link href="https://fonts.googleapis.com/css2?family=<%= config.font_family %>&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=<%= config.font_family %>:wght@400;600;700&display=swap" rel="stylesheet">
     <% end %>
     <style>
       :root {
@@ -23,8 +23,10 @@
 
     <%= javascript_include_tag "application" %>
     <script>
-      window.collection = JSON.parse(JSON.stringify(<%= tonic_collection.to_json %>));
       window.config = JSON.parse(JSON.stringify(<%= config.to_json %>));
+      <% if current_page.url == '/' %>
+        window.collection = JSON.parse(JSON.stringify(<%= tonic_collection.to_json %>));
+      <% end %>
     </script>
   </body>
 </html>

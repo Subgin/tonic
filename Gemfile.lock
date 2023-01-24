@@ -9,6 +9,8 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    ansi (1.5.0)
+    ast (2.4.2)
     backports (3.23.0)
     coffee-script (2.4.1)
       coffee-script-source
@@ -35,6 +37,7 @@ GEM
     http_parser.rb (0.8.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    iso8601 (0.9.1)
     kramdown (2.4.0)
       rexml
     listen (3.0.8)
@@ -82,10 +85,14 @@ GEM
       middleman-core (>= 3.3)
       rack-livereload (~> 0.3.15)
     minitest (5.17.0)
+    net_http_timeout_errors (0.3.5)
     nokogiri (1.14.0-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
+    oga (3.4)
+      ast
+      ruby-ll (~> 2.1)
     padrino-helpers (0.15.1)
       i18n (>= 0.6.7, < 2)
       padrino-support (= 0.15.1)
@@ -102,6 +109,9 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.5)
+    ruby-ll (2.1.2)
+      ansi
+      ast
     sassc (2.4.0)
       ffi (~> 1.9)
     servolux (0.13.0)
@@ -114,6 +124,10 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    video_info (3.0.2)
+      iso8601 (~> 0.9.1)
+      net_http_timeout_errors (~> 0.3.0)
+      oga (~> 3.0)
     webrick (1.7.0)
     zeitwerk (2.6.6)
 
@@ -125,6 +139,7 @@ DEPENDENCIES
   middleman (~> 4.4)
   middleman-inline_svg (~> 0.1)
   middleman-livereload (~> 3.4)
+  video_info (~> 3.0)
 
 BUNDLED WITH
    2.2.33

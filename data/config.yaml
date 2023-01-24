@@ -4,6 +4,7 @@ description: This is an example of a <a href="https://github.com/Subgin/tonic">T
 
 # Style/UI
 main_color: "#6366f1"
+background_color: "#e2e8f0"
 font_family: "Lato"
 links:
   - text: About Us
@@ -14,3 +15,8 @@ links:
 # Sorting
 sorting:
   default_order: "price asc"
+
+# Filters
+filters:
+  exclude:
+    - video

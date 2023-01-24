@@ -11,7 +11,7 @@ Tonic parses your collection, defined in a `YAML` or `JSON` file, and automatica
 🌐 [**Live demo**](https://tonic-demo.netlify.app)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/576701/200078092-344ec8b1-ea09-4a89-9973-01cf53ec2eb7.png">
+  <img src="https://user-images.githubusercontent.com/576701/214444572-a7fea741-30dc-4fe9-93e7-e1a57b00b52e.png">
 </p>
 
 ## Install
@@ -211,6 +211,8 @@ For example, if you want to customize the auto-generated HTML for your items, yo
 
 - Item card partial: [`source/templates/collection/_item_card.html.erb`](source/templates/collection/_item_card.html.erb)
 - Item detail page: [`source/templates/collection/item_page.html.erb`](source/templates/collection/item_page.html.erb)
+
+**NOTE** In both templates you can use the `item` object to access any attribute: `item.name`, `item.description`, ...
 
 You can also add more pages to your Tonic site by just adding HTML templates (`*.html.erb`) under the `source/*` directory. After all, Tonic uses [Middleman](https://middlemanapp.com) under the hood, so you can also use Markdown and many other template engines.
 

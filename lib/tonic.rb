@@ -198,6 +198,10 @@ module Tonic
       end.join(" | ")
     end
 
+    def single_word?(string)
+      !string.strip.include? " "
+    end
+
     def is_bool?(value)
       value.is_a?(TrueClass) || value.is_a?(FalseClass)
     end
@@ -220,8 +224,14 @@ module Tonic
       object.class.name.end_with?("Hash")
     end
 
-    def single_word?(string)
-      !string.strip.include? " "
+    def is_video?(string)
+      string.match?(/youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com/)
+    end
+
+    def video_embed_url(video_url)
+      return if !is_video?(video_url)
+
+      VideoInfo.new(video_url).embed_url
     end
   end
 end

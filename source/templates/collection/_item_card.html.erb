@@ -1,17 +1,21 @@
 <article class="card flex flex-col justify-between" id="<%= item.dom_id %>">
-  <% if config.item_card.image && bg_image = item.images&.first %>
-    <a class="card-image" href="<%= "/#{item.id}" %>" style="background-image: url('<%= bg_image %>')"></a>
+  <% if config.item_card_image && bg_image = item.images&.first %>
+    <% if page_url = detail_page_url(item) %>
+      <a class="card-image" href="<%= page_url %>" style="background-image: url('<%= bg_image %>')"></a>
+    <% else %>
+      <div class="card-image" style="background-image: url('<%= bg_image %>')"></div>
+    <% end %>
   <% end %>
   <div class="card-header">
     <span><%= item.category %></span>
-    <h3><%= link_to item.name, "/#{item.id}" %></h3>
+    <h3><%= item.name %></h3>
   </div>
   <div class="card-body">
     <span class="text-gray-500"><%= strip_truncate(item.description, 60) %></span>
-
     <p><%= render_tags(item.tags) %></p>
   </div>
-  <div class="card-actions">
-    <%= link_to 'More', "/#{item.id}", class: 'btn' %>
-  </div>
+
+  <% if page_url = detail_page_url(item) %>
+    <div class="card-actions"><%= link_to 'More', page_url, class: 'btn' %></div>
+  <% end %>
 </article>

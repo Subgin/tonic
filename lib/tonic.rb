@@ -23,9 +23,12 @@ module Tonic
     # Create a detail pages for each item if enabled
     if raw_config.fetch("detail_pages", true)
       context.data.collection.each do |item|
-        context.proxy "/#{Helpers.slugify(item.name)}.html", "/templates/collection/item_page.html", locals: { item: item }, ignore: true
+        context.proxy "/#{Helpers.slugify(item.name)}.html", "/templates/collection/detail_page.html", locals: { item: item }
       end
     end
+
+    # Do not build detail page template
+    context.ignore "/templates/collection/detail_page.html"
   end
 
   def self.raw_config

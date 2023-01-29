@@ -229,7 +229,7 @@ If you want to fully customize your Tonic instance, you can do it by editing the
 For example, if you want to customize the auto-generated HTML for your items, you can do it by editing these files:
 
 - Item card partial: [`source/templates/collection/_item_card.html.erb`](source/templates/collection/_item_card.html.erb)
-- Item detail page: [`source/templates/collection/item_page.html.erb`](source/templates/collection/item_page.html.erb)
+- Item detail page: [`source/templates/collection/detail_page.html.erb`](source/templates/collection/detail_page.html.erb)
 
 **NOTE** In both templates you can use the `item` object to access any attribute: `item.name`, `item.description`, etc.
 

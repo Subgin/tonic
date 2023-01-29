@@ -90,10 +90,6 @@ input[type="radio"], input[type="checkbox"] {
   @apply px-4 pt-2;
 }
 
-.card-header a {
-  @apply text-gray-900;
-}
-
 .card-body {
   @apply px-4 py-2;
 }
@@ -122,4 +118,19 @@ button.tag:hover, button.tag.active {
 .sorting-options a:hover, .sorting-options a.active {
   @apply text-white font-bold first:rounded-t last:rounded-b;
   background-color: var(--main-color);
+}
+
+/* Images in detail page */
+.image-gallery {
+  @apply flex overflow-auto gap-4 lg:grid lg:grid-cols-4 my-4;
+}
+
+.image-gallery img {
+  @apply rounded shadow max-h-80;
+}
+
+@media (max-width: 640px) {
+  .image-gallery img {
+    max-width: none;
+  }
 }

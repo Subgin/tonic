@@ -2,7 +2,7 @@
 
 > 🍸 Digital Collections Framework
 
-Transform your collection into a beautiful website!
+Transform your collection into a beautiful website ✨
 
 Tonic parses your collection, defined in a `YAML` or `JSON` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
 
@@ -126,17 +126,24 @@ Some names help Tonic to automatically render your items (and its related filter
 - tags (shoud be an array)
 - images (shoud be an array)
 
+More ✨ rules:
+
+- Automatic 🎬 video embeds from urls (YouTube, Vimeo and more).
+- If the attribute name ends with `_at` (`published_at`, `updated_at`, ...), it's automatically parsed as 📅 date.
+- The `detail_page_link` attribute makes the detail page to 🏃 jump to an external page, [see more](#detail-pages).
+
 ### Customization
 
 Configure your site via the `data/config.yaml` file. All options:
 
 ```yaml
-# Main info
+# Main settings
 title: My Collection
 description: |
   Welcome to my <u>awesome</u> collection!<br>
   More information in the <a href="#">following section</a>.
 remote_collection: https://example.com/collection.json
+detail_pages: true
 
 # Style/UI
 main_color: "#0891b2"
@@ -149,10 +156,9 @@ links:
   - text: Contact
     url: '/contact'
 footer_content: Follow us on <a href="#">Twitter</a> and <a href="#">Instagram</a>
-hide_filters: true
-hide_sorting: true
-item_card:
-  image: false
+hide_filters: false
+hide_sorting: false
+item_card_image: true
 
 # Sorting
 sorting:
@@ -169,6 +175,19 @@ filters:
     - summary
     - long_description
 ```
+
+#### Detail pages
+
+If disabled, detail pages won't be generated. Remember you can link to an external page by defining the `detail_page_link` attribute in any of the items of your collection.
+
+```yaml
+- name: Awesome Product
+  description: This product is fantastic!
+  price: 99.9
+  detail_page_link: https://my-shop.com/product/awesome-product
+```
+
+If you only want to customize how they look, you can do it by editing the HTML template, check the [Advanced customization](#advanced-customization) section.
 
 #### Font family
 
@@ -212,7 +231,7 @@ For example, if you want to customize the auto-generated HTML for your items, yo
 - Item card partial: [`source/templates/collection/_item_card.html.erb`](source/templates/collection/_item_card.html.erb)
 - Item detail page: [`source/templates/collection/item_page.html.erb`](source/templates/collection/item_page.html.erb)
 
-**NOTE** In both templates you can use the `item` object to access any attribute: `item.name`, `item.description`, ...
+**NOTE** In both templates you can use the `item` object to access any attribute: `item.name`, `item.description`, etc.
 
 You can also add more pages to your Tonic site by just adding HTML templates (`*.html.erb`) under the `source/*` directory. After all, Tonic uses [Middleman](https://middlemanapp.com) under the hood, so you can also use Markdown and many other template engines.
 

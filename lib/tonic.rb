@@ -2,28 +2,34 @@ require "yaml"
 require "open-uri"
 
 module Tonic
-  VERSION = "0.12.0"
+  VERSION = "0.13.0-beta"
   REPO = "https://github.com/Subgin/tonic"
-  MAGIC_ATTRS = %w(name description images category tags id dom_id)
+  MAGIC_ATTRS = %w(name description images category tags id dom_id detail_page_link)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
   DEFAULT_COLOR = "#3e76d1"
   DEFAULT_BG_COLOR = "#f3f4f6"
   DEFAULT_ORDER = "name asc"
 
   def self.start(context)
+    # Inject helpers
+    context.helpers Helpers
+
     # Fetch remote collection if any
-    if collection_url = YAML.load_file("data/config.yaml")["remote_collection"]
+    if collection_url = raw_config["remote_collection"]
       remote_collection = URI.open(collection_url).read rescue nil
       File.write("data/collection.yaml", remote_collection) if remote_collection
     end
 
-    # Inject helpers
-    context.helpers Helpers
-
-    # Create all detail pages for each item
-    context.data.collection.each do |item|
-      context.proxy "/#{Helpers.slugify(item.name)}.html", "/templates/collection/item_page.html", locals: { item: item }, ignore: true
+    # Create a detail pages for each item if enabled
+    if raw_config.fetch("detail_pages", true)
+      context.data.collection.each do |item|
+        context.proxy "/#{Helpers.slugify(item.name)}.html", "/templates/collection/item_page.html", locals: { item: item }, ignore: true
+      end
     end
+  end
+
+  def self.raw_config
+    @raw_config ||= YAML.load_file("data/config.yaml")
   end
 
   module Helpers
@@ -55,7 +61,8 @@ module Tonic
     def config
       data.config.reverse_merge(
         title: "Tonic Example",
-        item_card: { image: true },
+        detail_pages: true,
+        item_card_image: true,
         sorting: { default_order: DEFAULT_ORDER }
       )
     end
@@ -152,6 +159,14 @@ module Tonic
 
     def rest_of_attrs(item)
       (item.keys - MAGIC_ATTRS).sort
+    end
+
+    def detail_page_url(item)
+      if item.detail_page_link.present?
+        item.detail_page_link
+      elsif config.detail_pages
+        "/#{item.id}"
+      end
     end
 
     def sorting_options

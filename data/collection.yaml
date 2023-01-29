@@ -36,7 +36,7 @@
   - doctor
   - librarian
   status: Updated
-  price: 100.5
+  price: 10
   downloads: 1500
   images:
   - https://picsum.photos/600
@@ -47,6 +47,7 @@
   premium: false
   website: https://ratke.com/domenic.runte
   published_at: '2022-09-12'
+  detail_page_link: https://example.com
 - name: Sleek Leather Plate
   description: Vitae animi id. Amet a enim. Ipsa autem praesentium. Voluptatum tenetur
     illo. Dolor numquam harum. Blanditiis suscipit qui. A exercitationem est. Distinctio
@@ -95,7 +96,7 @@
   - librarian
   - philosopher
   status: Updated
-  price: 10.2
+  price: 200.0
   downloads: 250
   images:
   - https://picsum.photos/600

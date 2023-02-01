@@ -120,6 +120,12 @@ button.tag:hover, button.tag.active {
   background-color: var(--main-color);
 }
 
+/* Share buttons */
+.sharing-buttons a {
+  @apply inline-flex items-center mb-1 mr-1 p-2 rounded-full text-white;
+  background-color: var(--main-color);
+}
+
 /* Images in detail page */
 .image-gallery {
   @apply flex overflow-auto gap-4 lg:grid lg:grid-cols-4 my-4;

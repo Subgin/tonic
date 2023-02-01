@@ -1,0 +1,17 @@
+<a id="share" href="#" onclick="toggleSharing()" class="ml-4">
+  <%= inline_svg 'icons/share.svg' %> Share
+</a>
+<div class="absolute z-10 w-max rounded bg-white shadow-lg hidden sharing-options <%= extra_classes %>">
+  <div class="px-6 py-3">
+    <p>Share the current search</p>
+    <div class="sharing-buttons mb-4">
+      <% sharing_platforms.each do |platform| %>
+        <a data-sharer="<%= platform %>" href="#">
+          <%= inline_svg "icons/sharing/#{platform}.svg" %>
+        </a>
+      <% end %>
+    </div>
+    <p><a href="#" onclick="copyToClipboard('#share_url')">Copy</a> to your clipboard</p>
+    <p><input id="share_url" type="text"></p>
+  </div>
+</div>

@@ -21,6 +21,22 @@ export default class AppCtrl {
 
   toggleSorting() {
     toggleClass('.sorting-options', 'hidden')
+
+    if (!hasClass('.sorting-options', 'hidden')) addClass('.sharing-options', 'hidden')
+  }
+
+  toggleSharing() {
+    toggleClass('.sharing-options', 'hidden')
+
+    if (!hasClass('.sharing-options', 'hidden')) {
+      addClass('.sorting-options', 'hidden')
+
+      // Prepare data-* attributes for share & copy actions
+      attr('#share_url', 'value', currentUrl())
+      findAll('.sharing-buttons a').forEach(el => {
+        data(el, { title: find('title').innerText, url: currentUrl() })
+      })
+    }
   }
 
   defaultFilters(params = {}) {
@@ -65,6 +81,9 @@ export default class AppCtrl {
 
     // Hide all items
     addClass('article', 'hidden')
+
+    // Hide sharing menu
+    addClass('.sharing-options', 'hidden')
 
     // Display reset link
     removeClass('#reset', 'hidden')
@@ -228,5 +247,10 @@ export default class AppCtrl {
     })
 
     return values.join(' ')
+  }
+
+  copyToClipboard(target) {
+    find(target).select()
+    document.execCommand('copy')
   }
 }

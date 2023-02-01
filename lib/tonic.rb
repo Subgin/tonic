@@ -2,13 +2,14 @@ require "yaml"
 require "open-uri"
 
 module Tonic
-  VERSION = "0.13.0"
+  VERSION = "0.14.0-beta"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id detail_page_link)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
   DEFAULT_COLOR = "#3e76d1"
   DEFAULT_BG_COLOR = "#f3f4f6"
   DEFAULT_ORDER = "name asc"
+  SHARING_PLATFORMS = %w(facebook twitter linkedin pinterest whatsapp telegram email)
 
   def self.start(context)
     # Inject helpers
@@ -192,6 +193,14 @@ module Tonic
       attribute, direction = option.split(" ")
 
       link_to "#{attribute.humanize} #{direction.upcase}", "#", onclick: "sortBy('#{option}')"
+    end
+
+    def sharing_platforms
+      return SHARING_PLATFORMS if !config.sharing_platforms
+
+      SHARING_PLATFORMS.select do |platform|
+        config.sharing_platforms.include?(platform)
+      end
     end
 
     def strip_truncate(html, length)

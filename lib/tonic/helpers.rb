@@ -1,7 +1,5 @@
 module Tonic
   module Helpers
-    extend self
-
     def config
       data.config.reverse_merge(
         title: "Tonic Example",

@@ -1,3 +1,5 @@
+import { contains, stripTags, deepValues, sortArray } from '../utils'
+
 export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
@@ -5,14 +7,14 @@ export default class AppCtrl {
     // Open Sidebar by default on bigger screens
     if (window.innerWidth > 900) this.toggleSidebar()
 
-    // Apply filtering by params
     setTimeout(() => {
-      this.defaultFilters(getParam())
-    })
+      // Apply filtering by params
+      this.defaultFilters()
 
-    // Apply default sorting
-    const defaultOrder = window.config.sorting.default_order
-    this.sortBy(defaultOrder, false)
+      // Apply default sorting
+      const defaultOrder = window.config.sorting.default_order
+      this.sortBy(defaultOrder, false)
+    })
   }
 
   toggleSidebar() {
@@ -39,8 +41,8 @@ export default class AppCtrl {
     }
   }
 
-  defaultFilters(params = {}) {
-    Object.entries(params).forEach(([key, value]) => {
+  defaultFilters() {
+    Object.entries(getParam()).forEach(([key, value]) => {
       if (!value) return
 
       const el = find(`#${key}`) || find(`#${key}_${value}`)
@@ -191,27 +193,19 @@ export default class AppCtrl {
       items.push(item)
     })
 
-    items.sort((a, b) => {
-      if (direction == 'asc') {
-        if (a[attribute] < b[attribute]) return -1
-        if (a[attribute] > b[attribute]) return 1
-        return 0
-      } else {
-        if (a[attribute] < b[attribute]) return 1
-        if (a[attribute] > b[attribute]) return -1
-        return 0
-      }
-    }).forEach(item => {
+    sortArray(items, attribute, direction).forEach(item => {
       container.appendChild(find(`#${item.dom_id}`))
     })
 
-    removeClass('.sorting-options a', 'active')
+    // Highlight current sorting
     findAll('.sorting-options a').forEach(option => {
       if (option.innerText.toLowerCase() == sorting)
         addClass(option, 'active')
+      else
+        removeClass(option, 'active')
     })
 
-    if (interactive) this.toggleSorting()
+    if (interactive) toggleSorting()
   }
 
   showItem(item) {
@@ -224,29 +218,6 @@ export default class AppCtrl {
 
   activeItems() {
     return findAll('article:not(.hidden)')
-  }
-
-  contains(content, search) {
-    const regexp = new RegExp(search, 'i')
-
-    return regexp.test(content)
-  }
-
-  stripTags(string) {
-    const parseHTML = new DOMParser().parseFromString(string, 'text/html')
-
-    return parseHTML.body.textContent || ''
-  }
-
-  deepValues(obj, values = []) {
-    Object.values(obj).forEach(val => {
-      if (val instanceof Object)
-        deepValues(val, values)
-      else
-        values.push(val)
-    })
-
-    return values.join(' ')
   }
 
   copyToClipboard(target) {

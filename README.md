@@ -158,6 +158,12 @@ links:
 footer_content: Follow us on <a href="#">Twitter</a> and <a href="#">Instagram</a>
 hide_filters: false
 hide_sorting: false
+hide_sharing: false
+sharing_platforms:
+  - facebook
+  - twitter
+  - whatsapp
+  - email
 item_card_image: true
 
 # Sorting
@@ -196,6 +202,12 @@ You can use remote fonts from [Google Fonts](https://fonts.google.com) by adding
 ```yaml
 font_family: "Fira Sans" # other examples: Lato, Roboto, Oswald, Montserrat, ...
 ```
+
+#### Sharing
+
+If you want to customize the available sharing options, you should use the `sharing_platforms` option passing an array.
+
+By default, the supported platforms are: Facebook, Twitter, Linkedin, Pinterest, Whatsapp, Telegram and Email.
 
 #### Sorting
 

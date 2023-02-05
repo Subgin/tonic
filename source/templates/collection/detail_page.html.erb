@@ -6,9 +6,14 @@ layout: layout
 <% @description = item.description %>
 
 <div class="mt-6 mb-24 px-8 md:px-32 mx-auto max-w-screen-xl">
-  <a href="#" onclick="back('/')" class="flex items-center gap-1 mb-4">
-    <%= inline_svg 'icons/angle-left.svg' %> Back
-  </a>
+  <div class="flex justify-between items-center">
+    <a href="#" onclick="back('/')" class="flex items-center gap-1 mb-4">
+      <%= inline_svg 'icons/angle-left.svg' %> Back
+    </a>
+    <% unless config.hide_sharing %>
+      <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-10 top-32' } %>
+    <% end %>
+  </div>
 
   <span><%= item.category %></span>
   <h1><%= @title %></h1>

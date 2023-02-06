@@ -5,6 +5,7 @@
     <meta name="description" content="<%= strip_truncate(@description || config.description, 120) %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
+    <%= favicon_tag "favicon.ico" %>
     <% if config.font_family %>
       <link href="https://fonts.googleapis.com/css2?family=<%= config.font_family %>:wght@400;600;700&display=swap" rel="stylesheet">
     <% end %>

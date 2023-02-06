@@ -110,18 +110,23 @@ button.tag:hover, button.tag.active {
   background-color: var(--main-color);
 }
 
+/* Dropdowns */
+.dropdown {
+  @apply absolute z-10 mt-2 w-max rounded bg-white shadow-lg;
+}
+
 /* Sorting menu */
-.sorting-options a {
+#sorting-options a {
   @apply block px-4 py-2 text-sm;
 }
 
-.sorting-options a:hover, .sorting-options a.active {
+#sorting-options a:hover, #sorting-options a.active {
   @apply text-white font-bold first:rounded-t last:rounded-b;
   background-color: var(--main-color);
 }
 
 /* Share buttons */
-.sharing-buttons a {
+#sharing-buttons a {
   @apply inline-flex items-center mb-1 mr-1 p-2 rounded-full text-white;
   background-color: var(--main-color);
 }

@@ -1,7 +1,7 @@
 <a href="#" onclick="toggleSorting()" class="ml-4">
-  Sort by <%= inline_svg 'icons/angle-down.svg' %>
+  Sort by <%= inline_svg 'icons/chevron-down.svg' %>
 </a>
-<div class="absolute right-0 z-10 w-max rounded bg-white shadow-lg hidden sorting-options">
+<div id="sorting-options" class="dropdown right-0 hidden">
   <% sorting_options.each do |option| %>
     <%= sort_link(option) %>
   <% end %>

@@ -7,11 +7,11 @@ layout: layout
 
 <div class="mt-6 mb-24 px-8 md:px-32 mx-auto max-w-screen-xl">
   <div class="flex justify-between items-center">
-    <a href="#" onclick="back('/')" class="flex items-center gap-1 mb-4">
-      <%= inline_svg 'icons/angle-left.svg' %> Back
+    <a href="#" onclick="back('/')" class="flex items-center mb-4">
+      <%= inline_svg 'icons/chevron-left.svg' %> Back
     </a>
     <% unless config.hide_sharing %>
-      <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-10 top-32' } %>
+      <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-5 md:right-32 top-32' } %>
     <% end %>
   </div>
 

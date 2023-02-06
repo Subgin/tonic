@@ -22,20 +22,20 @@ export default class AppCtrl {
   }
 
   toggleSorting() {
-    toggleClass('.sorting-options', 'hidden')
+    toggleClass('#sorting-options', 'hidden')
 
-    if (!hasClass('.sorting-options', 'hidden')) addClass('.sharing-options', 'hidden')
+    if (!hasClass('#sorting-options', 'hidden')) addClass('#sharing-options', 'hidden')
   }
 
   toggleSharing() {
-    toggleClass('.sharing-options', 'hidden')
+    toggleClass('#sharing-options', 'hidden')
 
-    if (!hasClass('.sharing-options', 'hidden')) {
-      addClass('.sorting-options', 'hidden')
+    if (!hasClass('#sharing-options', 'hidden')) {
+      addClass('#sorting-options', 'hidden')
 
       // Prepare data-* attributes for share & copy actions
       attr('#share_url', 'value', currentUrl())
-      findAll('.sharing-buttons a').forEach(el => {
+      findAll('#sharing-buttons a').forEach(el => {
         data(el, { title: find('title').innerText, url: currentUrl() })
       })
     }
@@ -85,7 +85,7 @@ export default class AppCtrl {
     addClass('article', 'hidden')
 
     // Hide sharing menu
-    addClass('.sharing-options', 'hidden')
+    addClass('#sharing-options', 'hidden')
 
     // Display reset link
     removeClass('#reset', 'hidden')
@@ -198,7 +198,7 @@ export default class AppCtrl {
     })
 
     // Highlight current sorting
-    findAll('.sorting-options a').forEach(option => {
+    findAll('#sorting-options a').forEach(option => {
       if (option.innerText.toLowerCase() == sorting)
         addClass(option, 'active')
       else

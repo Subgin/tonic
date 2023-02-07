@@ -1,4 +1,4 @@
-<a id="share" href="#" onclick="toggleSharing()" class="ml-4">
+<a id="share" href="#" onclick="toggleSharing()" class="ml-3">
   <%= inline_svg 'icons/share.svg' %> Share
 </a>
 <div id="sharing-options" class="dropdown hidden <%= extra_classes %>">
@@ -6,7 +6,7 @@
     <p>Share the current search</p>
     <div id="sharing-buttons" class="mb-4">
       <% sharing_platforms.each do |platform| %>
-        <a data-sharer="<%= platform %>" href="#">
+        <a data-sharer="<%= platform %>" href="#" title="<%= platform.titleize %>">
           <%= inline_svg "icons/sharing/#{platform}.svg" %>
         </a>
       <% end %>

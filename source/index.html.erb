@@ -29,7 +29,7 @@ title: Home
         </a>
 
         <% unless config.hide_sharing %>
-          <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-5 md:right-20' } %>
+          <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-0 md:right-20' } %>
         <% end %>
 
         <% unless config.hide_sorting %>
@@ -38,7 +38,7 @@ title: Home
       </div>
     </div>
 
-    <div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 collection-container">
+    <div id="collection-container" class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <% tonic_collection.each do |item| %>
         <%= partial 'templates/collection/item_card', locals: { item: item } %>
       <% end %>

@@ -90,11 +90,13 @@ export default class AppCtrl {
     // Display reset link
     removeClass('#reset', 'hidden')
 
+    // Update URL parameters
+    setParam(el.name, el.value)
+
+    // Specific handling for tags
     if (type == 'tags') {
       toggleClass(el, 'active')
       setParam(el.name, activeTags())
-    } else {
-      setParam(el.name, el.value)
     }
 
     window.collection.forEach(item => {
@@ -185,7 +187,7 @@ export default class AppCtrl {
 
   sortBy(sorting, interactive = true) {
     const [attribute, direction] = sorting.split(' ')
-    const container = find('.collection-container')
+    const container = find('#collection-container')
     const items = []
 
     this.activeItems().forEach(itemDom => {

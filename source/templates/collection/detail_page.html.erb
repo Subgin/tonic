@@ -40,9 +40,9 @@ layout: layout
             <%= value ? "Yes" : "No" %>
           <% elsif value.is_a?(String) && is_url?(value) %>
             <% if is_video?(value) %>
-              <div class="mt-2 max-w-2xl"><%= video_embed(value) %></div>
+              <div class="mt-2 max-w-2xl"><%= render_video(value) %></div>
             <% elsif is_audio?(value) %>
-              <div class="mt-2"><%= audio_element(value) %></div>
+              <div class="mt-2"><%= render_audio(value) %></div>
             <% else %>
               <%= link_to value, value, target: "_blank" %>
             <% end %>

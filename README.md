@@ -129,6 +129,7 @@ Some names help Tonic to automatically render your items (and its related filter
 More ✨ rules:
 
 - Automatic 🎬 video embeds from urls (YouTube, Vimeo and more).
+- Audio ⏯️ player for audio files.
 - If the attribute name ends with `_at` (`published_at`, `updated_at`, ...), it's automatically parsed as 📅 date.
 - The `detail_page_link` attribute makes the detail page to 🏃 jump to an external page, [see more](#detail-pages).
 

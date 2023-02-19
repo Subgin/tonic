@@ -1105,10 +1105,10 @@ quick-lru@^5.1.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
-ralix@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/ralix/-/ralix-1.3.0.tgz#fe2c8576006480882f8cb387cb4a40a8f35917c0"
-  integrity sha512-G+tGqjV7ybBJhh8Jb2CRT2LoINj20DqJLjtowIw5nj6BtX3cNkBJD/A3lucmFdP006KZirtrkrYiHg139rfhig==
+ralix@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/ralix/-/ralix-1.4.0.tgz#b38c9c23a1fd6d4bcd4d54e1f19d7a09cbb8e426"
+  integrity sha512-2wCHeDxgvD9S06qRnxJah6b3y4BbHShmzJ0y6/+GhE0kerg54bF/hQglgPxyjpT1o/2slXwBdPeYc4Pjs/SxaA==
 
 randombytes@^2.1.0:
   version "2.1.0"

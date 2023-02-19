@@ -32,6 +32,16 @@ module Tonic
       end.join(" | ")
     end
 
+    def render_video(video_url)
+      embed_url = VideoInfo.new(video_url).embed_url
+
+      "<iframe class='w-full aspect-video' src='#{embed_url}' allowfullscreen></iframe>"
+    end
+
+    def render_audio(audio_url)
+      "<audio controls src='#{audio_url}'></audio>"
+    end
+
     def is_bool?(value)
       value.is_a?(TrueClass) || value.is_a?(FalseClass)
     end
@@ -58,10 +68,8 @@ module Tonic
       string.match?(/youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com/)
     end
 
-    def video_embed_url(video_url)
-      return if !is_video?(video_url)
-
-      VideoInfo.new(video_url).embed_url
+    def is_audio?(string)
+      string.match?(/\.(mp3|ogg|wav)$/)
     end
   end
 end

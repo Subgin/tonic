@@ -31,7 +31,7 @@ layout: layout
   <div class="my-6">
     <% rest_of_attrs(item).each do |attribute| %>
       <% value = item[attribute] %>
-      <p>
+      <div class="my-3">
         <b><%= attribute.titleize %></b>
         <span class="text-gray-500">
           <% if value.is_a?(Array) %>
@@ -39,10 +39,10 @@ layout: layout
           <% elsif is_bool?(value) %>
             <%= value ? "Yes" : "No" %>
           <% elsif value.is_a?(String) && is_url?(value) %>
-            <% if embed_url = video_embed_url(value) %>
-              <div class="max-w-2xl">
-                <iframe class="w-full aspect-video" src="<%= embed_url %>" frameborder="0" allowfullscreen></iframe>
-              </div>
+            <% if is_video?(value) %>
+              <div class="mt-2 max-w-2xl"><%= render_video(value) %></div>
+            <% elsif is_audio?(value) %>
+              <div class="mt-2"><%= render_audio(value) %></div>
             <% else %>
               <%= link_to value, value, target: "_blank" %>
             <% end %>
@@ -54,7 +54,7 @@ layout: layout
             <%= value %>
           <% end %>
         </span>
-      </p>
+      </div>
     <% end %>
   </div>
 </div>

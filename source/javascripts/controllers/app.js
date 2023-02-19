@@ -200,11 +200,9 @@ export default class AppCtrl {
     })
 
     // Highlight current sorting
-    findAll('#sorting-options a').forEach(option => {
-      if (option.innerText.toLowerCase() == sorting)
-        addClass(option, 'active')
-      else
-        removeClass(option, 'active')
+    findAll('#sorting-options a').forEach(link => {
+      const isActive = data(link, 'sortBy') == sorting
+      toggleClass(link, 'active', isActive)
     })
 
     if (interactive) toggleSorting()

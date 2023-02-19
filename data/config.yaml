@@ -20,3 +20,4 @@ sorting:
 filters:
   exclude:
     - video
+    - audio

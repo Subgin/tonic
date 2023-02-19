@@ -49,7 +49,7 @@ module Tonic
     def sort_link(option)
       attribute, direction = option.split(" ")
 
-      link_to "#{attribute.humanize} #{direction.upcase}", "#", onclick: "sortBy('#{option}')"
+      link_to "#{attribute.humanize} #{direction.upcase}", "#", onclick: "sortBy('#{option}')", data: { sort_by: option }
     end
 
     def sharing_platforms

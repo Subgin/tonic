@@ -12,7 +12,7 @@ export default class AppCtrl {
       this.defaultFilters()
 
       // Apply default sorting
-      const defaultOrder = window.config.sorting.default_order
+      const defaultOrder = getParam('sorting') || window.config.sorting.default_order
       this.sortBy(defaultOrder, false)
     })
   }
@@ -43,11 +43,11 @@ export default class AppCtrl {
 
   defaultFilters() {
     Object.entries(getParam()).forEach(([key, value]) => {
-      if (!value) return
+      if (!value || key == 'sorting') return
 
       const el = find(`#${key}`) || find(`#${key}_${value}`)
 
-      switch(el.type) {
+      switch(el?.type) {
         case 'number':
         case 'text':
           el.value = value
@@ -205,7 +205,10 @@ export default class AppCtrl {
       toggleClass(link, 'active', isActive)
     })
 
-    if (interactive) toggleSorting()
+    if (interactive) {
+      setParam('sorting', sorting)
+      toggleSorting()
+    }
   }
 
   showItem(item) {

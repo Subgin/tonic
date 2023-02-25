@@ -6,7 +6,7 @@ require_relative "tonic/helpers"
 require_relative "tonic/filters"
 
 module Tonic
-  VERSION = "0.15.0"
+  VERSION = "0.16.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id detail_page_link)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)
@@ -25,7 +25,7 @@ module Tonic
       File.write("data/collection.yaml", remote_collection) if remote_collection
     end
 
-    # Create a detail pages for each item if enabled
+    # Create a detail page for each item if enabled
     if raw_config.fetch("detail_pages", true)
       context.data.collection.each do |item|
         context.proxy "/#{Tonic::Utils.slugify(item.name)}.html", "/templates/collection/detail_page.html", locals: { item: item }

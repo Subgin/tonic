@@ -85,6 +85,8 @@ GEM
       rack-livereload (~> 0.3.15)
     minitest (5.17.0)
     net_http_timeout_errors (0.3.5)
+    nokogiri (1.14.1-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.14.1-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.14.1-x86_64-linux)
@@ -130,6 +132,7 @@ GEM
     webrick (1.8.1)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-darwin-17
   x86_64-linux
 

@@ -13,7 +13,7 @@ configure :development do
 end
 
 configure :build do
-  ignore File.join(config[:js_dir], "*") # handled by Webpack
+  ignore File.join(config[:js_dir], "*") # handled by External Pipeline
   activate :asset_hash
   activate :minify_css
   activate :relative_assets

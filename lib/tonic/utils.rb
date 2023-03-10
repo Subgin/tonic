@@ -65,7 +65,7 @@ module Tonic
     end
 
     def is_video?(string)
-      string.match?(/youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com/)
+      VideoInfo.valid_url?(string)
     end
 
     def is_audio?(string)

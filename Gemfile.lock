@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/thibaudgg/video_info.git
+  revision: 49e5b7ccc38ac23e69b2a52ab332a43fb7018651
+  branch: master
+  specs:
+    video_info (3.1.0)
+      iso8601 (~> 0.13.0)
+      net_http_timeout_errors (~> 1.0.0)
+      oga (~> 3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -36,7 +46,7 @@ GEM
     http_parser.rb (0.8.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    iso8601 (0.9.1)
+    iso8601 (0.13.0)
     kramdown (2.4.0)
       rexml
     listen (3.8.0)
@@ -84,7 +94,7 @@ GEM
       middleman-core (>= 3.3)
       rack-livereload (~> 0.3.15)
     minitest (5.17.0)
-    net_http_timeout_errors (0.3.5)
+    net_http_timeout_errors (1.0.0)
     nokogiri (1.14.1-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.14.1-x86_64-darwin)
@@ -125,10 +135,6 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    video_info (3.1.0)
-      iso8601 (~> 0.9.1)
-      net_http_timeout_errors (~> 0.3.0)
-      oga (~> 3.0)
     webrick (1.8.1)
 
 PLATFORMS
@@ -140,7 +146,7 @@ DEPENDENCIES
   middleman (~> 4.4)
   middleman-inline_svg (~> 0.1)
   middleman-livereload (~> 3.4)
-  video_info (~> 3.1)
+  video_info!
 
 BUNDLED WITH
    2.2.33

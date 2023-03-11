@@ -21,14 +21,26 @@ module Tonic
       value = tonic_collection[0][attribute]
 
       if !type
-        type = "numeric_range" if value.is_a?(Numeric)
         type = "tags" if value.is_a?(Array)
         type = "boolean" if is_bool?(value)
         type = "text" if is_hash?(value)
+        type = smart_numeric_filter(attribute, value) if value.is_a?(Numeric)
         type = smart_text_filter(attribute, value) if value.is_a?(String)
       end
 
       send("#{type}_filter", attribute)
+    end
+
+    def smart_numeric_filter(attribute, value)
+      uniq_values = fetch_values(attribute).size
+
+      if uniq_values <= 5
+        "radio_buttons"
+      elsif uniq_values <= 15
+        "numeric_select_range"
+      else
+        "numeric_range"
+      end
     end
 
     def smart_text_filter(attribute, value)
@@ -38,7 +50,7 @@ module Tonic
         "date_range"
       elsif single_word?(value) && !is_url?(value) && !is_email?(value)
         uniq_values = fetch_values(attribute).size
-        uniq_values >= 5 ? "select" : "radio_buttons"
+        uniq_values <= 5 ? "radio_buttons" : "select"
       else
         "text"
       end
@@ -54,16 +66,22 @@ module Tonic
 
     def numeric_range_filter(attribute)
       range = fetch_values(attribute)
-      min = range.min
-      max = range.max
+      min, max = range.minmax
 
       partial("templates/filters/numeric_range", locals: { attribute: attribute, min: min, max: max })
     end
 
+    def numeric_select_range_filter(attribute)
+      options = fetch_values(attribute)
+      min, max = options.minmax
+      options = ["All"] + options.sort
+
+      partial("templates/filters/numeric_select_range", locals: { attribute: attribute, options: options, min: min, max: max })
+    end
+
     def date_range_filter(attribute)
       range = fetch_values(attribute)
-      min = range.min
-      max = range.max
+      min, max = range.minmax
 
       partial("templates/filters/date_range", locals: { attribute: attribute, min: min, max: max })
     end

@@ -3,6 +3,6 @@
 <% options.each do |option| %>
   <div class="block mb-1">
     <%= radio_button_tag(:type, id: "#{attribute}_#{option}", name: attribute, value: option, onchange: "filterBy('radio_buttons')") %>
-    <span><%= option.titleize %></span>
+    <span><%= option.to_s.titleize %></span>
   </div>
 <% end %>

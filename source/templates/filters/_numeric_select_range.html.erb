@@ -1,0 +1,7 @@
+<%= label(attribute) %>
+
+<span>From (<%= min %>)</span>
+<%= select_tag(attribute, id: "#{attribute}_min", name: "#{attribute}_min", options: options, onchange: "filterBy('numeric_range')") %>
+
+<span>To (<%= max %>)</span>
+<%= select_tag(attribute, id: "#{attribute}_max", name: "#{attribute}_max", options: options, onchange: "filterBy('numeric_range')") %>

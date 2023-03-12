@@ -230,6 +230,7 @@ Available options:
   - `select`
   - `radio_buttons`
   - `numeric_range`
+  - `numeric_select_range`
   - `date_range`
   - `tags`
   - `boolean`
@@ -246,7 +247,7 @@ For example, if you want to customize the auto-generated HTML for your items, yo
 
 **NOTE** In both templates you can use the `item` object to access any attribute: `item.name`, `item.description`, etc.
 
-You can also add more pages to your Tonic site by just adding HTML templates (`*.html.erb`) under the `source/*` directory. After all, Tonic uses [Middleman](https://middlemanapp.com) under the hood, so you can also use Markdown and many other template engines.
+You can also add more pages to your Tonic site by just adding HTML templates (`*.html.erb`) under the `source/*` directory. After all, Tonic uses [Middleman](https://middlemanapp.com) under the hood, so you can even use Markdown and/or many other template engines.
 
 ## License
 

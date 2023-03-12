@@ -24,14 +24,14 @@ module Tonic
         type = "tags" if value.is_a?(Array)
         type = "boolean" if is_bool?(value)
         type = "text" if is_hash?(value)
-        type = smart_numeric_filter(attribute, value) if value.is_a?(Numeric)
+        type = smart_numeric_filter(attribute) if value.is_a?(Numeric)
         type = smart_text_filter(attribute, value) if value.is_a?(String)
       end
 
       send("#{type}_filter", attribute)
     end
 
-    def smart_numeric_filter(attribute, value)
+    def smart_numeric_filter(attribute)
       uniq_values = fetch_values(attribute).size
 
       if uniq_values <= 5

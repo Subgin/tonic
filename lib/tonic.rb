@@ -6,7 +6,7 @@ require_relative "tonic/helpers"
 require_relative "tonic/filters"
 
 module Tonic
-  VERSION = "0.17.1"
+  VERSION = "0.18.0"
   REPO = "https://github.com/Subgin/tonic"
   MAGIC_ATTRS = %w(name description images category tags id dom_id detail_page_link)
   SKIP_FOR_FILTERS = MAGIC_ATTRS - %w(category tags)

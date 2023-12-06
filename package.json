@@ -2,22 +2,18 @@
   "name": "tonic",
   "private": true,
   "scripts": {
-    "start": "webpack --mode=development --watch --color",
-    "build": "webpack --mode=production"
+    "dev": "yarn dev:js & yarn dev:css",
+    "build": "yarn build:js & yarn build:css",
+    "dev:js": "esbuild ./source/javascripts/application.js --bundle --watch=forever --outdir=dist",
+    "build:js": "esbuild ./source/javascripts/application.js --bundle --minify --outdir=dist",
+    "dev:css": "tailwindcss -i ./source/stylesheets/application.css -o ./dist/application.css --watch",
+    "build:css": "tailwindcss -i ./source/stylesheets/application.css -o ./dist/application.css --minify"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "esbuild": "^0.19.8",
     "ralix": "^1.4.0",
-    "sharer.js": "^0.5.1"
-  },
-  "devDependencies": {
-    "@tailwindcss/forms": "^0.5.3",
-    "autoprefixer": "^10.4.13",
-    "css-loader": "^6.5.1",
-    "postcss": "^8.4.31",
-    "postcss-loader": "^6.2.1",
-    "style-loader": "^3.3.1",
-    "tailwindcss": "^3.3.0",
-    "webpack": "^5.67.0",
-    "webpack-cli": "^4.9.2"
+    "sharer.js": "^0.5.1",
+    "tailwindcss": "^3.3.6"
   }
 }

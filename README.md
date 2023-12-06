@@ -32,7 +32,7 @@ Clone/fork this repository (or use the GitHub *template* button), then `cd` into
 Start the development server by:
 
 ```
-> bin/start
+> bin/dev
 ```
 
 Or compile the site (into the `build/` folder) by:

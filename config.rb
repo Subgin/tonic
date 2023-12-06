@@ -3,8 +3,8 @@ require "lib/tonic"
 activate :directory_indexes
 activate :inline_svg
 activate :external_pipeline,
-         name: :webpack,
-         command: build? ? "yarn run build" : "yarn run start",
+         name: :esbuild,
+         command: build? ? "yarn build" : "yarn dev",
          source: "dist",
          latency: 1
 
@@ -15,7 +15,6 @@ end
 configure :build do
   ignore File.join(config[:js_dir], "*") # handled by External Pipeline
   activate :asset_hash
-  activate :minify_css
   activate :relative_assets
 end
 

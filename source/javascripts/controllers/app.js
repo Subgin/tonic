@@ -4,8 +4,9 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
-    // Initialize dynamic header height positioning after DOM is ready
-    this.initDynamicPositioning()
+    // Initialize dynamic header height positioning
+    this.updateHeaderHeightPositioning()
+    on(window, 'resize', () => { this.updateHeaderHeightPositioning() })
 
     setTimeout(() => {
       // Apply filtering by params
@@ -17,42 +18,19 @@ export default class AppCtrl {
     })
   }
 
-  initDynamicPositioning() {
-    // Wait for DOM to be ready, then set up positioning
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.updateHeaderHeightPositioning()
-      })
-    } else {
-      this.updateHeaderHeightPositioning()
-    }
-    
-    // Update positioning on window resize
-    window.addEventListener('resize', () => {
-      this.updateHeaderHeightPositioning()
-    })
-  }
-
   updateHeaderHeightPositioning() {
-    const header = document.getElementById('header')
-    const sidebar = document.getElementById('sidebar')
-    const mainContent = document.getElementById('main-content')
-    
-    if (!header) return
-    
     // Get the actual header height
-    const headerHeight = header.offsetHeight
+    const headerHeight = find('#header').offsetHeight
     
     // Update sidebar positioning
-    if (sidebar) {
-      sidebar.style.top = `${headerHeight}px`
-      sidebar.style.height = `calc(100vh - ${headerHeight}px)`
-    }
+    attr('#sidebar', {
+      style: `top: ${headerHeight}px; height: calc(100vh - ${headerHeight}px)`
+    })
     
     // Update main content positioning
-    if (mainContent) {
-      mainContent.style.marginTop = `${headerHeight}px`
-    }
+    attr('#main-content', {
+      style: `margin-top: ${headerHeight}px`
+    })
   }
 
   toggleSidebar() {

@@ -19,7 +19,9 @@
   </head>
   <body>
     <%= partial 'templates/components/header' %>
-    <%= yield %>
+    <div id="main-content">
+      <%= yield %>
+    </div>
     <%= partial 'templates/components/footer' %>
 
     <%= javascript_include_tag "application" %>

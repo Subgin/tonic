@@ -19,6 +19,7 @@ export default class AppCtrl {
 
   toggleSidebar() {
     toggleClass('#sidebar', 'hidden')
+    toggleClass('#sidebar-overlay', 'hidden')
   }
 
   toggleSorting() {

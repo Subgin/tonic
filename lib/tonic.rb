@@ -20,15 +20,15 @@ module Tonic
     # Inject helpers
     context.helpers Tonic::Utils, Tonic::Helpers, Tonic::Filters
 
-    # Check for CSV collection and convert to YAML if needed
-    if File.exist?("data/collection.csv") && !File.exist?("data/collection.yaml") && !File.exist?("data/collection.json")
-      convert_csv_to_yaml
-    end
-
     # Fetch remote collection if any
     if collection_url = raw_config["remote_collection"]
       remote_collection = URI.open(collection_url).read rescue nil
       File.write("data/collection.yaml", remote_collection) if remote_collection
+    end
+
+    # Check for CSV collection and convert to YAML
+    if File.exist?("data/collection.csv")
+      convert_csv_to_yaml
     end
 
     # Create a detail page for each item if enabled
@@ -56,7 +56,7 @@ module Tonic
           if key == "tags" || key == "images"
             item[key] = value.split(",").map(&:strip)
           # Handle numeric fields - be more flexible with numeric detection
-          elsif key == "price" || key == "downloads" || value.match?(/^\d+(\.\d+)?$/)
+          elsif value.match?(/^\d+(\.\d+)?$/)
             item[key] = value.include?(".") ? value.to_f : value.to_i
           # Handle boolean fields
           elsif value.downcase == "true" || value.downcase == "false"

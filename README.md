@@ -2,7 +2,7 @@
 
 > 🍸 Digital Collections Framework
 
-Transform your collection into a beautiful website ✨
+Transform your collection into a beautiful and responsive website ✨
 
 Tonic parses your collection, defined in a `YAML`, `JSON`, or `CSV` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
 
@@ -100,7 +100,7 @@ Item 1,Ad aut libero. Adipisci asperiores repudiandae.,Transportation,"tag1,tag2
 Item 2,Incidunt cupiditate rerum. Enim quo pariatur.,Accounting,tag2,149.9,100,2022-09-01
 ```
 
-**Note:** For CSV files, array fields like `tags` and `images` should be comma-separated within the cell (e.g., `"tag1,tag2"`). Numeric fields are automatically detected and converted to appropriate types.
+**NOTE:** For CSV files, array fields like `tags` and `images` should be comma-separated within the cell (e.g., `"tag1,tag2"`). Numeric fields are automatically detected and converted to appropriate types.
 
 #### Remote Collection
 

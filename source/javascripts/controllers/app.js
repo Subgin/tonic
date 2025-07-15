@@ -4,6 +4,9 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
+    // Initialize dynamic header height positioning after DOM is ready
+    this.initDynamicPositioning()
+
     setTimeout(() => {
       // Apply filtering by params
       this.defaultFilters()
@@ -12,6 +15,44 @@ export default class AppCtrl {
       const defaultOrder = getParam('sorting') || window.config.sorting.default_order
       this.sortBy(defaultOrder, false)
     })
+  }
+
+  initDynamicPositioning() {
+    // Wait for DOM to be ready, then set up positioning
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        this.updateHeaderHeightPositioning()
+      })
+    } else {
+      this.updateHeaderHeightPositioning()
+    }
+    
+    // Update positioning on window resize
+    window.addEventListener('resize', () => {
+      this.updateHeaderHeightPositioning()
+    })
+  }
+
+  updateHeaderHeightPositioning() {
+    const header = document.getElementById('header')
+    const sidebar = document.getElementById('sidebar')
+    const mainContent = document.getElementById('main-content')
+    
+    if (!header) return
+    
+    // Get the actual header height
+    const headerHeight = header.offsetHeight
+    
+    // Update sidebar positioning
+    if (sidebar) {
+      sidebar.style.top = `${headerHeight}px`
+      sidebar.style.height = `calc(100vh - ${headerHeight}px)`
+    }
+    
+    // Update main content positioning
+    if (mainContent) {
+      mainContent.style.marginTop = `${headerHeight}px`
+    }
   }
 
   toggleSidebar() {

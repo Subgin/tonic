@@ -1,5 +1,6 @@
 require "yaml"
 require "open-uri"
+require "csv"
 
 require_relative "tonic/utils"
 require_relative "tonic/helpers"
@@ -19,6 +20,11 @@ module Tonic
     # Inject helpers
     context.helpers Tonic::Utils, Tonic::Helpers, Tonic::Filters
 
+    # Check for CSV collection and convert to YAML if needed
+    if File.exist?("data/collection.csv") && !File.exist?("data/collection.yaml") && !File.exist?("data/collection.json")
+      convert_csv_to_yaml
+    end
+
     # Fetch remote collection if any
     if collection_url = raw_config["remote_collection"]
       remote_collection = URI.open(collection_url).read rescue nil
@@ -37,6 +43,32 @@ module Tonic
   end
 
   private
+
+  def self.convert_csv_to_yaml
+    csv_data = CSV.read("data/collection.csv", headers: true)
+    collection = csv_data.map do |row|
+      item = {}
+      row.each do |key, value|
+        next if value.nil? || value.strip.empty?
+        
+        # Handle special fields that should be arrays
+        if key == "tags" || key == "images"
+          item[key] = value.split(",").map(&:strip)
+        # Handle numeric fields
+        elsif key == "price" || key == "downloads"
+          item[key] = value.include?(".") ? value.to_f : value.to_i
+        # Handle boolean fields
+        elsif value.downcase == "true" || value.downcase == "false"
+          item[key] = value.downcase == "true"
+        else
+          item[key] = value
+        end
+      end
+      item
+    end
+    
+    File.write("data/collection.yaml", collection.to_yaml)
+  end
 
   def self.raw_config
     @raw_config ||= YAML.load_file("data/config.yaml")

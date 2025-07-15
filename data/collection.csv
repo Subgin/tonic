@@ -1,0 +1,4 @@
+name,description,category,tags,price,downloads,published_at,premium,images,video,audio,website,status
+Heavy Duty Leather Pants,Great quality leather pants,Transportation,"musician,lifeguard",9.9,2000,2022-02-22,false,"https://picsum.photos/600,https://picsum.photos/601",https://www.youtube.com/watch?v=ZaBXpWaA20g,https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3,https://example.com,Beta
+Intelligent Granite Hat,Stylish granite hat,Fashion,"fashion,style",19.9,500,2022-03-15,true,"https://picsum.photos/602,https://picsum.photos/603",,,https://fashion.com,Released
+Fantastic Wooden Keyboard,Ergonomic wooden keyboard,Electronics,"office,ergonomic",129.99,1200,2022-01-10,false,"https://picsum.photos/604",,,https://keyboards.com,Released

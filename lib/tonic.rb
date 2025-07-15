@@ -70,11 +70,9 @@ module Tonic
       
       File.write("data/collection.yaml", collection.to_yaml)
     rescue CSV::Error => e
-      puts "[Tonic] Error parsing CSV file: #{e.message}"
-      raise
+      raise "[Tonic] Error parsing CSV file: #{e.message}"
     rescue StandardError => e
-      puts "[Tonic] Error converting CSV to YAML: #{e.message}"
-      raise
+      raise "[Tonic] Error converting CSV to YAML: #{e.message}"
     end
   end
 

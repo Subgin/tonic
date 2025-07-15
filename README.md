@@ -11,7 +11,7 @@ Tonic parses your collection, defined in a `YAML`, `JSON`, or `CSV` file, and au
 🌐 [**Live demo**](https://tonic-demo.netlify.app)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/576701/214444572-a7fea741-30dc-4fe9-93e7-e1a57b00b52e.png">
+  <img src="https://github.com/user-attachments/assets/e1acccf2-e086-4eb8-88f1-b4b5c30bb509">
 </p>
 
 ## Install

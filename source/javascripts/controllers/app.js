@@ -4,9 +4,6 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
-    // Open Sidebar by default on bigger screens
-    if (window.innerWidth > 900) this.toggleSidebar()
-
     setTimeout(() => {
       // Apply filtering by params
       this.defaultFilters()

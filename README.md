@@ -4,7 +4,7 @@
 
 Transform your collection into a beautiful website ✨
 
-Tonic parses your collection, defined in a `YAML` or `JSON` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
+Tonic parses your collection, defined in a `YAML`, `JSON`, or `CSV` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
 
 *Built with: [Middleman](https://middlemanapp.com), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
@@ -43,7 +43,7 @@ Or compile the site (into the `build/` folder) by:
 
 ### Collection
 
-Define your collection in the `data/collection.yaml` file. Example:
+Define your collection in the `data/collection.yaml` file (or `data/collection.json` or `data/collection.csv`). Example:
 
 ```yaml
 - name: Item 1
@@ -91,6 +91,16 @@ You can also use a `JSON` file (`data/collection.json`), as the following exampl
   }
 ]
 ```
+
+Or a `CSV` file (`data/collection.csv`), as the following example:
+
+```csv
+name,description,category,tags,price,downloads,published_at
+Item 1,Ad aut libero. Adipisci asperiores repudiandae.,Transportation,"tag1,tag2",99.9,400,2021-06-10
+Item 2,Incidunt cupiditate rerum. Enim quo pariatur.,Accounting,tag2,149.9,100,2022-09-01
+```
+
+**Note:** For CSV files, array fields like `tags` and `images` should be comma-separated within the cell (e.g., `"tag1,tag2"`). Numeric fields are automatically detected and converted to appropriate types.
 
 #### Remote Collection
 

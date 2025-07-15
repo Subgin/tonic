@@ -45,29 +45,37 @@ module Tonic
   private
 
   def self.convert_csv_to_yaml
-    csv_data = CSV.read("data/collection.csv", headers: true)
-    collection = csv_data.map do |row|
-      item = {}
-      row.each do |key, value|
-        next if value.nil? || value.strip.empty?
-        
-        # Handle special fields that should be arrays
-        if key == "tags" || key == "images"
-          item[key] = value.split(",").map(&:strip)
-        # Handle numeric fields
-        elsif key == "price" || key == "downloads"
-          item[key] = value.include?(".") ? value.to_f : value.to_i
-        # Handle boolean fields
-        elsif value.downcase == "true" || value.downcase == "false"
-          item[key] = value.downcase == "true"
-        else
-          item[key] = value
+    begin
+      csv_data = CSV.read("data/collection.csv", headers: true)
+      collection = csv_data.map do |row|
+        item = {}
+        row.each do |key, value|
+          next if value.nil? || value.strip.empty?
+          
+          # Handle special fields that should be arrays
+          if key == "tags" || key == "images"
+            item[key] = value.split(",").map(&:strip)
+          # Handle numeric fields - be more flexible with numeric detection
+          elsif key == "price" || key == "downloads" || value.match?(/^\d+(\.\d+)?$/)
+            item[key] = value.include?(".") ? value.to_f : value.to_i
+          # Handle boolean fields
+          elsif value.downcase == "true" || value.downcase == "false"
+            item[key] = value.downcase == "true"
+          else
+            item[key] = value
+          end
         end
+        item
       end
-      item
+      
+      File.write("data/collection.yaml", collection.to_yaml)
+    rescue CSV::Error => e
+      puts "[Tonic] Error parsing CSV file: #{e.message}"
+      raise
+    rescue StandardError => e
+      puts "[Tonic] Error converting CSV to YAML: #{e.message}"
+      raise
     end
-    
-    File.write("data/collection.yaml", collection.to_yaml)
   end
 
   def self.raw_config

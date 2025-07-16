@@ -4,8 +4,9 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
-    // Open Sidebar by default on bigger screens
-    if (window.innerWidth > 900) this.toggleSidebar()
+    // Initialize dynamic header height positioning
+    this.updateHeaderHeightPositioning()
+    on(window, 'resize', () => { this.updateHeaderHeightPositioning() })
 
     setTimeout(() => {
       // Apply filtering by params
@@ -17,8 +18,20 @@ export default class AppCtrl {
     })
   }
 
+  updateHeaderHeightPositioning() {
+    // Get the actual header height
+    const headerHeight = find('#header').offsetHeight
+    
+    // Update sidebar positioning
+    attr('#sidebar', { style: `top: ${headerHeight}px; height: calc(100vh - ${headerHeight}px)` })
+    
+    // Update main content positioning
+    attr('#main-content', { style: `margin-top: ${headerHeight}px` })
+  }
+
   toggleSidebar() {
     toggleClass('#sidebar', 'hidden')
+    toggleClass('#sidebar-overlay', 'hidden')
   }
 
   toggleSorting() {

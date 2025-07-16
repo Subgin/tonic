@@ -54,6 +54,7 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Header */
 #header {
+  @apply fixed top-0 left-0 right-0 z-50 shadow-lg;
   background-color: var(--main-color);
 }
 
@@ -73,8 +74,28 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Sidebar */
 #sidebar {
-  @apply text-gray-500 bg-gray-800 pb-24 w-full w-64;
+  @apply text-gray-500 bg-gray-800 pb-24 w-64 fixed left-0 z-40 transform transition-transform duration-300 ease-in-out overflow-y-auto;
   min-width: 280px;
+}
+
+#sidebar.hidden {
+  @apply -translate-x-full;
+}
+
+#sidebar:not(.hidden) {
+  @apply translate-x-0;
+}
+
+#sidebar-overlay {
+  @apply fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-30 transition-opacity duration-300 ease-in-out;
+}
+
+#sidebar-overlay.hidden {
+  @apply opacity-0 pointer-events-none;
+}
+
+#sidebar-overlay:not(.hidden) {
+  @apply opacity-100;
 }
 
 /* Cards */

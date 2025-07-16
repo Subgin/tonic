@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 /* Base */
 body {
@@ -39,11 +37,11 @@ label {
 }
 
 input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
-  @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400/50;
 }
 
 input[type="radio"], input[type="checkbox"] {
-  @apply mx-1 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  @apply mx-1 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400/50;
   color: var(--main-color);
 }
 
@@ -87,7 +85,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 #sidebar-overlay {
-  @apply fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-30 transition-opacity duration-300 ease-in-out;
+  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-30 transition-opacity duration-300 ease-in-out;
 }
 
 #sidebar-overlay.hidden {

@@ -54,7 +54,7 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Header */
 #header {
-  @apply fixed top-0 left-0 right-0 z-50;
+  @apply fixed top-0 left-0 right-0 z-50 shadow-lg;
   background-color: var(--main-color);
 }
 

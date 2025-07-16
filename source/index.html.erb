@@ -4,44 +4,42 @@ title: Home
 
 <%= partial "templates/components/sidebar" unless config.hide_filters %>
 
-<div class="min-h-screen">
-  <div class="p-6 mb-24 w-full">
-    <div class="mb-4">
-      <h1><%= config.title %></h1>
-      <%= config.description %>
+<div class="p-6 mb-24 w-full">
+  <div class="mb-4">
+    <h1><%= config.title %></h1>
+    <%= config.description %>
+  </div>
+
+  <div class="relative">
+    <div class="flex absolute inset-y-0 left-0 items-center pl-3">
+      <%= inline_svg 'icons/search.svg' %>
+    </div>
+    <input type="text" id="global" name="global" placeholder="Search ..." class="p-3 pl-10 text-sm" onkeyup="filterBy('global_text')">
+  </div>
+
+  <div class="flex justify-between items-center">
+    <div class="text-sm text-gray-600">
+      <span id="counter"><%= tonic_collection.size %></span> items found
     </div>
 
-    <div class="relative">
-      <div class="flex absolute inset-y-0 left-0 items-center pl-3">
-        <%= inline_svg 'icons/search.svg' %>
-      </div>
-      <input type="text" id="global" name="global" placeholder="Search ..." class="p-3 pl-10 text-sm" onkeyup="filterBy('global_text')">
-    </div>
+    <div class="relative inline-block text-left">
+      <a id="reset" href="/" class="hidden">
+        <%= inline_svg 'icons/close.svg' %> Reset
+      </a>
 
-    <div class="flex justify-between items-center">
-      <div class="text-sm text-gray-600">
-        <span id="counter"><%= tonic_collection.size %></span> items found
-      </div>
+      <% unless config.hide_sharing %>
+        <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-0 md:right-20' } %>
+      <% end %>
 
-      <div class="relative inline-block text-left">
-        <a id="reset" href="/" class="hidden">
-          <%= inline_svg 'icons/close.svg' %> Reset
-        </a>
-
-        <% unless config.hide_sharing %>
-          <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-0 md:right-20' } %>
-        <% end %>
-
-        <% unless config.hide_sorting %>
-          <%= partial 'templates/components/sorting' %>
-        <% end %>
-      </div>
-    </div>
-
-    <div id="collection-container" class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <% tonic_collection.each do |item| %>
-        <%= partial 'templates/collection/item_card', locals: { item: item } %>
+      <% unless config.hide_sorting %>
+        <%= partial 'templates/components/sorting' %>
       <% end %>
     </div>
+  </div>
+
+  <div id="collection-container" class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <% tonic_collection.each do |item| %>
+      <%= partial 'templates/collection/item_card', locals: { item: item } %>
+    <% end %>
   </div>
 </div>

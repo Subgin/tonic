@@ -23,14 +23,10 @@ export default class AppCtrl {
     const headerHeight = find('#header').offsetHeight
     
     // Update sidebar positioning
-    attr('#sidebar', {
-      style: `top: ${headerHeight}px; height: calc(100vh - ${headerHeight}px)`
-    })
+    attr('#sidebar', { style: `top: ${headerHeight}px; height: calc(100vh - ${headerHeight}px)` })
     
     // Update main content positioning
-    attr('#main-content', {
-      style: `margin-top: ${headerHeight}px`
-    })
+    attr('#main-content', { style: `margin-top: ${headerHeight}px` })
   }
 
   toggleSidebar() {

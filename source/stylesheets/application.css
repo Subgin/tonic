@@ -41,7 +41,7 @@ label {
 }
 
 input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
-  @apply w-full mt-2 mb-4 block rounded border border-gray-300;
+  @apply w-full mt-2 mb-4 block rounded border border-gray-300 bg-white p-3;
 }
 
 input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):focus, textarea:focus, select:focus {

@@ -28,6 +28,10 @@ a {
   color: var(--main-color);
 }
 
+#header a {
+  color: var(--color-white);
+}
+
 img, svg {
   display: inline-block;
 }
@@ -37,12 +41,20 @@ label {
 }
 
 input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
-  @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400/50;
+  @apply w-full mt-2 mb-4 block rounded border border-gray-300;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):focus, textarea:focus, select:focus {
+  @apply border-gray-800 ring ring-gray-400/50;
 }
 
 input[type="radio"], input[type="checkbox"] {
-  @apply mx-1 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400/50;
+  @apply mx-1 w-5 h-5;
   color: var(--main-color);
+}
+
+input[type="radio"]:focus, input[type="checkbox"]:focus {
+  @apply border-gray-800 ring ring-gray-400/50;
 }
 
 .btn {

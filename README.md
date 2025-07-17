@@ -166,13 +166,13 @@ links:
     url: '/about'
   - text: Contact
     url: '/contact'
-footer_content: Follow us on <a href="#">Twitter</a> and <a href="#">Instagram</a>
+footer_content: Follow us on <a href="#">X</a> and <a href="#">Instagram</a>
 hide_filters: false
 hide_sorting: false
 hide_sharing: false
 sharing_platforms:
   - facebook
-  - twitter
+  - x
   - whatsapp
   - email
 item_card_image: true
@@ -218,7 +218,7 @@ font_family: "Fira Sans" # other examples: Lato, Roboto, Oswald, Montserrat, ...
 
 If you want to customize the available sharing options, you should use the `sharing_platforms` option passing an array.
 
-By default, the supported platforms are: Facebook, Twitter, Linkedin, Pinterest, Whatsapp, Telegram and Email.
+By default, the supported platforms are: Facebook, X, Linkedin, Pinterest, Whatsapp, Telegram and Email.
 
 #### Sorting
 

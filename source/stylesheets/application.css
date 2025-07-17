@@ -1,6 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 /* Base */
 body {
@@ -26,7 +44,7 @@ p {
 }
 
 a {
-  @apply outline-none font-semibold;
+  @apply outline-hidden font-semibold;
   color: var(--main-color);
 }
 
@@ -39,16 +57,16 @@ label {
 }
 
 input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]), textarea, select {
-  @apply w-full mt-2 mb-4 block rounded focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  @apply w-full mt-2 mb-4 block rounded-sm focus:border-gray-800 focus:ring-3 focus:ring-gray-400/50;
 }
 
 input[type="radio"], input[type="checkbox"] {
-  @apply mx-1 w-5 h-5 focus:border-gray-800 focus:ring focus:ring-gray-400 focus:ring-opacity-50;
+  @apply mx-1 w-5 h-5 focus:border-gray-800 focus:ring-3 focus:ring-gray-400/50;
   color: var(--main-color);
 }
 
 .btn {
-  @apply text-white py-3 px-6 rounded;
+  @apply text-white py-3 px-6 rounded-sm;
   background-color: var(--main-color);
 }
 
@@ -64,7 +82,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 #header .nav-link {
-  @apply text-white p-2 inline-block font-medium rounded;
+  @apply text-white p-2 inline-block font-medium rounded-sm;
 }
 
 #header .nav-link:hover {
@@ -87,7 +105,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 #sidebar-overlay {
-  @apply fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-30 transition-opacity duration-300 ease-in-out;
+  @apply fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-30 transition-opacity duration-300 ease-in-out;
 }
 
 #sidebar-overlay.hidden {
@@ -100,7 +118,7 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Cards */
 .card {
-  @apply shadow-md rounded bg-white;
+  @apply shadow-md rounded-sm bg-white;
 }
 
 .card-image {
@@ -133,7 +151,7 @@ button.tag:hover, button.tag.active {
 
 /* Dropdowns */
 .dropdown {
-  @apply absolute z-10 mt-2 w-max rounded bg-white shadow-lg;
+  @apply absolute z-10 mt-2 w-max rounded-sm bg-white shadow-lg;
 }
 
 /* Sorting menu */
@@ -158,7 +176,7 @@ button.tag:hover, button.tag.active {
 }
 
 .image-gallery img {
-  @apply rounded shadow max-h-80;
+  @apply rounded-sm shadow-sm max-h-80;
 }
 
 @media (max-width: 640px) {

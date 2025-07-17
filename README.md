@@ -172,7 +172,6 @@ hide_sorting: false
 hide_sharing: false
 sharing_platforms:
   - facebook
-  - x
   - whatsapp
   - email
 item_card_image: true

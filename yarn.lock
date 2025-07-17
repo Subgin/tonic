@@ -114,7 +114,7 @@
 
 "@esbuild/linux-x64@0.25.6":
   version "0.25.6"
-  resolved "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.25.6.tgz"
+  resolved "https://registry.yarnpkg.com/@esbuild/linux-x64/-/linux-x64-0.25.6.tgz#d8233c09b5ebc0c855712dc5eeb835a3a3341108"
   integrity sha512-A6bJB41b4lKFWRKNrWoP2LHsjVzNiaurf7wyj/XtFNTsnPuxwEBWHLty+ZE0dWBKuSK1fvKgrKaNjBS7qbFKig==
 
 "@esbuild/netbsd-arm64@0.25.6":
@@ -460,7 +460,7 @@ enhanced-resolve@^5.18.1:
 
 esbuild@^0.25.0:
   version "0.25.6"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.25.6.tgz"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.25.6.tgz#9b82a3db2fa131aec069ab040fd57ed0a880cdcd"
   integrity sha512-GVuzuUwtdsghE3ocJ9Bs8PNoF13HNQ5TXbEi2AhvVb8xU1Iwt9Fos9FEamfoee+u/TOsn7GUWc04lz46n2bbTg==
   optionalDependencies:
     "@esbuild/aix-ppc64" "0.25.6"
@@ -609,7 +609,7 @@ micromatch@^4.0.5:
 
 mini-svg-data-uri@^1.2.3:
   version "1.4.4"
-  resolved "https://registry.npmjs.org/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz"
+  resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
   integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
 
 minipass@^7.0.4, minipass@^7.1.2:
@@ -651,12 +651,12 @@ picomatch@^2.3.1:
 
 ralix@^1.5.0:
   version "1.5.0"
-  resolved "https://registry.npmjs.org/ralix/-/ralix-1.5.0.tgz"
+  resolved "https://registry.yarnpkg.com/ralix/-/ralix-1.5.0.tgz#315b4409d3de7228e2664ae9b07d00d90bfa2681"
   integrity sha512-ONXHZqRDn7seP961N2OHMnP49XEiPNSJV2kmgIgdyEoOLytPjZfRxFN34jWBxFQ+2i+kDAA6GCtFzKWDca2Isg==
 
 sharer.js@^0.5.1:
   version "0.5.3"
-  resolved "https://registry.npmjs.org/sharer.js/-/sharer.js-0.5.3.tgz"
+  resolved "https://registry.yarnpkg.com/sharer.js/-/sharer.js-0.5.3.tgz#bdb938a948a581c4e2da6be56fcbd657b92cc128"
   integrity sha512-Xi8nWppPSH3YbsqZlY0CnrxiY+QlSSoAlub0ai3Cyu2wZt0kWH405vIzoixDQb3n+BswuogZ5fwp4qL+448Ocw==
 
 source-map-js@^1.2.1:

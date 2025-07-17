@@ -3,7 +3,7 @@
     <% if config.logo %>
       <a href="/"><%= image_tag config.logo %></a>
     <% else %>
-      <a href="/" class="text-2xl text-white"><%= config.title %></a>
+      <a href="/" class="text-2xl text-white!"><%= config.title %></a>
     <% end %>
   </div>
   <div class="flex gap-4">
@@ -14,7 +14,7 @@
     </div>
 
     <% if current_page.url == '/' && !config.hide_filters %>
-      <button onclick="toggleSidebar()" class="text-white focus:outline-none">
+      <button onclick="toggleSidebar()" class="text-white cursor-pointer">
         <%= inline_svg 'icons/menu.svg' %>
       </button>
     <% end %>

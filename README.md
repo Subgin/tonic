@@ -166,7 +166,7 @@ links:
     url: '/about'
   - text: Contact
     url: '/contact'
-footer_content: Follow us on <a href="#">X</a> and <a href="#">Instagram</a>
+footer_content: Follow us on <a href="#">Instagram</a>
 hide_filters: false
 hide_sorting: false
 hide_sharing: false

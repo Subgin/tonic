@@ -14,7 +14,7 @@ module Tonic
   DEFAULT_COLOR = "#3e76d1"
   DEFAULT_BG_COLOR = "#f3f4f6"
   DEFAULT_ORDER = "name asc"
-  SHARING_PLATFORMS = %w(facebook twitter linkedin pinterest whatsapp telegram email)
+  SHARING_PLATFORMS = %w(facebook x linkedin pinterest whatsapp telegram email)
 
   def self.start(context)
     # Inject helpers

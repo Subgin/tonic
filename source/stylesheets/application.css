@@ -117,6 +117,19 @@ input[type="radio"], input[type="checkbox"] {
   @apply shadow-md rounded-sm bg-white;
 }
 
+/* Article filtering animations */
+article {
+  @apply transition-opacity duration-300 ease-in-out;
+}
+
+article.filtering-out {
+  @apply opacity-0;
+}
+
+article.filtering-in {
+  @apply opacity-100;
+}
+
 .card-image {
   @apply rounded-t bg-cover bg-center h-48;
 }
@@ -179,4 +192,13 @@ button.tag:hover, button.tag.active {
   .image-gallery img {
     max-width: none;
   }
+}
+
+/* Loading indicator */
+.loading-indicator {
+  @apply fixed top-20 left-1/2 transform -translate-x-1/2 bg-white shadow-lg rounded-full px-4 py-2 z-50 flex items-center gap-2;
+}
+
+.loading-spinner {
+  @apply w-4 h-4 border-2 border-gray-300 border-t-current rounded-full animate-spin;
 }

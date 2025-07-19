@@ -94,8 +94,8 @@ export default class AppCtrl {
       type: type
     }
 
-    // Hide all items
-    addClass('article', 'hidden')
+    // Show loading indicator
+    this.showLoadingIndicator()
 
     // Hide sharing menu
     addClass('#sharing-options', 'hidden')
@@ -112,19 +112,39 @@ export default class AppCtrl {
       setParam(el.name, activeTags())
     }
 
-    window.collection.forEach(item => {
-      let show = true
-
-      Object.values(self.currentFilters).forEach((filter) => {
-        show = show && applyFilter(item, filter)
-        if (!show) return
-      })
-
-      if (show) showItem(item)
+    // Start fade-out animation for all items
+    findAll('article').forEach(article => {
+      addClass(article, 'filtering-out')
     })
 
-    // Update counter with visible items
-    insertHTML('#counter', activeItems().length)
+    // Process filtering after fade-out animation
+    setTimeout(() => {
+      // Hide all items after fade-out
+      addClass('article', 'hidden')
+      
+      // Remove fade classes
+      findAll('article').forEach(article => {
+        removeClass(article, 'filtering-out')
+        removeClass(article, 'filtering-in')
+      })
+
+      window.collection.forEach(item => {
+        let show = true
+
+        Object.values(self.currentFilters).forEach((filter) => {
+          show = show && this.applyFilter(item, filter)
+          if (!show) return
+        })
+
+        if (show) this.showItem(item)
+      })
+
+      // Update counter with visible items
+      insertHTML('#counter', activeItems().length)
+
+      // Hide loading indicator
+      this.hideLoadingIndicator()
+    }, 300) // Match the CSS transition duration
   }
 
   applyFilter(item, filter) {
@@ -225,7 +245,40 @@ export default class AppCtrl {
   }
 
   showItem(item) {
-    removeClass(`#${item.dom_id}`, 'hidden')
+    const element = find(`#${item.dom_id}`)
+    removeClass(element, 'hidden')
+    removeClass(element, 'filtering-out')
+    addClass(element, 'filtering-in')
+  }
+
+  hideItem(item) {
+    const element = find(`#${item.dom_id}`)
+    addClass(element, 'filtering-out')
+    // Wait for fade-out animation to complete before hiding
+    setTimeout(() => {
+      addClass(element, 'hidden')
+      removeClass(element, 'filtering-out')
+      removeClass(element, 'filtering-in')
+    }, 300)
+  }
+
+  showLoadingIndicator() {
+    // Create loading indicator if it doesn't exist
+    if (!find('#loading-indicator')) {
+      const indicator = document.createElement('div')
+      indicator.id = 'loading-indicator'
+      indicator.className = 'loading-indicator'
+      indicator.innerHTML = `
+        <div class="loading-spinner"></div>
+        <span>Filtering...</span>
+      `
+      document.body.appendChild(indicator)
+    }
+    removeClass('#loading-indicator', 'hidden')
+  }
+
+  hideLoadingIndicator() {
+    addClass('#loading-indicator', 'hidden')
   }
 
   activeTags() {

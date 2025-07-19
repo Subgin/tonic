@@ -196,27 +196,15 @@ button.tag:hover, button.tag.active {
 
 /* Loading indicator */
 .loading-indicator {
-  position: fixed;
+  @apply fixed z-50 flex items-center gap-2 px-4 py-2 bg-white shadow-lg rounded-full;
   top: 80px;
   left: 50%;
   transform: translateX(-50%);
-  background: white;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border-radius: 9999px;
-  padding: 8px 16px;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .loading-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #d1d5db;
-  border-top-color: currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  @apply w-4 h-4 border-2 border-gray-300 rounded-full animate-spin;
+  border-top-color: var(--main-color);
 }
 
 @keyframes spin {

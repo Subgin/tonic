@@ -114,16 +114,15 @@ export default class AppCtrl {
 
     // Start fade-out animation for all items
     findAll('article').forEach(article => {
+      removeClass(article, 'filtering-in')
       addClass(article, 'filtering-out')
     })
 
     // Process filtering after fade-out animation
     setTimeout(() => {
-      // Hide all items after fade-out
-      addClass('article', 'hidden')
-      
-      // Remove fade classes
+      // Hide all items and reset their animation states
       findAll('article').forEach(article => {
+        addClass(article, 'hidden')
         removeClass(article, 'filtering-out')
         removeClass(article, 'filtering-in')
       })
@@ -140,7 +139,7 @@ export default class AppCtrl {
       })
 
       // Update counter with visible items
-      insertHTML('#counter', activeItems().length)
+      insertHTML('#counter', this.activeItems().length)
 
       // Hide loading indicator
       this.hideLoadingIndicator()

@@ -218,6 +218,8 @@ export default class AppCtrl {
   }
 
   sortBy(sorting, interactive = true) {
+    if (interactive) showLoading()
+
     const [attribute, direction] = sorting.split(' ')
     const container = find('#collection-container')
     const items = []
@@ -240,6 +242,7 @@ export default class AppCtrl {
     if (interactive) {
       setParam('sorting', sorting)
       toggleSorting()
+      setTimeout(() => { hideLoading() }, 300)
     }
   }
 

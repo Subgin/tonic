@@ -117,6 +117,19 @@ input[type="radio"], input[type="checkbox"] {
   @apply shadow-md rounded-sm bg-white;
 }
 
+/* Article filtering animations */
+article {
+  transition: opacity 300ms ease-in-out;
+}
+
+article.filtering-out {
+  opacity: 0;
+}
+
+article.filtering-in {
+  opacity: 1;
+}
+
 .card-image {
   @apply rounded-t bg-cover bg-center h-48;
 }
@@ -178,5 +191,24 @@ button.tag:hover, button.tag.active {
 @media (max-width: 640px) {
   .image-gallery img {
     max-width: none;
+  }
+}
+
+/* Loading indicator */
+.loading-indicator {
+  @apply fixed z-50 flex items-center gap-2 px-4 py-2 bg-white shadow-lg rounded-full;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.loading-spinner {
+  @apply w-4 h-4 border-2 border-gray-300 rounded-full animate-spin;
+  border-top-color: var(--main-color);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

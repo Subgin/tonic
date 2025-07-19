@@ -97,6 +97,12 @@ export default class AppCtrl {
     // Show loading indicator
     this.showLoadingIndicator()
 
+    // Start fade-out animation for all items
+    findAll('article').forEach(article => {
+      removeClass(article, 'filtering-in')
+      addClass(article, 'filtering-out')
+    })
+
     // Hide sharing menu
     addClass('#sharing-options', 'hidden')
 
@@ -111,12 +117,6 @@ export default class AppCtrl {
       toggleClass(el, 'active')
       setParam(el.name, activeTags())
     }
-
-    // Start fade-out animation for all items
-    findAll('article').forEach(article => {
-      removeClass(article, 'filtering-in')
-      addClass(article, 'filtering-out')
-    })
 
     // Process filtering after fade-out animation
     setTimeout(() => {
@@ -262,22 +262,11 @@ export default class AppCtrl {
   }
 
   showLoadingIndicator() {
-    // Create loading indicator if it doesn't exist
-    if (!find('#loading-indicator')) {
-      const indicator = document.createElement('div')
-      indicator.id = 'loading-indicator'
-      indicator.className = 'loading-indicator'
-      indicator.innerHTML = `
-        <div class="loading-spinner"></div>
-        <span>Filtering...</span>
-      `
-      document.body.appendChild(indicator)
-    }
-    removeClass('#loading-indicator', 'hidden')
+    removeClass('#loading-container', 'hidden')
   }
 
   hideLoadingIndicator() {
-    addClass('#loading-indicator', 'hidden')
+    addClass('#loading-container', 'hidden')
   }
 
   activeTags() {

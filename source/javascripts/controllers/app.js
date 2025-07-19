@@ -95,7 +95,7 @@ export default class AppCtrl {
     }
 
     // Show loading indicator
-    this.showLoading()
+    showLoading()
 
     // Start fade-out animation for all items
     findAll('article').forEach(article => {
@@ -131,18 +131,18 @@ export default class AppCtrl {
         let show = true
 
         Object.values(self.currentFilters).forEach((filter) => {
-          show = show && this.applyFilter(item, filter)
+          show = show && applyFilter(item, filter)
           if (!show) return
         })
 
-        if (show) this.showItem(item)
+        if (show) showItem(item)
       })
 
       // Update counter with visible items
-      insertHTML('#counter', this.activeItems().length)
+      insertHTML('#counter', activeItems().length)
 
       // Hide loading indicator
-      this.hideLoading()
+      hideLoading()
     }, 300) // Match the CSS transition duration
   }
 

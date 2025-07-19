@@ -146,6 +146,7 @@ article.filtering-in {
   opacity: 1;
 }
 
+/* Loading spinner */
 .loading-spinner {
   @apply w-8 h-8 border-3 border-gray-300 rounded-full animate-spin;
   border-top-color: var(--main-color);
@@ -198,4 +199,3 @@ button.tag:hover, button.tag.active {
     max-width: none;
   }
 }
-

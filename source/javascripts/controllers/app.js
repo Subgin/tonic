@@ -95,7 +95,7 @@ export default class AppCtrl {
     }
 
     // Show loading indicator
-    this.showLoadingIndicator()
+    this.showLoading()
 
     // Start fade-out animation for all items
     findAll('article').forEach(article => {
@@ -142,7 +142,7 @@ export default class AppCtrl {
       insertHTML('#counter', this.activeItems().length)
 
       // Hide loading indicator
-      this.hideLoadingIndicator()
+      this.hideLoading()
     }, 300) // Match the CSS transition duration
   }
 
@@ -261,11 +261,11 @@ export default class AppCtrl {
     }, 300)
   }
 
-  showLoadingIndicator() {
+  showLoading() {
     removeClass('#loading-container', 'hidden')
   }
 
-  hideLoadingIndicator() {
+  hideLoading() {
     addClass('#loading-container', 'hidden')
   }
 

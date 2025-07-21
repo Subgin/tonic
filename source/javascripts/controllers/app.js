@@ -94,8 +94,14 @@ export default class AppCtrl {
       type: type
     }
 
-    // Hide all items
-    addClass('article', 'hidden')
+    // Show loading indicator
+    showLoading()
+
+    // Start fade-out animation for all items
+    findAll('article').forEach(article => {
+      removeClass(article, 'filtering-in')
+      addClass(article, 'filtering-out')
+    })
 
     // Hide sharing menu
     addClass('#sharing-options', 'hidden')
@@ -112,19 +118,32 @@ export default class AppCtrl {
       setParam(el.name, activeTags())
     }
 
-    window.collection.forEach(item => {
-      let show = true
-
-      Object.values(self.currentFilters).forEach((filter) => {
-        show = show && applyFilter(item, filter)
-        if (!show) return
+    // Process filtering after fade-out animation
+    setTimeout(() => {
+      // Hide all items and reset their animation states
+      findAll('article').forEach(article => {
+        addClass(article, 'hidden')
+        removeClass(article, 'filtering-out')
+        removeClass(article, 'filtering-in')
       })
 
-      if (show) showItem(item)
-    })
+      window.collection.forEach(item => {
+        let show = true
 
-    // Update counter with visible items
-    insertHTML('#counter', activeItems().length)
+        Object.values(self.currentFilters).forEach((filter) => {
+          show = show && applyFilter(item, filter)
+          if (!show) return
+        })
+
+        if (show) showItem(item)
+      })
+
+      // Update counter with visible items
+      insertHTML('#counter', activeItems().length)
+
+      // Hide loading indicator
+      hideLoading()
+    }, 300) // Match the CSS transition duration
   }
 
   applyFilter(item, filter) {
@@ -199,6 +218,8 @@ export default class AppCtrl {
   }
 
   sortBy(sorting, interactive = true) {
+    if (interactive) showLoading()
+
     const [attribute, direction] = sorting.split(' ')
     const container = find('#collection-container')
     const items = []
@@ -221,11 +242,34 @@ export default class AppCtrl {
     if (interactive) {
       setParam('sorting', sorting)
       toggleSorting()
+      setTimeout(() => { hideLoading() }, 300)
     }
   }
 
   showItem(item) {
-    removeClass(`#${item.dom_id}`, 'hidden')
+    const element = find(`#${item.dom_id}`)
+    removeClass(element, 'hidden')
+    removeClass(element, 'filtering-out')
+    addClass(element, 'filtering-in')
+  }
+
+  hideItem(item) {
+    const element = find(`#${item.dom_id}`)
+    addClass(element, 'filtering-out')
+    // Wait for fade-out animation to complete before hiding
+    setTimeout(() => {
+      addClass(element, 'hidden')
+      removeClass(element, 'filtering-out')
+      removeClass(element, 'filtering-in')
+    }, 300)
+  }
+
+  showLoading() {
+    removeClass('#loading-container', 'hidden')
+  }
+
+  hideLoading() {
+    addClass('#loading-container', 'hidden')
   }
 
   activeTags() {

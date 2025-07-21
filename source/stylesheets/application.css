@@ -133,6 +133,25 @@ input[type="radio"], input[type="checkbox"] {
   @apply px-4 pt-4 pb-6;
 }
 
+/* Article filtering animations */
+article {
+  transition: opacity 300ms ease-in-out;
+}
+
+article.filtering-out {
+  opacity: 0;
+}
+
+article.filtering-in {
+  opacity: 1;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  @apply w-8 h-8 border-3 border-gray-300 rounded-full animate-spin;
+  border-top-color: var(--main-color);
+}
+
 /* Tags */
 .tag {
   @apply inline-block mb-1 px-2 font-semibold border-2 rounded-full text-sm;

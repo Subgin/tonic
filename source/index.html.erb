@@ -5,9 +5,14 @@ title: Home
 <%= partial "templates/components/sidebar" unless config.hide_filters %>
 
 <div class="p-6 mb-24 w-full">
-  <div class="mb-4">
-    <h1><%= config.title %></h1>
-    <%= config.description %>
+  <div class="flex justify-between mb-4">
+    <div>
+      <h1><%= config.title %></h1>
+      <%= config.description %>
+    </div>
+    <div id="loading-container" class="hidden">
+      <div class="loading-spinner"></div>
+    </div>
   </div>
 
   <div class="relative">

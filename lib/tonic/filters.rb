@@ -7,7 +7,7 @@ module Tonic
         next if Tonic::SKIP_FOR_FILTERS.include?(attribute)
         next if config.filters&.exclude&.include?(attribute)
 
-        content_tag(:div, class: "px-6 py-3 border-b border-gray-500 w-full") do
+        content_tag(:div, class: "px-6 py-2 border-b border-gray-500 w-full") do
           type = config.filters&.type&.dig(attribute)
           smart_filter(attribute, type)
         end

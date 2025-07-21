@@ -1,5 +1,11 @@
 <div id="header" class="flex justify-between w-full px-6 py-3 items-center">
-  <div class="flex items-center">
+  <div class="flex gap-4">
+    <% if current_page.url == '/' && !config.hide_filters %>
+      <button onclick="toggleSidebar()" class="text-white cursor-pointer outline-hidden">
+        <%= inline_svg 'icons/menu.svg' %>
+      </button>
+    <% end %>
+
     <% if config.logo %>
       <a href="/"><%= image_tag config.logo %></a>
     <% else %>
@@ -12,11 +18,5 @@
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
     </div>
-
-    <% if current_page.url == '/' && !config.hide_filters %>
-      <button onclick="toggleSidebar()" class="text-white cursor-pointer">
-        <%= inline_svg 'icons/menu.svg' %>
-      </button>
-    <% end %>
   </div>
 </div>

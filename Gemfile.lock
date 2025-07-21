@@ -95,10 +95,10 @@ GEM
     middleman-inline_svg (0.1.2)
       middleman-core (>= 3.4.1)
       nokogiri (>= 1.8)
-    middleman-livereload (3.4.7)
+    middleman-livereload (3.5.0)
       em-websocket (~> 0.5.1)
       middleman-core (>= 3.3)
-      rack-livereload (~> 0.3.15)
+      rack-livereload (~> 0.6.1)
     minitest (5.25.5)
     net_http_timeout_errors (1.0.0)
     nokogiri (1.18.8-arm64-darwin)
@@ -120,8 +120,8 @@ GEM
     public_suffix (6.0.2)
     racc (1.8.1)
     rack (3.1.16)
-    rack-livereload (0.3.17)
-      rack
+    rack-livereload (0.6.1)
+      rack (>= 3.0, < 3.2)
     rackup (2.2.1)
       rack (>= 3)
     rb-fsevent (0.11.2)
@@ -159,7 +159,7 @@ PLATFORMS
 DEPENDENCIES
   middleman (~> 4.6)
   middleman-inline_svg (~> 0.1)
-  middleman-livereload (~> 3.4)
+  middleman-livereload (~> 3.5)
   video_info (~> 4.2)
 
 BUNDLED WITH

@@ -217,7 +217,7 @@ font_family: "Fira Sans" # other examples: Lato, Roboto, Oswald, Montserrat, ...
 
 If you want to customize the available sharing options, you should use the `sharing_platforms` option passing an array.
 
-By default, the supported platforms are: Facebook, X, Linkedin, Pinterest, Whatsapp, Telegram and Email.
+By default, the supported platforms are: Facebook, X, Reddit, Linkedin, Pinterest, Whatsapp, Telegram and Email.
 
 #### Sorting
 

@@ -136,7 +136,7 @@ GEM
     securerandom (0.4.1)
     servolux (0.13.0)
     temple (0.10.3)
-    thor (1.3.2)
+    thor (1.4.0)
     tilt (2.6.1)
     toml (0.3.0)
       parslet (>= 1.8.0, < 3.0.0)

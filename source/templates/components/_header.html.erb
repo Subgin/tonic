@@ -2,7 +2,12 @@
   <div class="flex gap-4">
     <% if current_page.url == '/' && !config.hide_filters %>
       <button onclick="toggleSidebar()" class="text-white cursor-pointer outline-hidden">
-        <%= inline_svg 'icons/menu.svg' %>
+        <span id="menu-icon">
+          <%= inline_svg 'icons/menu.svg' %>
+        </span>
+        <span id="close-icon" class="hidden">
+          <%= inline_svg 'icons/close.svg' %>
+        </span>
       </button>
     <% end %>
 

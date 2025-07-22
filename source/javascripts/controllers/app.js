@@ -32,6 +32,10 @@ export default class AppCtrl {
   toggleSidebar() {
     toggleClass('#sidebar', 'hidden')
     toggleClass('#sidebar-overlay', 'hidden')
+    
+    // Toggle between menu and close icons
+    toggleClass('#menu-icon', 'hidden')
+    toggleClass('#close-icon', 'hidden')
   }
 
   toggleSorting() {

@@ -2,7 +2,6 @@ require "yaml"
 require "open-uri"
 require "csv"
 
-require_relative "tonic/utils"
 require_relative "tonic/helpers"
 require_relative "tonic/filters"
 
@@ -18,7 +17,7 @@ module Tonic
 
   def self.start(context)
     # Inject helpers
-    context.helpers Tonic::Utils, Tonic::Helpers, Tonic::Filters
+    context.helpers Tonic::Helpers, Tonic::Filters
 
     # Fetch remote collection if any
     if collection_url = raw_config["remote_collection"]
@@ -34,7 +33,7 @@ module Tonic
     # Create a detail page for each item if enabled
     if raw_config.fetch("detail_pages", true)
       context.data.collection.each do |item|
-        context.proxy "/#{Tonic::Utils.slugify(item.name)}.html", "/templates/collection/detail_page.html", locals: { item: item }
+        context.proxy "/#{Tonic::Helpers.slugify(item.name)}.html", "/templates/collection/detail_page.html", locals: { item: item }
       end
     end
 

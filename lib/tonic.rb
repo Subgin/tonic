@@ -37,8 +37,18 @@ module Tonic
       end
     end
 
+    # Create a category page for each category if enabled
+    if raw_config.fetch("category_pages", true)
+      Tonic::Helpers.all_categories(context.data.collection).each do |category|
+        context.proxy "/category/#{Tonic::Helpers.slugify(category)}.html", "/templates/collection/category_page.html", locals: { category: category }
+      end
+    end
+
     # Do not build detail page template
     context.ignore "/templates/collection/detail_page.html"
+
+    # Do not build category page template
+    context.ignore "/templates/collection/category_page.html"
   end
 
   private

@@ -6,6 +6,7 @@ module Tonic
       data.config.reverse_merge(
         title: "Tonic Example",
         detail_pages: true,
+        category_pages: true,
         item_card_image: true,
         sorting: { default_order: Tonic::DEFAULT_ORDER }
       )
@@ -64,6 +65,18 @@ module Tonic
       Tonic::SHARING_PLATFORMS.select do |platform|
         config.sharing_platforms.include?(platform)
       end
+    end
+
+    def all_categories(collection)
+      collection.to_a.map(&:category).compact.uniq.sort
+    end
+
+    def category_page_url(category)
+      "/category/#{slugify(category)}"
+    end
+
+    def items_for_category(category)
+      tonic_collection.select { |item| item.category == category }
     end
 
     def render_tags(tags)

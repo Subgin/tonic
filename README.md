@@ -2,9 +2,11 @@
 
 > 🍸 Digital Collections Framework
 
-Transform your collection into a beautiful and responsive website ✨
+Transform your collection of items (such as products, artworks, books, etc.) into a beautiful and responsive website ✨
 
 Tonic parses your collection, defined in a `YAML`, `JSON`, or `CSV` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
+
+Perfect for artists, collectors, librarians, archivists, or anyone wanting to showcase a structured set of items online without coding a frontend from scratch.
 
 *Built with: [Middleman](https://middlemanapp.com), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
@@ -155,6 +157,7 @@ description: |
   More information in the <a href="#">following section</a>.
 remote_collection: https://example.com/collection.json
 detail_pages: true
+category_pages: true
 
 # Style/UI
 main_color: "#0891b2"
@@ -204,6 +207,21 @@ If disabled, detail pages won't be generated. Remember you can link to an extern
 ```
 
 If you only want to customize how they look, you can do it by editing the HTML template, check the [Advanced customization](#advanced-customization) section.
+
+#### Category pages
+
+When enabled (default), Tonic automatically generates dedicated pages for each unique category in your collection. Each category page displays all items belonging to that category in a responsive grid layout.
+
+```yaml
+category_pages: true   # Enable (default)
+category_pages: false  # Disable
+```
+
+**Example generated URLs:**
+- Items with `category: Design` → `/category/design`
+- Items with `category: Research and Development` → `/category/research-and-development`
+
+If you want to customize how category pages look, you can edit the HTML template at [`source/templates/collection/category_page.html.erb`](source/templates/collection/category_page.html.erb).
 
 #### Font family
 

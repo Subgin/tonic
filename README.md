@@ -155,6 +155,7 @@ description: |
   More information in the <a href="#">following section</a>.
 remote_collection: https://example.com/collection.json
 detail_pages: true
+category_pages: true
 
 # Style/UI
 main_color: "#0891b2"
@@ -204,6 +205,27 @@ If disabled, detail pages won't be generated. Remember you can link to an extern
 ```
 
 If you only want to customize how they look, you can do it by editing the HTML template, check the [Advanced customization](#advanced-customization) section.
+
+#### Category pages
+
+When enabled (default), Tonic automatically generates dedicated pages for each unique category in your collection. Each category page displays all items belonging to that category in a responsive grid layout.
+
+```yaml
+category_pages: true   # Enable (default)
+category_pages: false  # Disable
+```
+
+**Features:**
+- **Automatic generation**: Creates one page per unique category at `/category/[slugified-category-name].html`
+- **Responsive design**: Uses the same grid layout as the main collection page
+- **Navigation**: Includes back and share buttons (similar to detail pages)
+- **Category linking**: Item cards automatically link category names to their respective category pages
+
+**Example generated URLs:**
+- Items with `category: Transportation` → `/category/transportation.html`
+- Items with `category: Luxury Goods & Jewelry` → `/category/luxury-goods-jewelry.html`
+
+If you want to customize how category pages look, you can edit the HTML template at `source/templates/collection/category_page.html.erb`.
 
 #### Font family
 

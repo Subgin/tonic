@@ -428,6 +428,11 @@
   dependencies:
     tslib "^2.4.0"
 
+"@types/trusted-types@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
+  integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
+
 braces@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/braces/-/braces-3.0.3.tgz#490332f40919452272d55a8480adc0c441358789"
@@ -449,6 +454,13 @@ detect-libc@^2.0.3, detect-libc@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.4.tgz#f04715b8ba815e53b4d8109655b6508a6865a7e8"
   integrity sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==
+
+dompurify@^3.2.6:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.2.6.tgz#ca040a6ad2b88e2a92dc45f38c79f84a714a1cad"
+  integrity sha512-/2GogDQlohXPZe6D6NOgQvXLPSYBqIWMnZ8zzOhn09REE4eyAzb+Hed3jhoM9OkuaJ8P6ZGTTVWQKAi8ieIzfQ==
+  optionalDependencies:
+    "@types/trusted-types" "^2.0.7"
 
 enhanced-resolve@^5.18.1:
   version "5.18.2"
@@ -649,10 +661,12 @@ picomatch@^2.3.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
-ralix@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/ralix/-/ralix-1.6.0.tgz#d444677f952cec6607c72abeebafa16463fc3e77"
-  integrity sha512-tJzSWyZHaHRIXx+kq9mkerbo0bjdxe3gZAWlPND2eGfTwcYA8DmbXE28TlmRGqFMS+Y9mntJJQgO6f3hjWl3aA==
+ralix@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/ralix/-/ralix-1.8.0.tgz#724555d8ae42cc6c2e69aa80449b4ac5715a82e6"
+  integrity sha512-G+jaGI6YrSugylQGPK7EL5S9mHpJ4wyHiJUv+uszIBlYDKbwauJbn5Pgtu/pBZYmTuMcFEB4C7jlq4jXLYjenQ==
+  dependencies:
+    dompurify "^3.2.6"
 
 sharer.js@^0.5.1:
   version "0.5.3"

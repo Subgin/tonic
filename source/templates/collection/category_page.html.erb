@@ -1,0 +1,30 @@
+---
+layout: layout
+---
+
+<% @title = "#{category} Category" %>
+<% @description = "All items in the #{category} category" %>
+
+<div class="mt-24 mb-24 px-8 md:px-32 mx-auto max-w-screen-xl">
+  <div class="flex justify-between items-center mb-4">
+    <a href="#" onclick="back('/')">
+      <%= inline_svg 'icons/chevron-left.svg' %> Back
+    </a>
+    <% unless config.hide_sharing %>
+      <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-5 md:right-32 top-32' } %>
+    <% end %>
+  </div>
+
+  <h1><%= @title %></h1>
+  <p class="text-gray-600 mb-6"><%= @description %></p>
+
+  <div class="text-sm text-gray-600 mb-4">
+    <span><%= category_items.size %></span> items found
+  </div>
+
+  <div id="collection-container" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    <% category_items.each do |item| %>
+      <%= partial 'templates/collection/item_card', locals: { item: item } %>
+    <% end %>
+  </div>
+</div>

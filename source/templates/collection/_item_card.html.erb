@@ -7,7 +7,11 @@
     <% end %>
   <% end %>
   <div class="card-header">
-    <span><%= item.category %></span>
+    <% if config.category_pages %>
+      <span><%= link_to item.category, category_page_url(item.category), class: 'category-link' %></span>
+    <% else %>
+      <span><%= item.category %></span>
+    <% end %>
     <h3><%= item.name %></h3>
   </div>
   <div class="card-body">

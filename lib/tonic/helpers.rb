@@ -67,8 +67,8 @@ module Tonic
       end
     end
 
-    def categories
-      tonic_collection.map(&:category).compact.uniq.sort
+    def all_categories(collection)
+      collection.to_a.map(&:category).compact.uniq.sort
     end
 
     def category_page_url(category)

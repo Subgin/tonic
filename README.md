@@ -218,8 +218,8 @@ category_pages: false  # Disable
 ```
 
 **Example generated URLs:**
-- Items with `category: Design` → `/category/design.html`
-- Items with `category: Research and Development` → `/category/research-and-development.html`
+- Items with `category: Design` → `/category/design`
+- Items with `category: Research and Development` → `/category/research-and-development`
 
 If you want to customize how category pages look, you can edit the HTML template at [`source/templates/collection/category_page.html.erb`](source/templates/collection/category_page.html.erb).
 

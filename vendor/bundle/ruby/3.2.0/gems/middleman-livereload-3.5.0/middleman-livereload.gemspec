@@ -1,0 +1,19 @@
+require "./lib/middleman-livereload/version"
+
+Gem::Specification.new do |s|
+  s.name = "middleman-livereload"
+  s.version = Middleman::LiveReload::VERSION
+  s.platform = Gem::Platform::RUBY
+  s.authors = ["Thomas Reynolds", "Ben Hollis", "Karl Freeman"]
+  s.email = ["me@tdreyno.com", "ben@benhollis.net", "karlfreeman@gmail.com"]
+  s.homepage = "https://github.com/middleman/middleman-livereload"
+  s.summary = %q{LiveReload support for Middleman}
+  s.description = %q{LiveReload support for Middleman}
+  s.license = "MIT"
+  s.files = `git ls-files -z`.split("\0")
+  s.test_files = `git ls-files -z -- {fixtures,features}/*`.split("\0")
+  s.required_ruby_version = '>= 2.7.0'
+  s.add_runtime_dependency("middleman-core", [">= 3.3"])
+  s.add_runtime_dependency('rack-livereload', ['~> 0.6.1'])
+  s.add_runtime_dependency('em-websocket', ['~> 0.5.1'])
+end

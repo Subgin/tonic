@@ -8,7 +8,7 @@
   <% end %>
   <div class="card-header">
     <% if config.category_pages %>
-      <span><%= link_to item.category, category_page_url(item.category), class: 'category-link' %></span>
+      <span><%= link_to item.category, category_page_url(item.category) %></span>
     <% else %>
       <span><%= item.category %></span>
     <% end %>

@@ -2,9 +2,11 @@
 
 > 🍸 Digital Collections Framework
 
-Transform your collection into a beautiful and responsive website ✨
+Transform your collection of items (such as products, artworks, books, etc.) into a beautiful and responsive website ✨
 
 Tonic parses your collection, defined in a `YAML`, `JSON`, or `CSV` file, and automatically generates a customizable static website to explore your collection in a smart way, with a lot of filtering and sorting options.
+
+Perfect for artists, collectors, librarians, archivists, or anyone wanting to showcase a structured set of items online without coding a frontend from scratch.
 
 *Built with: [Middleman](https://middlemanapp.com), [Ralix](https://github.com/ralixjs/ralix), [Tailwind](https://tailwindcss.com)*
 
@@ -215,17 +217,11 @@ category_pages: true   # Enable (default)
 category_pages: false  # Disable
 ```
 
-**Features:**
-- **Automatic generation**: Creates one page per unique category at `/category/[slugified-category-name].html`
-- **Responsive design**: Uses the same grid layout as the main collection page
-- **Navigation**: Includes back and share buttons (similar to detail pages)
-- **Category linking**: Item cards automatically link category names to their respective category pages
-
 **Example generated URLs:**
-- Items with `category: Transportation` → `/category/transportation.html`
-- Items with `category: Luxury Goods & Jewelry` → `/category/luxury-goods-jewelry.html`
+- Items with `category: Design` → `/category/design.html`
+- Items with `category: Research and Development` → `/category/research-and-development.html`
 
-If you want to customize how category pages look, you can edit the HTML template at `source/templates/collection/category_page.html.erb`.
+If you want to customize how category pages look, you can edit the HTML template at [`source/templates/collection/category_page.html.erb`](source/templates/collection/category_page.html.erb).
 
 #### Font family
 

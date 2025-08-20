@@ -73,7 +73,21 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Mobile menu */
 #mobile-menu-dropdown {
-  @apply w-48 right-0;
+  @apply w-screen max-w-none;
+  right: 0;
+  left: auto;
+  transform: translateX(0);
+}
+
+@media (max-width: 640px) {
+  #mobile-menu-dropdown {
+    position: fixed;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 #header .mobile-nav-link {

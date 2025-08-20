@@ -75,7 +75,6 @@ input[type="radio"], input[type="checkbox"] {
 #sidebar {
   @apply text-gray-500 bg-gray-800 pb-24 w-64 fixed left-0 z-40 overflow-y-auto;
   min-width: 280px;
-  /* Use explicit transition like article filtering for smooth animation */
   transition: transform 300ms ease-in-out;
 }
 
@@ -89,7 +88,6 @@ input[type="radio"], input[type="checkbox"] {
 
 #sidebar-overlay {
   @apply fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-30;
-  /* Use explicit transition for smooth animation */
   transition: opacity 300ms ease-in-out;
 }
 

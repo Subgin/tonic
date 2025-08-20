@@ -4,6 +4,9 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
+    // Initialize dropdown management
+    this.initializeDropdownManagement()
+
     // Initialize dynamic header height positioning
     this.updateHeaderHeightPositioning()
     on(window, 'resize', () => { this.updateHeaderHeightPositioning() })
@@ -16,6 +19,48 @@ export default class AppCtrl {
       const defaultOrder = getParam('sorting') || window.config.sorting.default_order
       this.sortBy(defaultOrder, false)
     })
+  }
+
+  initializeDropdownManagement() {
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (event) => {
+      // Don't close if clicking on a dropdown button or inside a dropdown
+      if (event.target.closest('button[onclick*="toggle"]') || event.target.closest('.dropdown')) {
+        return
+      }
+      
+      // Close all dropdowns
+      this.closeAllDropdowns()
+    })
+  }
+
+  closeAllDropdowns() {
+    // Close all dropdown menus
+    addClass('#sorting-options', 'hidden')
+    addClass('#sharing-options', 'hidden')
+    addClass('#mobile-menu-dropdown', 'hidden')
+    
+    // Reset mobile menu icon
+    removeClass('#mobile-menu-icon', 'hidden')
+    addClass('#mobile-close-icon', 'hidden')
+  }
+
+  toggleDropdown(dropdownId, iconId = null, closeIconId = null) {
+    const isHidden = hasClass(dropdownId, 'hidden')
+    
+    // Close all dropdowns first
+    this.closeAllDropdowns()
+    
+    // If the dropdown was hidden, show it
+    if (isHidden) {
+      removeClass(dropdownId, 'hidden')
+      
+      // Toggle icons if provided
+      if (iconId && closeIconId) {
+        addClass(iconId, 'hidden')
+        removeClass(closeIconId, 'hidden')
+      }
+    }
   }
 
   updateHeaderHeightPositioning() {
@@ -39,18 +84,15 @@ export default class AppCtrl {
   }
 
   toggleSorting() {
-    toggleClass('#sorting-options', 'hidden')
-
-    if (!hasClass('#sorting-options', 'hidden')) addClass('#sharing-options', 'hidden')
+    this.toggleDropdown('#sorting-options')
   }
 
   toggleSharing() {
-    toggleClass('#sharing-options', 'hidden')
+    const isHidden = hasClass('#sharing-options', 'hidden')
+    this.toggleDropdown('#sharing-options')
 
-    if (!hasClass('#sharing-options', 'hidden')) {
-      addClass('#sorting-options', 'hidden')
-
-      // Prepare data-* attributes for share & copy actions
+    // Prepare data-* attributes for share & copy actions only when opening
+    if (isHidden) {
       attr('#share_url', 'value', currentUrl())
       findAll('#sharing-buttons a').forEach(el => {
         data(el, { title: find('title').innerText, url: currentUrl() })
@@ -59,17 +101,7 @@ export default class AppCtrl {
   }
 
   toggleMobileMenu() {
-    toggleClass('#mobile-menu-dropdown', 'hidden')
-    
-    // Toggle between menu and close icons
-    toggleClass('#mobile-menu-icon', 'hidden')
-    toggleClass('#mobile-close-icon', 'hidden')
-    
-    // Close other dropdowns when opening mobile menu
-    if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
-      addClass('#sorting-options', 'hidden')
-      addClass('#sharing-options', 'hidden')
-    }
+    this.toggleDropdown('#mobile-menu-dropdown', '#mobile-menu-icon', '#mobile-close-icon')
   }
 
   defaultFilters() {

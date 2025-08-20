@@ -145,6 +145,167 @@ module Tonic
       string.match?(/\.(mp3|ogg|wav)$/)
     end
 
+    # Statistics methods for the insights page
+    def collection_stats
+      {
+        total_items: tonic_collection.size,
+        unique_fields: collection_fields.size,
+        fields_by_type: analyze_field_types
+      }
+    end
+
+    def collection_fields
+      tonic_collection.flat_map(&:keys).uniq.sort - Tonic::MAGIC_ATTRS
+    end
+
+    def analyze_field_types
+      fields = {}
+      collection_fields.each do |field|
+        fields[field] = infer_field_type_for_stats(field)
+      end
+      fields
+    end
+
+    def infer_field_type_for_stats(field)
+      begin
+        sample_values = tonic_collection.map { |item| item.send(field) rescue item[field] }.compact.first(10)
+        return 'empty' if sample_values.empty?
+        
+        first_value = sample_values.first
+        return 'empty' if first_value.nil?
+        
+        # Check for arrays (tags)
+        if first_value.is_a?(Array)
+          return 'tags'
+        end
+        
+        # Check for boolean
+        if is_bool?(first_value)
+          return 'boolean'
+        end
+        
+        # Check for numeric
+        if first_value.is_a?(Numeric)
+          return 'numeric'
+        end
+        
+        # Check for dates
+        if first_value.is_a?(String) && (field.end_with?('_at') || is_date?(first_value))
+          return 'date'
+        end
+        
+        # Check if it's categorical (limited unique values)
+        unique_values = fetch_values(field)
+        if unique_values.size <= 10 && unique_values.size > 1
+          return 'categorical'
+        end
+        
+        # Default to text
+        'text'
+      rescue
+        'empty'
+      end
+    end
+
+    def field_statistics(field, type = nil)
+      type ||= infer_field_type_for_stats(field)
+      values = fetch_values(field)
+      
+      stats = {
+        field: field,
+        type: type,
+        total_items: tonic_collection.size,
+        non_empty_items: tonic_collection.count { |item| 
+          value = item.send(field) rescue item[field]
+          !value.nil? && value != '' 
+        }
+      }
+      
+      case type
+      when 'numeric'
+        stats.merge!(numeric_field_stats(field, values))
+      when 'categorical'
+        stats.merge!(categorical_field_stats(field, values))
+      when 'tags'
+        stats.merge!(tags_field_stats(field))
+      when 'date'
+        stats.merge!(date_field_stats(field, values))
+      when 'boolean'
+        stats.merge!(boolean_field_stats(field))
+      else
+        stats.merge!(text_field_stats(field, values))
+      end
+      
+      stats
+    end
+
+    def numeric_field_stats(field, values)
+      numeric_values = values.map(&:to_f)
+      {
+        min: numeric_values.min,
+        max: numeric_values.max,
+        avg: (numeric_values.sum / numeric_values.size.to_f).round(2),
+        median: numeric_values.sort[numeric_values.size / 2]
+      }
+    end
+
+    def categorical_field_stats(field, values)
+      value_counts = values.group_by(&:itself).transform_values(&:size)
+      {
+        unique_values: values.size,
+        most_common: value_counts.sort_by { |k, v| -v }.first(5),
+        value_distribution: value_counts
+      }
+    end
+
+    def tags_field_stats(field)
+      all_tags = tonic_collection.flat_map { |item| 
+        value = item.send(field) rescue item[field]
+        value || [] 
+      }
+      tag_counts = all_tags.group_by(&:itself).transform_values(&:size)
+      {
+        total_tags: all_tags.size,
+        unique_tags: tag_counts.keys.size,
+        most_common_tags: tag_counts.sort_by { |k, v| -v }.first(10),
+        tag_distribution: tag_counts
+      }
+    end
+
+    def date_field_stats(field, values)
+      date_values = values.map { |v| Date.parse(v.to_s) rescue nil }.compact
+      return { date_values: 0 } if date_values.empty?
+      
+      {
+        earliest: date_values.min,
+        latest: date_values.max,
+        date_range_days: (date_values.max - date_values.min).to_i,
+        dates_by_year: date_values.group_by(&:year).transform_values(&:size)
+      }
+    end
+
+    def boolean_field_stats(field)
+      values = tonic_collection.map { |item| 
+        value = item.send(field) rescue item[field]
+        value
+      }.compact
+      true_count = values.count(true)
+      false_count = values.count(false)
+      {
+        true_count: true_count,
+        false_count: false_count,
+        true_percentage: values.size > 0 ? (true_count.to_f / values.size * 100).round(1) : 0
+      }
+    end
+
+    def text_field_stats(field, values)
+      {
+        unique_values: values.size,
+        avg_length: values.map(&:to_s).map(&:length).sum / values.size.to_f,
+        most_common: values.group_by(&:itself).transform_values(&:size).sort_by { |k, v| -v }.first(5)
+      }
+    end
+
     private
 
     def validate_item!(item)

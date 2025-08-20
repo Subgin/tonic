@@ -71,6 +71,19 @@ input[type="radio"], input[type="checkbox"] {
   color: var(--main-color);
 }
 
+/* Mobile menu */
+#mobile-menu-dropdown {
+  @apply w-48 right-0;
+}
+
+#header .mobile-nav-link {
+  @apply block px-4 py-3 text-white font-medium border-b border-white/10 last:border-0;
+}
+
+#header .mobile-nav-link:hover {
+  @apply bg-white/10;
+}
+
 /* Sidebar */
 #sidebar {
   @apply text-gray-500 bg-gray-800 pb-24 w-64 fixed left-0 z-40 transform transition-transform duration-300 ease-in-out overflow-y-auto;

@@ -58,6 +58,20 @@ export default class AppCtrl {
     }
   }
 
+  toggleMobileMenu() {
+    toggleClass('#mobile-menu-dropdown', 'hidden')
+    
+    // Toggle between menu and close icons
+    toggleClass('#mobile-menu-icon', 'hidden')
+    toggleClass('#mobile-close-icon', 'hidden')
+    
+    // Close other dropdowns when opening mobile menu
+    if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
+      addClass('#sorting-options', 'hidden')
+      addClass('#sharing-options', 'hidden')
+    }
+  }
+
   defaultFilters() {
     Object.entries(getParam()).forEach(([key, value]) => {
       if (!value || key == 'sorting') return

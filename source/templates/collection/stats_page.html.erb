@@ -276,3 +276,12 @@ layout: layout
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Fallback if Chart.js fails to load from CDN
+if (typeof Chart === 'undefined') {
+  console.warn('Chart.js failed to load from CDN');
+  document.querySelectorAll('canvas').forEach(canvas => {
+    canvas.parentElement.innerHTML = '<div class="text-center text-gray-500 p-4 border border-gray-200 rounded">Chart visualization unavailable (Chart.js not loaded)</div>';
+  });
+}
+</script>

@@ -158,6 +158,7 @@ description: |
 remote_collection: https://example.com/collection.json
 detail_pages: true
 category_pages: true
+stats_page: true
 
 # Style/UI
 main_color: "#0891b2"
@@ -222,6 +223,25 @@ category_pages: false  # Disable
 - Items with `category: Research and Development` → `/category/research-and-development`
 
 If you want to customize how category pages look, you can edit the HTML template at [`source/templates/collection/category_page.html.erb`](source/templates/collection/category_page.html.erb).
+
+#### Stats pages
+
+When enabled (default), Tonic automatically generates a comprehensive statistics and insights page for your collection at `/stats`. This page dynamically analyzes all fields in your collection and displays appropriate visualizations and statistics.
+
+```yaml
+stats_page: true   # Enable (default)
+stats_page: false  # Disable
+```
+
+**Features:**
+- **Automatic field type inference**: Numeric, categorical, date, boolean, tags, and text fields
+- **Dynamic visualizations**: Pie charts, histograms, bar charts, and line graphs using Chart.js
+- **Comprehensive statistics**: Range, averages, distributions, top values, and coverage metrics
+- **Responsive design**: Works on all screen sizes with accessible color schemes
+
+**Example URL:** `/stats`
+
+The stats page works with any collection schema without requiring specific field names, making it flexible for custom collections. If you want to customize how the stats page looks, you can edit the HTML template at [`source/templates/collection/stats_page.html.erb`](source/templates/collection/stats_page.html.erb).
 
 #### Font family
 

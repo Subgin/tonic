@@ -168,7 +168,7 @@ module Tonic
 
     def infer_field_type_for_stats(field)
       begin
-        sample_values = tonic_collection.map { |item| item.send(field) rescue item[field] }.compact.first(10)
+        sample_values = tonic_collection.map { |item| item[field] }.compact.first(10)
         return 'empty' if sample_values.empty?
         
         first_value = sample_values.first
@@ -216,7 +216,7 @@ module Tonic
         type: type,
         total_items: tonic_collection.size,
         non_empty_items: tonic_collection.count { |item| 
-          value = item.send(field) rescue item[field]
+          value = item[field]
           !value.nil? && value != '' 
         }
       }
@@ -260,7 +260,7 @@ module Tonic
 
     def tags_field_stats(field)
       all_tags = tonic_collection.flat_map { |item| 
-        value = item.send(field) rescue item[field]
+        value = item[field]
         value || [] 
       }
       tag_counts = all_tags.group_by(&:itself).transform_values(&:size)
@@ -286,7 +286,7 @@ module Tonic
 
     def boolean_field_stats(field)
       values = tonic_collection.map { |item| 
-        value = item.send(field) rescue item[field]
+        value = item[field]
         value
       }.compact
       true_count = values.count(true)

@@ -73,34 +73,28 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Sidebar */
 #sidebar {
-  @apply text-gray-500 bg-gray-800 pb-24 w-64 fixed left-0 z-40 overflow-y-auto;
+  @apply text-gray-500 bg-gray-800 pb-24 w-64 fixed left-0 z-40 transform overflow-y-auto;
   min-width: 280px;
-  transition: transform 300ms ease-in-out;
-  --sidebar-translate-x: 0;
-  transform: translateX(var(--sidebar-translate-x));
 }
 
 #sidebar.hidden {
-  --sidebar-translate-x: -100%;
+  @apply -translate-x-full;
 }
 
 #sidebar:not(.hidden) {
-  --sidebar-translate-x: 0%;
+  @apply translate-x-0;
 }
 
 #sidebar-overlay {
   @apply fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-30;
-  transition: opacity 300ms ease-in-out;
 }
 
 #sidebar-overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
+  @apply opacity-0 pointer-events-none;
 }
 
 #sidebar-overlay:not(.hidden) {
-  opacity: 1;
-  pointer-events: auto;
+  @apply opacity-100;
 }
 
 /* Cards */

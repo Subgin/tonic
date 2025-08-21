@@ -308,6 +308,10 @@ module Tonic
 
     private
 
+    def fetch_values(field)
+      tonic_collection.map { |item| item[field] }.compact.reject { |v| v == '' }
+    end
+
     def validate_item!(item)
       if item.name.blank?
         raise "[Tonic] Name can't be blank:\n#{item.to_h}\n"

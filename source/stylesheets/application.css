@@ -76,14 +76,16 @@ input[type="radio"], input[type="checkbox"] {
   @apply text-gray-500 bg-gray-800 pb-24 w-64 fixed left-0 z-40 overflow-y-auto;
   min-width: 280px;
   transition: transform 300ms ease-in-out;
+  --sidebar-translate-x: 0;
+  transform: translateX(var(--sidebar-translate-x));
 }
 
 #sidebar.hidden {
-  transform: translateX(-100%);
+  --sidebar-translate-x: -100%;
 }
 
 #sidebar:not(.hidden) {
-  transform: translateX(0);
+  --sidebar-translate-x: 0%;
 }
 
 #sidebar-overlay {

@@ -13,11 +13,14 @@ module Tonic
     end
 
     def tonic_collection
-      data.collection.each do |item|
-        item.id = slugify(item.name)
-        item.dom_id = "item_#{item.id}"
+      @tonic_collection ||= begin
+        data.collection.each do |item|
+          item.id = slugify(item.name)
+          item.dom_id = "item_#{item.id}"
 
-        validate_item!(item)
+          validate_item!(item)
+        end
+        data.collection
       end
     end
 
@@ -195,9 +198,15 @@ module Tonic
         end
         
         # Check if it's categorical (limited unique values)
-        unique_values = fetch_values(field)
-        if unique_values.size <= 10 && unique_values.size > 1
-          return 'categorical'
+        # Only check unique values if we need to determine categorical vs text
+        unique_sample_values = sample_values.uniq
+        if unique_sample_values.size <= 10 && unique_sample_values.size > 1
+          # Do a more thorough check for categorical by looking at all values
+          all_values = fetch_values(field)
+          unique_values = all_values.uniq
+          if unique_values.size <= 10 && unique_values.size > 1
+            return 'categorical'
+          end
         end
         
         # Default to text
@@ -240,19 +249,34 @@ module Tonic
     end
 
     def numeric_field_stats(field, values)
+      return {
+        min: 0,
+        max: 0,
+        avg: 0,
+        median: 0
+      } if values.empty?
+      
       numeric_values = values.map(&:to_f)
+      return {
+        min: 0,
+        max: 0,
+        avg: 0,
+        median: 0
+      } if numeric_values.empty?
+      
+      sorted_values = numeric_values.sort
       {
         min: numeric_values.min,
         max: numeric_values.max,
         avg: (numeric_values.sum / numeric_values.size.to_f).round(2),
-        median: numeric_values.sort[numeric_values.size / 2]
+        median: sorted_values[sorted_values.size / 2]
       }
     end
 
     def categorical_field_stats(field, values)
       value_counts = values.group_by(&:itself).transform_values(&:size)
       {
-        unique_values: values.size,
+        unique_values: values.uniq.size,
         most_common: value_counts.sort_by { |k, v| -v }.first(5),
         value_distribution: value_counts
       }
@@ -273,6 +297,8 @@ module Tonic
     end
 
     def date_field_stats(field, values)
+      return { date_values: 0 } if values.empty?
+      
       date_values = values.map { |v| Date.parse(v.to_s) rescue nil }.compact
       return { date_values: 0 } if date_values.empty?
       
@@ -299,9 +325,15 @@ module Tonic
     end
 
     def text_field_stats(field, values)
+      return {
+        unique_values: 0,
+        avg_length: 0,
+        most_common: []
+      } if values.empty?
+      
       {
-        unique_values: values.size,
-        avg_length: values.map(&:to_s).map(&:length).sum / values.size.to_f,
+        unique_values: values.uniq.size,
+        avg_length: values.map(&:to_s).map(&:length).sum.to_f / values.size,
         most_common: values.group_by(&:itself).transform_values(&:size).sort_by { |k, v| -v }.first(5)
       }
     end
@@ -317,7 +349,14 @@ module Tonic
         raise "[Tonic] Name can't be blank:\n#{item.to_h}\n"
       end
 
-      if data.collection.count { |el| el.name == item.name } > 1
+      # Check for duplicate names without triggering infinite recursion
+      name_count = 0
+      data.collection.each do |el|
+        name_count += 1 if el.name == item.name
+        break if name_count > 1  # Early exit if duplicate found
+      end
+      
+      if name_count > 1
         raise "[Tonic] Name should be unique:\n#{item.to_h}\n"
       end
     end

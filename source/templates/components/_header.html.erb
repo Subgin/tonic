@@ -18,7 +18,7 @@
       <% config.links&.each do |link| %>
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
-      <% unless config.hide_stats %>
+      <% if config.fetch("stats_page", true) %>
         <a href="/stats" class="nav-link">📊 Stats</a>
       <% end %>
     </div>

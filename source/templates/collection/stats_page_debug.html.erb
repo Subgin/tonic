@@ -1,0 +1,21 @@
+---
+layout: layout
+---
+
+<% @title = "Collection Statistics" %>
+<% @description = "Statistics and insights for the #{config.title} collection" %>
+
+<div class="mt-24 mb-24 px-8 md:px-32 mx-auto max-w-screen-xl">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold mb-2">📊 Collection Insights</h1>
+    <p class="text-gray-600"><%= config.title %></p>
+  </div>
+
+  <% # Test basic collection access %>
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <div class="text-2xl font-bold text-blue-600 mb-2">
+      <%= tonic_collection.size %> Items
+    </div>
+    <div class="text-gray-600">Collection size test</div>
+  </div>
+</div>

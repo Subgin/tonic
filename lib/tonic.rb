@@ -45,9 +45,10 @@ module Tonic
     end
 
     # Create a stats page if enabled
-    if raw_config.fetch("stats_page", true)
-      context.proxy "/stats.html", "/templates/collection/stats_page.html"
-    end
+    # Temporarily disabled due to infinite loop issue
+    # if raw_config.fetch("stats_page", true)
+    #   context.proxy "/stats.html", "/templates/collection/stats_page_debug.html"
+    # end
 
     # Do not build detail page template
     context.ignore "/templates/collection/detail_page.html"
@@ -56,7 +57,7 @@ module Tonic
     context.ignore "/templates/collection/category_page.html"
 
     # Do not build stats page template
-    context.ignore "/templates/collection/stats_page.html"
+    context.ignore "/templates/collection/stats_page_debug.html"
   end
 
   private

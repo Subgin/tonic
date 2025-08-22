@@ -13,14 +13,11 @@ module Tonic
     end
 
     def tonic_collection
-      @tonic_collection ||= begin
-        data.collection.each do |item|
-          item.id = slugify(item.name)
-          item.dom_id = "item_#{item.id}"
+      data.collection.each do |item|
+        item.id = slugify(item.name)
+        item.dom_id = "item_#{item.id}"
 
-          validate_item!(item)
-        end
-        data.collection
+        validate_item!(item)
       end
     end
 
@@ -150,15 +147,16 @@ module Tonic
 
     # Statistics methods for the insights page
     def collection_stats
+      collection = tonic_collection  # Get collection once
       {
-        total_items: tonic_collection.size,
+        total_items: collection.size,
         unique_fields: collection_fields.size,
         fields_by_type: analyze_field_types
       }
     end
 
     def collection_fields
-      tonic_collection.flat_map(&:keys).uniq.sort - Tonic::MAGIC_ATTRS
+      @collection_fields ||= tonic_collection.flat_map(&:keys).uniq.sort - Tonic::MAGIC_ATTRS
     end
 
     def analyze_field_types
@@ -171,7 +169,8 @@ module Tonic
 
     def infer_field_type_for_stats(field)
       begin
-        sample_values = tonic_collection.map { |item| item[field] }.compact.first(10)
+        collection = tonic_collection  # Get collection once
+        sample_values = collection.map { |item| item[field] }.compact.first(10)
         return 'empty' if sample_values.empty?
         
         first_value = sample_values.first
@@ -217,14 +216,15 @@ module Tonic
     end
 
     def field_statistics(field, type = nil)
+      collection = tonic_collection  # Get collection once
       type ||= infer_field_type_for_stats(field)
       values = fetch_values(field)
       
       stats = {
         field: field,
         type: type,
-        total_items: tonic_collection.size,
-        non_empty_items: tonic_collection.count { |item| 
+        total_items: collection.size,
+        non_empty_items: collection.count { |item| 
           value = item[field]
           !value.nil? && value != '' 
         }
@@ -283,7 +283,8 @@ module Tonic
     end
 
     def tags_field_stats(field)
-      all_tags = tonic_collection.flat_map { |item| 
+      collection = tonic_collection  # Get collection once
+      all_tags = collection.flat_map { |item| 
         value = item[field]
         value || [] 
       }
@@ -311,7 +312,8 @@ module Tonic
     end
 
     def boolean_field_stats(field)
-      values = tonic_collection.map { |item| 
+      collection = tonic_collection  # Get collection once
+      values = collection.map { |item| 
         value = item[field]
         value
       }.compact
@@ -339,7 +341,8 @@ module Tonic
     end
 
     def fetch_values(field)
-      tonic_collection.map { |item| item[field] }.compact.reject { |v| v == '' }
+      @fetch_values_cache ||= {}
+      @fetch_values_cache[field] ||= tonic_collection.map { |item| item[field] }.compact.reject { |v| v == '' }
     end
 
     private
@@ -349,14 +352,7 @@ module Tonic
         raise "[Tonic] Name can't be blank:\n#{item.to_h}\n"
       end
 
-      # Check for duplicate names without triggering infinite recursion
-      name_count = 0
-      data.collection.each do |el|
-        name_count += 1 if el.name == item.name
-        break if name_count > 1  # Early exit if duplicate found
-      end
-      
-      if name_count > 1
+      if data.collection.count { |el| el.name == item.name } > 1
         raise "[Tonic] Name should be unique:\n#{item.to_h}\n"
       end
     end

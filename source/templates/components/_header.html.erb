@@ -14,22 +14,19 @@
     <% end %>
   </div>
   <div class="flex gap-4">
-    <!-- Desktop navigation links -->
     <div class="hidden sm:inline">
       <% config.links&.each do |link| %>
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
     </div>
     
-    <!-- Mobile menu button -->
     <% if config.links&.any? %>
       <div class="relative sm:hidden">
         <button onclick="toggleMobileMenu()" class="text-white cursor-pointer outline-hidden p-2">
-          <span id="mobile-menu-icon"><%= inline_svg 'icons/menu.svg' %></span>
+          <span id="mobile-menu-icon"><%= inline_svg 'icons/chevron-down.svg' %></span>
           <span id="mobile-close-icon" class="hidden"><%= inline_svg 'icons/close.svg' %></span>
         </button>
         
-        <!-- Mobile dropdown menu -->
         <div id="mobile-menu-dropdown" class="dropdown hidden">
           <% config.links&.each do |link| %>
             <a href="<%= link.url %>" class="mobile-nav-link"><%= link.text %></a>

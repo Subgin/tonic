@@ -73,29 +73,18 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Mobile menu */
 #mobile-menu-dropdown {
-  @apply w-screen max-w-none;
   right: 0;
   left: auto;
   transform: translateX(0);
 }
 
-@media (max-width: 640px) {
-  #mobile-menu-dropdown {
-    position: fixed;
-    right: 0;
-    left: 0;
-    width: 100vw;
-    margin-left: 0;
-    margin-right: 0;
-  }
+#mobile-menu-dropdown .mobile-nav-link {
+  @apply block p-3;
 }
 
-#header .mobile-nav-link {
-  @apply block px-4 py-3 text-white font-medium border-b border-white/10 last:border-0;
-}
-
-#header .mobile-nav-link:hover {
-  @apply bg-white/10;
+#mobile-menu-dropdown .mobile-nav-link:hover {
+  @apply text-white first:rounded-t last:rounded-b;
+  background-color: var(--main-color);
 }
 
 /* Sidebar */
@@ -183,11 +172,11 @@ button.tag:hover, button.tag.active {
 
 /* Sorting menu */
 #sorting-options a {
-  @apply block px-4 py-2 text-sm;
+  @apply block px-4 py-2;
 }
 
 #sorting-options a:hover, #sorting-options a.active {
-  @apply text-white font-bold first:rounded-t last:rounded-b;
+  @apply text-white first:rounded-t last:rounded-b;
   background-color: var(--main-color);
 }
 

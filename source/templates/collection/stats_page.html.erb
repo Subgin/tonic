@@ -122,7 +122,7 @@ layout: layout
                   <strong>Most common:</strong>
                   <ul>
                     <% field_stats[:most_common].first(2).each do |value, count| %>
-                      <li><%= truncate(value.to_s, length: 30) %> (<%= count %>)</li>
+                      <li><%= strip_truncate(value.to_s, 30) %> (<%= count %>)</li>
                     <% end %>
                   </ul>
                 </div>

@@ -223,6 +223,31 @@ category_pages: false  # Disable
 
 If you want to customize how category pages look, you can edit the HTML template at [`source/templates/collection/category_page.html.erb`](source/templates/collection/category_page.html.erb).
 
+#### Stats page
+
+When enabled (default), Tonic automatically generates a comprehensive statistics and insights page at `/stats` that analyzes your collection data. The stats page dynamically infers field types and displays contextual statistics for any fields present in your collection.
+
+```yaml
+stats_page: true   # Enable (default)
+stats_page: false  # Disable
+```
+
+**Features:**
+- **Summary statistics:** Total items, unique fields, and categories count
+- **Field analysis:** Automatic field type inference (categorical, numeric, date, boolean, array, text, etc.)
+- **Contextual statistics:** 
+  - Categorical fields: unique values and most common items
+  - Numeric fields: min/max/average values and distribution
+  - Array fields (like tags): total unique values, average items per entry, most common tags
+  - Date fields: date ranges and unique dates
+  - Boolean fields: true/false counts and percentages
+- **Category breakdown:** Overview of all categories with item counts and links to category pages
+- **Responsive design:** Works seamlessly on desktop and mobile devices
+
+The stats page leverages the same field inference logic used for filters, ensuring consistency across your Tonic site. No configuration is required – it automatically adapts to any collection schema.
+
+If you want to customize how the stats page looks, you can edit the HTML template at [`source/templates/collection/stats_page.html.erb`](source/templates/collection/stats_page.html.erb).
+
 #### Font family
 
 You can use remote fonts from [Google Fonts](https://fonts.google.com) by adding the family name in the `font_family` option:

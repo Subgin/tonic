@@ -1,9 +1,6 @@
 module Tonic
   module Helpers
     extend self
-    
-    # Static collection data loaded once at startup
-    @@static_collection_data = nil
 
     def config
       data.config.reverse_merge(
@@ -14,44 +11,27 @@ module Tonic
         sorting: { default_order: Tonic::DEFAULT_ORDER }
       )
     end
-    
-    def ensure_static_data_loaded!
-      return if @@static_collection_data
-      
-      # Load collection data once and store statically
-      @@static_collection_data = []
-      data.collection.each do |item|
-        item_hash = {}
-        item.each_pair { |k, v| item_hash[k] = v }
-        item_hash[:id] = slugify(item_hash[:name])
-        item_hash[:dom_id] = "item_#{item_hash[:id]}"
-        @@static_collection_data << OpenStruct.new(item_hash)
-      end
-    rescue
-      @@static_collection_data = []
-    end
-
-    def tonic_collection
-      return @tonic_collection if @tonic_collection
-      
-      # Process the collection once and store it
-      @tonic_collection = data.collection.tap do |collection|
-        collection.each do |item|
-          item.id = slugify(item.name)
-          item.dom_id = "item_#{item.id}"
-          validate_item_during_processing!(item, collection)
-        end
-      end
-    end
-    
-    # Safe alternative that creates a static copy for statistics  
-    def stats_collection
-      ensure_static_data_loaded!
-      @@static_collection_data
-    end
 
     def slugify(text)
       text&.parameterize
+    end
+
+    # Simple, safe collection access that doesn't trigger infinite loops
+    def tonic_collection
+      @tonic_collection ||= begin
+        collection = []
+        data.collection.each do |item|
+          # Create a simple hash copy to avoid modifying the original
+          item_hash = {}
+          item.each_pair { |k, v| item_hash[k] = v }
+          item_hash[:id] = slugify(item_hash[:name])
+          item_hash[:dom_id] = "item_#{item_hash[:id]}"
+          collection << OpenStruct.new(item_hash)
+        end
+        collection
+      end
+    rescue
+      []
     end
 
     def rest_of_attrs(item)
@@ -67,6 +47,8 @@ module Tonic
     end
 
     def sorting_options
+      return [] if tonic_collection.empty?
+      
       options = tonic_collection[0].select do |k, v|
         k == "name" ||
         v.is_a?(Numeric) ||
@@ -84,13 +66,11 @@ module Tonic
 
     def sort_link(option)
       attribute, direction = option.split(" ")
-
       link_to "#{attribute.humanize} #{direction.upcase}", "#", onclick: "sortBy('#{option}')", data: { sort_by: option }
     end
 
     def sharing_platforms
       return Tonic::SHARING_PLATFORMS if !config.sharing_platforms
-
       Tonic::SHARING_PLATFORMS.select do |platform|
         config.sharing_platforms.include?(platform)
       end
@@ -110,7 +90,6 @@ module Tonic
 
     def render_tags(tags)
       return if !tags
-
       tags.sort.map do |tag|
         "<span class='tag'>#{tag}</span>"
       end.join(" ")
@@ -128,7 +107,6 @@ module Tonic
 
     def render_video(video_url)
       embed_url = VideoInfo.new(video_url).embed_url
-
       "<iframe class='w-full aspect-video' src='#{embed_url}' allowfullscreen></iframe>"
     end
 
@@ -172,243 +150,6 @@ module Tonic
 
     def is_audio?(string)
       string.match?(/\.(mp3|ogg|wav)$/)
-    end
-
-    # Statistics methods for the insights page
-    def collection_stats
-      collection = safe_collection
-      {
-        total_items: collection.size,
-        unique_fields: safe_collection_fields.size,
-        fields_by_type: analyze_field_types
-      }
-    end
-
-    def collection_fields
-      safe_collection_fields
-    end
-    
-    def safe_collection_fields
-      @safe_collection_fields ||= safe_collection.flat_map(&:keys).uniq.sort - Tonic::MAGIC_ATTRS
-    end
-    
-    def safe_collection
-      # Use separate stats collection to avoid Middleman reactivity issues
-      stats_collection
-    end
-
-    def analyze_field_types
-      fields = {}
-      safe_collection_fields.each do |field|
-        fields[field] = infer_field_type_for_stats(field)
-      end
-      fields
-    end
-
-    def infer_field_type_for_stats(field)
-      begin
-        collection = safe_collection
-        sample_values = collection.map { |item| item[field] }.compact.first(10)
-        return 'empty' if sample_values.empty?
-        
-        first_value = sample_values.first
-        return 'empty' if first_value.nil?
-        
-        # Check for arrays (tags)
-        if first_value.is_a?(Array)
-          return 'tags'
-        end
-        
-        # Check for boolean
-        if is_bool?(first_value)
-          return 'boolean'
-        end
-        
-        # Check for numeric
-        if first_value.is_a?(Numeric)
-          return 'numeric'
-        end
-        
-        # Check for dates
-        if first_value.is_a?(String) && (field.end_with?('_at') || is_date?(first_value))
-          return 'date'
-        end
-        
-        # Check if it's categorical (limited unique values)
-        # Only check unique values if we need to determine categorical vs text
-        unique_sample_values = sample_values.uniq
-        if unique_sample_values.size <= 10 && unique_sample_values.size > 1
-          # Do a more thorough check for categorical by looking at all values
-          all_values = safe_fetch_values(field)
-          unique_values = all_values.uniq
-          if unique_values.size <= 10 && unique_values.size > 1
-            return 'categorical'
-          end
-        end
-        
-        # Default to text
-        'text'
-      rescue
-        'empty'
-      end
-    end
-
-    def field_statistics(field, type = nil)
-      collection = safe_collection
-      type ||= infer_field_type_for_stats(field)
-      values = safe_fetch_values(field)
-      
-      stats = {
-        field: field,
-        type: type,
-        total_items: collection.size,
-        non_empty_items: collection.count { |item| 
-          value = item[field]
-          !value.nil? && value != '' 
-        }
-      }
-      
-      case type
-      when 'numeric'
-        stats.merge!(numeric_field_stats(field, values))
-      when 'categorical'
-        stats.merge!(categorical_field_stats(field, values))
-      when 'tags'
-        stats.merge!(tags_field_stats(field))
-      when 'date'
-        stats.merge!(date_field_stats(field, values))
-      when 'boolean'
-        stats.merge!(boolean_field_stats(field))
-      else
-        stats.merge!(text_field_stats(field, values))
-      end
-      
-      stats
-    end
-
-    def numeric_field_stats(field, values)
-      return {
-        min: 0,
-        max: 0,
-        avg: 0,
-        median: 0
-      } if values.empty?
-      
-      numeric_values = values.map(&:to_f)
-      return {
-        min: 0,
-        max: 0,
-        avg: 0,
-        median: 0
-      } if numeric_values.empty?
-      
-      sorted_values = numeric_values.sort
-      {
-        min: numeric_values.min,
-        max: numeric_values.max,
-        avg: (numeric_values.sum / numeric_values.size.to_f).round(2),
-        median: sorted_values[sorted_values.size / 2]
-      }
-    end
-
-    def categorical_field_stats(field, values)
-      value_counts = values.group_by(&:itself).transform_values(&:size)
-      {
-        unique_values: values.uniq.size,
-        most_common: value_counts.sort_by { |k, v| -v }.first(5),
-        value_distribution: value_counts
-      }
-    end
-
-    def tags_field_stats(field)
-      collection = safe_collection
-      all_tags = collection.flat_map { |item| 
-        value = item[field]
-        value || [] 
-      }
-      tag_counts = all_tags.group_by(&:itself).transform_values(&:size)
-      {
-        total_tags: all_tags.size,
-        unique_tags: tag_counts.keys.size,
-        most_common_tags: tag_counts.sort_by { |k, v| -v }.first(10),
-        tag_distribution: tag_counts
-      }
-    end
-
-    def date_field_stats(field, values)
-      return { date_values: 0 } if values.empty?
-      
-      date_values = values.map { |v| Date.parse(v.to_s) rescue nil }.compact
-      return { date_values: 0 } if date_values.empty?
-      
-      {
-        earliest: date_values.min,
-        latest: date_values.max,
-        date_range_days: (date_values.max - date_values.min).to_i,
-        dates_by_year: date_values.group_by(&:year).transform_values(&:size)
-      }
-    end
-
-    def boolean_field_stats(field)
-      collection = safe_collection
-      values = collection.map { |item| 
-        value = item[field]
-        value
-      }.compact
-      true_count = values.count(true)
-      false_count = values.count(false)
-      {
-        true_count: true_count,
-        false_count: false_count,
-        true_percentage: values.size > 0 ? (true_count.to_f / values.size * 100).round(1) : 0
-      }
-    end
-
-    def text_field_stats(field, values)
-      return {
-        unique_values: 0,
-        avg_length: 0,
-        most_common: []
-      } if values.empty?
-      
-      {
-        unique_values: values.uniq.size,
-        avg_length: values.map(&:to_s).map(&:length).sum.to_f / values.size,
-        most_common: values.group_by(&:itself).transform_values(&:size).sort_by { |k, v| -v }.first(5)
-      }
-    end
-
-    def safe_fetch_values(field)
-      @safe_fetch_values_cache ||= {}
-      @safe_fetch_values_cache[field] ||= safe_collection.map { |item| item[field] }.compact.reject { |v| v == '' }
-    end
-    
-    # Legacy method for backwards compatibility
-    def fetch_values(field)
-      safe_fetch_values(field)
-    end
-
-    private
-
-    def validate_item!(item)
-      if item.name.blank?
-        raise "[Tonic] Name can't be blank:\n#{item.to_h}\n"
-      end
-
-      if data.collection.count { |el| el.name == item.name } > 1
-        raise "[Tonic] Name should be unique:\n#{item.to_h}\n"
-      end
-    end
-    
-    def validate_item_during_processing!(item, collection)
-      if item.name.blank?
-        raise "[Tonic] Name can't be blank:\n#{item.to_h}\n"
-      end
-
-      # Use the collection being processed to avoid circular data access
-      if collection.count { |el| el.name == item.name } > 1
-        raise "[Tonic] Name should be unique:\n#{item.to_h}\n"
-      end
     end
   end
 end

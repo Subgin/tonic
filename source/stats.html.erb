@@ -17,112 +17,99 @@ layout: layout
     <p class="text-gray-600"><%= config.title %></p>
   </div>
 
-  <% stats = collection_stats %>
+  <%
+    # Simple, safe collection access using the tonic_collection helper
+    collection_data = tonic_collection
+    total_items = collection_data.size
+    all_fields = collection_data.flat_map(&:keys).uniq.sort - %w(id dom_id)
+    categories = all_categories(collection_data)
+  %>
   
   <!-- Overview Cards -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
     <div class="bg-white rounded-lg shadow-md p-6 text-center">
-      <div class="text-3xl font-bold text-blue-600 mb-2"><%= stats[:total_items] %></div>
+      <div class="text-3xl font-bold text-blue-600 mb-2"><%= total_items %></div>
       <div class="text-gray-600">Total Items</div>
     </div>
     <div class="bg-white rounded-lg shadow-md p-6 text-center">
-      <div class="text-3xl font-bold text-green-600 mb-2"><%= stats[:unique_fields] %></div>
+      <div class="text-3xl font-bold text-green-600 mb-2"><%= all_fields.size %></div>
       <div class="text-gray-600">Unique Fields</div>
     </div>
     <div class="bg-white rounded-lg shadow-md p-6 text-center">
-      <div class="text-3xl font-bold text-purple-600 mb-2"><%= all_categories(safe_collection).size %></div>
+      <div class="text-3xl font-bold text-purple-600 mb-2"><%= categories.size %></div>
       <div class="text-gray-600">Categories</div>
     </div>
   </div>
 
-  <!-- Field Statistics -->
-  <div class="space-y-8">
-    <% collection_fields.each do |field| %>
-      <% field_stats = field_statistics(field) %>
-      <% next if field_stats[:type] == 'empty' %>
-      
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-xl font-semibold mb-4 flex items-center">
-          <span class="mr-2">
-            <% case field_stats[:type] %>
-            <% when 'numeric' %>📊
-            <% when 'categorical' %>🏷️
-            <% when 'tags' %>🔖
-            <% when 'date' %>📅
-            <% when 'boolean' %>✅
-            <% else %>📝
-            <% end %>
-          </span>
-          <%= field.titleize %>
-          <span class="ml-2 text-sm bg-gray-200 px-2 py-1 rounded"><%= field_stats[:type] %></span>
-        </h3>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Stats Summary -->
-          <div>
-            <div class="mb-4">
-              <div class="text-sm text-gray-600">Coverage: <%= field_stats[:non_empty_items] %> / <%= field_stats[:total_items] %> items 
-                (<%= ((field_stats[:non_empty_items].to_f / field_stats[:total_items]) * 100).round(1) %>%)</div>
-            </div>
-            
-            <% case field_stats[:type] %>
-            <% when 'numeric' %>
-              <div class="space-y-2">
-                <div><strong>Range:</strong> <%= field_stats[:min] %> - <%= field_stats[:max] %></div>
-                <div><strong>Average:</strong> <%= field_stats[:avg] %></div>
-                <div><strong>Median:</strong> <%= field_stats[:median] %></div>
-              </div>
-            <% when 'categorical' %>
-              <div class="space-y-2">
-                <div><strong>Unique Values:</strong> <%= field_stats[:unique_values] %></div>
-                <div><strong>Most Common:</strong></div>
-                <ul class="ml-4 space-y-1">
-                  <% field_stats[:most_common].each do |value, count| %>
-                    <li class="flex justify-between">
-                      <span><%= value %></span>
-                      <span class="text-gray-500"><%= count %></span>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            <% when 'tags' %>
-              <div class="space-y-2">
-                <div><strong>Total Tags:</strong> <%= field_stats[:total_tags] %></div>
-                <div><strong>Unique Tags:</strong> <%= field_stats[:unique_tags] %></div>
-                <div><strong>Most Popular Tags:</strong></div>
-                <div class="flex flex-wrap gap-2 mt-2">
-                  <% field_stats[:most_common_tags].first(8).each do |tag, count| %>
-                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
-                      <%= tag %> (<%= count %>)
-                    </span>
-                  <% end %>
-                </div>
-              </div>
-            <% when 'boolean' %>
-              <div class="space-y-2">
-                <div class="flex justify-between">
-                  <span><strong>True:</strong></span>
-                  <span><%= field_stats[:true_count] %> (<%= field_stats[:true_percentage] %>%)</span>
-                </div>
-                <div class="flex justify-between">
-                  <span><strong>False:</strong></span>
-                  <span><%= field_stats[:false_count] %> (<%= (100 - field_stats[:true_percentage]).round(1) %>%)</span>
-                </div>
-              </div>
-            <% else %>
-              <div class="space-y-2">
-                <div><strong>Unique Values:</strong> <%= field_stats[:unique_values] %></div>
-                <div><strong>Avg Length:</strong> <%= field_stats[:avg_length].round(1) %> characters</div>
-              </div>
-            <% end %>
-          </div>
+  <!-- Simple Field Analysis -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <h3 class="text-xl font-semibold mb-4">📋 Collection Fields</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% all_fields.each do |field| %>
+        <%
+          # Simple field analysis - count non-empty values
+          non_empty_count = collection_data.count { |item| 
+            value = item[field]
+            !value.nil? && value != '' 
+          }
+          coverage_percent = total_items > 0 ? (non_empty_count.to_f / total_items * 100).round(1) : 0
           
-          <!-- Chart placeholder -->
-          <div class="bg-gray-50 rounded p-4 text-center text-gray-500">
-            Chart visualization for <%= field_stats[:type] %> field would appear here
+          # Simple type detection
+          sample_value = collection_data.find { |item| item[field] && item[field] != '' }&.[](field)
+          field_type = if sample_value.is_a?(Array)
+            'tags'
+          elsif sample_value.is_a?(Numeric)
+            'numeric'
+          elsif [true, false].include?(sample_value)
+            'boolean'
+          else
+            'text'
+          end
+        %>
+        
+        <div class="border rounded p-4">
+          <div class="flex items-center mb-2">
+            <span class="mr-2">
+              <% case field_type %>
+              <% when 'numeric' %>📊
+              <% when 'tags' %>🔖
+              <% when 'boolean' %>✅
+              <% else %>📝
+              <% end %>
+            </span>
+            <div class="font-medium"><%= field.to_s.titleize %></div>
+          </div>
+          <div class="text-sm text-gray-600">
+            Coverage: <%= non_empty_count %>/<%= total_items %> (<%= coverage_percent %>%)
+          </div>
+          <div class="text-xs text-gray-500 mt-1">
+            Type: <%= field_type %>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
+
+  <!-- Categories Overview -->
+  <% if categories.any? %>
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h3 class="text-xl font-semibold mb-4">🏷️ Categories</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% categories.each do |category| %>
+        <%
+          category_count = collection_data.count { |item| item.category == category }
+        %>
+        
+        <div class="border rounded p-4">
+          <div class="font-medium"><%= category %></div>
+          <div class="text-sm text-gray-600">
+            <%= category_count %> items (<%= (category_count.to_f / total_items * 100).round(1) %>%)
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
 </div>

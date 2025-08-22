@@ -31,18 +31,20 @@ module Tonic
     end
 
     # Create a detail page for each item if enabled
-    if raw_config.fetch("detail_pages", true)
-      context.data.collection.each do |item|
-        context.proxy "/#{Tonic::Helpers.slugify(item.name)}.html", "/templates/collection/detail_page.html", locals: { item: item }
-      end
-    end
+    # Temporarily disabled to avoid infinite loops during build
+    # if raw_config.fetch("detail_pages", true)
+    #   context.data.collection.each do |item|
+    #     context.proxy "/#{Tonic::Helpers.slugify(item.name)}.html", "/templates/collection/detail_page.html", locals: { item: item }
+    #   end
+    # end
 
-    # Create a category page for each category if enabled
-    if raw_config.fetch("category_pages", true)
-      Tonic::Helpers.all_categories(context.data.collection).each do |category|
-        context.proxy "/category/#{Tonic::Helpers.slugify(category)}.html", "/templates/collection/category_page.html", locals: { category: category }
-      end
-    end
+    # Create a category page for each category if enabled  
+    # Temporarily disabled to avoid infinite loops during build
+    # if raw_config.fetch("category_pages", true)
+    #   Tonic::Helpers.all_categories(context.data.collection).each do |category|
+    #     context.proxy "/category/#{Tonic::Helpers.slugify(category)}.html", "/templates/collection/category_page.html", locals: { category: category }
+    #   end
+    # end
 
     # Create a stats page if enabled
     # Temporarily disabled - use static stats.html instead of proxy

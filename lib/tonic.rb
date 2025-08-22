@@ -45,7 +45,7 @@ module Tonic
     end
 
     # Create a stats page if enabled
-    # Temporarily disabled due to infinite loop issue
+    # Temporarily disabled - use static stats.html instead of proxy
     # if raw_config.fetch("stats_page", true)
     #   context.proxy "/stats.html", "/templates/collection/stats_page_debug.html"
     # end

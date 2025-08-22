@@ -1,6 +1,9 @@
 module Tonic
   module Helpers
     extend self
+    
+    # Static collection data loaded once at startup
+    @@static_collection_data = nil
 
     def config
       data.config.reverse_merge(
@@ -11,14 +14,40 @@ module Tonic
         sorting: { default_order: Tonic::DEFAULT_ORDER }
       )
     end
+    
+    def ensure_static_data_loaded!
+      return if @@static_collection_data
+      
+      # Load collection data once and store statically
+      @@static_collection_data = []
+      data.collection.each do |item|
+        item_hash = {}
+        item.each_pair { |k, v| item_hash[k] = v }
+        item_hash[:id] = slugify(item_hash[:name])
+        item_hash[:dom_id] = "item_#{item_hash[:id]}"
+        @@static_collection_data << OpenStruct.new(item_hash)
+      end
+    rescue
+      @@static_collection_data = []
+    end
 
     def tonic_collection
-      data.collection.each do |item|
-        item.id = slugify(item.name)
-        item.dom_id = "item_#{item.id}"
-
-        validate_item!(item)
+      return @tonic_collection if @tonic_collection
+      
+      # Process the collection once and store it
+      @tonic_collection = data.collection.tap do |collection|
+        collection.each do |item|
+          item.id = slugify(item.name)
+          item.dom_id = "item_#{item.id}"
+          validate_item_during_processing!(item, collection)
+        end
       end
+    end
+    
+    # Safe alternative that creates a static copy for statistics  
+    def stats_collection
+      ensure_static_data_loaded!
+      @@static_collection_data
     end
 
     def slugify(text)
@@ -147,21 +176,30 @@ module Tonic
 
     # Statistics methods for the insights page
     def collection_stats
-      collection = tonic_collection  # Get collection once
+      collection = safe_collection
       {
         total_items: collection.size,
-        unique_fields: collection_fields.size,
+        unique_fields: safe_collection_fields.size,
         fields_by_type: analyze_field_types
       }
     end
 
     def collection_fields
-      @collection_fields ||= tonic_collection.flat_map(&:keys).uniq.sort - Tonic::MAGIC_ATTRS
+      safe_collection_fields
+    end
+    
+    def safe_collection_fields
+      @safe_collection_fields ||= safe_collection.flat_map(&:keys).uniq.sort - Tonic::MAGIC_ATTRS
+    end
+    
+    def safe_collection
+      # Use separate stats collection to avoid Middleman reactivity issues
+      stats_collection
     end
 
     def analyze_field_types
       fields = {}
-      collection_fields.each do |field|
+      safe_collection_fields.each do |field|
         fields[field] = infer_field_type_for_stats(field)
       end
       fields
@@ -169,7 +207,7 @@ module Tonic
 
     def infer_field_type_for_stats(field)
       begin
-        collection = tonic_collection  # Get collection once
+        collection = safe_collection
         sample_values = collection.map { |item| item[field] }.compact.first(10)
         return 'empty' if sample_values.empty?
         
@@ -201,7 +239,7 @@ module Tonic
         unique_sample_values = sample_values.uniq
         if unique_sample_values.size <= 10 && unique_sample_values.size > 1
           # Do a more thorough check for categorical by looking at all values
-          all_values = fetch_values(field)
+          all_values = safe_fetch_values(field)
           unique_values = all_values.uniq
           if unique_values.size <= 10 && unique_values.size > 1
             return 'categorical'
@@ -216,9 +254,9 @@ module Tonic
     end
 
     def field_statistics(field, type = nil)
-      collection = tonic_collection  # Get collection once
+      collection = safe_collection
       type ||= infer_field_type_for_stats(field)
-      values = fetch_values(field)
+      values = safe_fetch_values(field)
       
       stats = {
         field: field,
@@ -283,7 +321,7 @@ module Tonic
     end
 
     def tags_field_stats(field)
-      collection = tonic_collection  # Get collection once
+      collection = safe_collection
       all_tags = collection.flat_map { |item| 
         value = item[field]
         value || [] 
@@ -312,7 +350,7 @@ module Tonic
     end
 
     def boolean_field_stats(field)
-      collection = tonic_collection  # Get collection once
+      collection = safe_collection
       values = collection.map { |item| 
         value = item[field]
         value
@@ -340,9 +378,14 @@ module Tonic
       }
     end
 
+    def safe_fetch_values(field)
+      @safe_fetch_values_cache ||= {}
+      @safe_fetch_values_cache[field] ||= safe_collection.map { |item| item[field] }.compact.reject { |v| v == '' }
+    end
+    
+    # Legacy method for backwards compatibility
     def fetch_values(field)
-      @fetch_values_cache ||= {}
-      @fetch_values_cache[field] ||= tonic_collection.map { |item| item[field] }.compact.reject { |v| v == '' }
+      safe_fetch_values(field)
     end
 
     private
@@ -353,6 +396,17 @@ module Tonic
       end
 
       if data.collection.count { |el| el.name == item.name } > 1
+        raise "[Tonic] Name should be unique:\n#{item.to_h}\n"
+      end
+    end
+    
+    def validate_item_during_processing!(item, collection)
+      if item.name.blank?
+        raise "[Tonic] Name can't be blank:\n#{item.to_h}\n"
+      end
+
+      # Use the collection being processed to avoid circular data access
+      if collection.count { |el| el.name == item.name } > 1
         raise "[Tonic] Name should be unique:\n#{item.to_h}\n"
       end
     end

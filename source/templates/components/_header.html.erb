@@ -18,9 +18,12 @@
       <% config.links&.each do |link| %>
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
+      <% if config.fetch("stats_page", true) %>
+        <a href="/stats" class="nav-link">📊 Stats</a>
+      <% end %>
     </div>
     
-    <% if config.links&.any? %>
+    <% if config.links&.any? || config.fetch("stats_page", true) %>
       <div class="relative sm:hidden">
         <button onclick="toggleMobileMenu()" class="text-white cursor-pointer outline-hidden p-2">
           <span id="mobile-menu-icon"><%= inline_svg 'icons/chevron-down.svg' %></span>
@@ -30,6 +33,9 @@
         <div id="mobile-menu-dropdown" class="dropdown hidden">
           <% config.links&.each do |link| %>
             <a href="<%= link.url %>" class="mobile-nav-link"><%= link.text %></a>
+          <% end %>
+          <% if config.fetch("stats_page", true) %>
+            <a href="/stats" class="mobile-nav-link">📊 Stats</a>
           <% end %>
         </div>
       </div>

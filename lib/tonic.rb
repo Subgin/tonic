@@ -44,11 +44,19 @@ module Tonic
       end
     end
 
+    # Create a stats page if enabled
+    if raw_config.fetch("stats_page", true)
+      context.proxy "/stats.html", "/templates/collection/stats_page.html"
+    end
+
     # Do not build detail page template
     context.ignore "/templates/collection/detail_page.html"
 
     # Do not build category page template
     context.ignore "/templates/collection/category_page.html"
+
+    # Do not build stats page template
+    context.ignore "/templates/collection/stats_page.html"
   end
 
   private

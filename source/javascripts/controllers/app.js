@@ -4,9 +4,6 @@ export default class AppCtrl {
   constructor() {
     self.currentFilters = {}
 
-    // Initialize dropdown management
-    this.initializeDropdownManagement()
-
     // Initialize dynamic header height positioning
     this.updateHeaderHeightPositioning()
     on(window, 'resize', () => { this.updateHeaderHeightPositioning() })
@@ -19,36 +16,6 @@ export default class AppCtrl {
       const defaultOrder = getParam('sorting') || window.config.sorting.default_order
       this.sortBy(defaultOrder, false)
     })
-  }
-
-  initializeDropdownManagement() {
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (event) => {
-      // Don't close if clicking on a dropdown button or inside a dropdown
-      if (event.target.closest('button[onclick*="toggle"]') || event.target.closest('.dropdown')) {
-        return
-      }
-      
-      // Close all dropdowns
-      this.closeAllDropdowns()
-    })
-  }
-
-  closeAllDropdowns() {
-    // Force close sorting dropdown if it's open
-    if (!hasClass('#sorting-options', 'hidden')) {
-      this.toggleSorting()
-    }
-    
-    // Force close sharing dropdown if it's open
-    if (!hasClass('#sharing-options', 'hidden')) {
-      this.toggleSharing()
-    }
-    
-    // Force close mobile menu if it's open
-    if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
-      this.toggleMobileMenu()
-    }
   }
 
   updateHeaderHeightPositioning() {
@@ -72,78 +39,36 @@ export default class AppCtrl {
   }
 
   toggleSorting() {
-    const isCurrentlyHidden = hasClass('#sorting-options', 'hidden')
-    
-    if (isCurrentlyHidden) {
-      // Close other dropdowns first
-      if (!hasClass('#sharing-options', 'hidden')) {
-        addClass('#sharing-options', 'hidden')
-      }
-      if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
-        addClass('#mobile-menu-dropdown', 'hidden')
-        removeClass('#mobile-menu-icon', 'hidden')
-        addClass('#mobile-close-icon', 'hidden')
-      }
-      
-      // Open sorting dropdown
-      removeClass('#sorting-options', 'hidden')
-    } else {
-      // Close sorting dropdown
-      addClass('#sorting-options', 'hidden')
-    }
+    toggleClass('#sorting-options', 'hidden')
+
+    if (!hasClass('#sorting-options', 'hidden')) addClass('#sharing-options', 'hidden')
   }
 
   toggleSharing() {
-    const isCurrentlyHidden = hasClass('#sharing-options', 'hidden')
-    
-    if (isCurrentlyHidden) {
-      // Close other dropdowns first
-      if (!hasClass('#sorting-options', 'hidden')) {
-        addClass('#sorting-options', 'hidden')
-      }
-      if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
-        addClass('#mobile-menu-dropdown', 'hidden')
-        removeClass('#mobile-menu-icon', 'hidden')
-        addClass('#mobile-close-icon', 'hidden')
-      }
-      
-      // Open sharing dropdown
-      removeClass('#sharing-options', 'hidden')
-      
+    toggleClass('#sharing-options', 'hidden')
+
+    if (!hasClass('#sharing-options', 'hidden')) {
+      addClass('#sorting-options', 'hidden')
+
       // Prepare data-* attributes for share & copy actions
       attr('#share_url', 'value', currentUrl())
       findAll('#sharing-buttons a').forEach(el => {
         data(el, { title: find('title').innerText, url: currentUrl() })
       })
-    } else {
-      // Close sharing dropdown
-      addClass('#sharing-options', 'hidden')
     }
   }
 
   toggleMobileMenu() {
-    const isCurrentlyHidden = hasClass('#mobile-menu-dropdown', 'hidden')
+    toggleClass('#mobile-menu-dropdown', 'hidden')
     
-    if (isCurrentlyHidden) {
-      // Close other dropdowns first
-      if (!hasClass('#sorting-options', 'hidden')) {
-        addClass('#sorting-options', 'hidden')
-      }
-      if (!hasClass('#sharing-options', 'hidden')) {
-        addClass('#sharing-options', 'hidden')
-      }
-      
-      // Open mobile menu dropdown
-      removeClass('#mobile-menu-dropdown', 'hidden')
-      // Toggle to close icon
-      addClass('#mobile-menu-icon', 'hidden')
-      removeClass('#mobile-close-icon', 'hidden')
-    } else {
-      // Close mobile menu dropdown
-      addClass('#mobile-menu-dropdown', 'hidden')
-      // Toggle back to menu icon
-      removeClass('#mobile-menu-icon', 'hidden')
-      addClass('#mobile-close-icon', 'hidden')
+    // Toggle between menu and close icons
+    toggleClass('#mobile-menu-icon', 'hidden')
+    toggleClass('#mobile-close-icon', 'hidden')
+    
+    // Close other dropdowns when opening mobile menu
+    if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
+      addClass('#sorting-options', 'hidden')
+      addClass('#sharing-options', 'hidden')
     }
   }
 

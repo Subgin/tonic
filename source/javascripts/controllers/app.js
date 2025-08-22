@@ -35,31 +35,19 @@ export default class AppCtrl {
   }
 
   closeAllDropdowns() {
-    // Close all dropdown menus
-    addClass('#sorting-options', 'hidden')
-    addClass('#sharing-options', 'hidden')
-    addClass('#mobile-menu-dropdown', 'hidden')
+    // Force close sorting dropdown if it's open
+    if (!hasClass('#sorting-options', 'hidden')) {
+      this.toggleSorting()
+    }
     
-    // Reset mobile menu icon
-    removeClass('#mobile-menu-icon', 'hidden')
-    addClass('#mobile-close-icon', 'hidden')
-  }
-
-  toggleDropdown(dropdownId, iconId = null, closeIconId = null) {
-    const isHidden = hasClass(dropdownId, 'hidden')
+    // Force close sharing dropdown if it's open
+    if (!hasClass('#sharing-options', 'hidden')) {
+      this.toggleSharing()
+    }
     
-    // Close all dropdowns first
-    this.closeAllDropdowns()
-    
-    // If the dropdown was hidden, show it
-    if (isHidden) {
-      removeClass(dropdownId, 'hidden')
-      
-      // Toggle icons if provided
-      if (iconId && closeIconId) {
-        addClass(iconId, 'hidden')
-        removeClass(closeIconId, 'hidden')
-      }
+    // Force close mobile menu if it's open
+    if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
+      this.toggleMobileMenu()
     }
   }
 
@@ -84,24 +72,79 @@ export default class AppCtrl {
   }
 
   toggleSorting() {
-    this.toggleDropdown('#sorting-options')
+    const isCurrentlyHidden = hasClass('#sorting-options', 'hidden')
+    
+    if (isCurrentlyHidden) {
+      // Close other dropdowns first
+      if (!hasClass('#sharing-options', 'hidden')) {
+        addClass('#sharing-options', 'hidden')
+      }
+      if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
+        addClass('#mobile-menu-dropdown', 'hidden')
+        removeClass('#mobile-menu-icon', 'hidden')
+        addClass('#mobile-close-icon', 'hidden')
+      }
+      
+      // Open sorting dropdown
+      removeClass('#sorting-options', 'hidden')
+    } else {
+      // Close sorting dropdown
+      addClass('#sorting-options', 'hidden')
+    }
   }
 
   toggleSharing() {
-    const isHidden = hasClass('#sharing-options', 'hidden')
-    this.toggleDropdown('#sharing-options')
-
-    // Prepare data-* attributes for share & copy actions only when opening
-    if (isHidden) {
+    const isCurrentlyHidden = hasClass('#sharing-options', 'hidden')
+    
+    if (isCurrentlyHidden) {
+      // Close other dropdowns first
+      if (!hasClass('#sorting-options', 'hidden')) {
+        addClass('#sorting-options', 'hidden')
+      }
+      if (!hasClass('#mobile-menu-dropdown', 'hidden')) {
+        addClass('#mobile-menu-dropdown', 'hidden')
+        removeClass('#mobile-menu-icon', 'hidden')
+        addClass('#mobile-close-icon', 'hidden')
+      }
+      
+      // Open sharing dropdown
+      removeClass('#sharing-options', 'hidden')
+      
+      // Prepare data-* attributes for share & copy actions
       attr('#share_url', 'value', currentUrl())
       findAll('#sharing-buttons a').forEach(el => {
         data(el, { title: find('title').innerText, url: currentUrl() })
       })
+    } else {
+      // Close sharing dropdown
+      addClass('#sharing-options', 'hidden')
     }
   }
 
   toggleMobileMenu() {
-    this.toggleDropdown('#mobile-menu-dropdown', '#mobile-menu-icon', '#mobile-close-icon')
+    const isCurrentlyHidden = hasClass('#mobile-menu-dropdown', 'hidden')
+    
+    if (isCurrentlyHidden) {
+      // Close other dropdowns first
+      if (!hasClass('#sorting-options', 'hidden')) {
+        addClass('#sorting-options', 'hidden')
+      }
+      if (!hasClass('#sharing-options', 'hidden')) {
+        addClass('#sharing-options', 'hidden')
+      }
+      
+      // Open mobile menu dropdown
+      removeClass('#mobile-menu-dropdown', 'hidden')
+      // Toggle to close icon
+      addClass('#mobile-menu-icon', 'hidden')
+      removeClass('#mobile-close-icon', 'hidden')
+    } else {
+      // Close mobile menu dropdown
+      addClass('#mobile-menu-dropdown', 'hidden')
+      // Toggle back to menu icon
+      removeClass('#mobile-menu-icon', 'hidden')
+      addClass('#mobile-close-icon', 'hidden')
+    }
   }
 
   defaultFilters() {

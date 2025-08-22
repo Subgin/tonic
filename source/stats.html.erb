@@ -3,7 +3,7 @@ layout: layout
 ---
 
 <% @title = "Collection Statistics" %>
-<% @description = "Statistics and insights for the #{config.title} collection" %>
+<% @description = "Statistics for the collection" %>
 
 <div class="mt-24 mb-24 px-8 md:px-32 mx-auto max-w-screen-xl">
   <div class="flex justify-between items-center mb-6">
@@ -17,99 +17,27 @@ layout: layout
     <p class="text-gray-600"><%= config.title %></p>
   </div>
 
-  <%
-    # Simple, safe collection access using the tonic_collection helper
-    collection_data = tonic_collection
-    total_items = collection_data.size
-    all_fields = collection_data.flat_map(&:keys).uniq.sort - %w(id dom_id)
-    categories = all_categories(collection_data)
-  %>
+  <% collection_data = tonic_collection %>
   
   <!-- Overview Cards -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
     <div class="bg-white rounded-lg shadow-md p-6 text-center">
-      <div class="text-3xl font-bold text-blue-600 mb-2"><%= total_items %></div>
+      <div class="text-3xl font-bold text-blue-600 mb-2"><%= collection_data.size %></div>
       <div class="text-gray-600">Total Items</div>
     </div>
     <div class="bg-white rounded-lg shadow-md p-6 text-center">
-      <div class="text-3xl font-bold text-green-600 mb-2"><%= all_fields.size %></div>
+      <div class="text-3xl font-bold text-green-600 mb-2"><%= collection_data.flat_map(&:keys).uniq.size %></div>
       <div class="text-gray-600">Unique Fields</div>
     </div>
     <div class="bg-white rounded-lg shadow-md p-6 text-center">
-      <div class="text-3xl font-bold text-purple-600 mb-2"><%= categories.size %></div>
+      <div class="text-3xl font-bold text-purple-600 mb-2"><%= all_categories(collection_data).size %></div>
       <div class="text-gray-600">Categories</div>
     </div>
   </div>
 
-  <!-- Simple Field Analysis -->
-  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h3 class="text-xl font-semibold mb-4">📋 Collection Fields</h3>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <% all_fields.each do |field| %>
-        <%
-          # Simple field analysis - count non-empty values
-          non_empty_count = collection_data.count { |item| 
-            value = item[field]
-            !value.nil? && value != '' 
-          }
-          coverage_percent = total_items > 0 ? (non_empty_count.to_f / total_items * 100).round(1) : 0
-          
-          # Simple type detection
-          sample_value = collection_data.find { |item| item[field] && item[field] != '' }&.[](field)
-          field_type = if sample_value.is_a?(Array)
-            'tags'
-          elsif sample_value.is_a?(Numeric)
-            'numeric'
-          elsif [true, false].include?(sample_value)
-            'boolean'
-          else
-            'text'
-          end
-        %>
-        
-        <div class="border rounded p-4">
-          <div class="flex items-center mb-2">
-            <span class="mr-2">
-              <% case field_type %>
-              <% when 'numeric' %>📊
-              <% when 'tags' %>🔖
-              <% when 'boolean' %>✅
-              <% else %>📝
-              <% end %>
-            </span>
-            <div class="font-medium"><%= field.to_s.titleize %></div>
-          </div>
-          <div class="text-sm text-gray-600">
-            Coverage: <%= non_empty_count %>/<%= total_items %> (<%= coverage_percent %>%)
-          </div>
-          <div class="text-xs text-gray-500 mt-1">
-            Type: <%= field_type %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <!-- Categories Overview -->
-  <% if categories.any? %>
+  <!-- Simple Content -->
   <div class="bg-white rounded-lg shadow-md p-6">
-    <h3 class="text-xl font-semibold mb-4">🏷️ Categories</h3>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <% categories.each do |category| %>
-        <%
-          category_count = collection_data.count { |item| item.category == category }
-        %>
-        
-        <div class="border rounded p-4">
-          <div class="font-medium"><%= category %></div>
-          <div class="text-sm text-gray-600">
-            <%= category_count %> items (<%= (category_count.to_f / total_items * 100).round(1) %>%)
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <h3 class="text-xl font-semibold mb-4">📋 Collection Overview</h3>
+    <p>This statistics page provides insights into the collection data structure and content.</p>
   </div>
-  <% end %>
 </div>

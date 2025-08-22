@@ -71,6 +71,22 @@ input[type="radio"], input[type="checkbox"] {
   color: var(--main-color);
 }
 
+/* Mobile menu */
+#mobile-menu-dropdown {
+  right: 0;
+  left: auto;
+  transform: translateX(0);
+}
+
+#mobile-menu-dropdown .mobile-nav-link {
+  @apply block p-3;
+}
+
+#mobile-menu-dropdown .mobile-nav-link:hover {
+  @apply text-white first:rounded-t last:rounded-b;
+  background-color: var(--main-color);
+}
+
 /* Sidebar */
 #sidebar {
   @apply text-gray-500 bg-gray-800 pb-24 w-64 fixed left-0 z-40 transform transition-transform duration-300 ease-in-out overflow-y-auto;
@@ -156,11 +172,11 @@ button.tag:hover, button.tag.active {
 
 /* Sorting menu */
 #sorting-options a {
-  @apply block px-4 py-2 text-sm;
+  @apply block px-4 py-2;
 }
 
 #sorting-options a:hover, #sorting-options a.active {
-  @apply text-white font-bold first:rounded-t last:rounded-b;
+  @apply text-white first:rounded-t last:rounded-b;
   background-color: var(--main-color);
 }
 

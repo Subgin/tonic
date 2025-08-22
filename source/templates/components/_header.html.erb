@@ -19,5 +19,20 @@
         <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
       <% end %>
     </div>
+    
+    <% if config.links&.any? %>
+      <div class="relative sm:hidden">
+        <button onclick="toggleMobileMenu()" class="text-white cursor-pointer outline-hidden p-2">
+          <span id="mobile-menu-icon"><%= inline_svg 'icons/chevron-down.svg' %></span>
+          <span id="mobile-close-icon" class="hidden"><%= inline_svg 'icons/close.svg' %></span>
+        </button>
+        
+        <div id="mobile-menu-dropdown" class="dropdown hidden">
+          <% config.links&.each do |link| %>
+            <a href="<%= link.url %>" class="mobile-nav-link"><%= link.text %></a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -54,7 +54,7 @@ module Tonic
       options = tonic_collection[0].select do |k, v|
         k == "name" ||
         v.is_a?(Numeric) ||
-        (v.is_a?(String) && k.end_with?("_at") && is_date?(v))
+        (v.is_a?(String) && is_date?(k, v))
       end.keys
 
       if exclude = config.sorting.exclude
@@ -149,8 +149,8 @@ module Tonic
       value.is_a?(TrueClass) || value.is_a?(FalseClass)
     end
 
-    def is_date?(value)
-      Date.parse(value)
+    def is_date?(attribute, value)
+      attribute.end_with?("_at") && Date.parse(value)
     rescue Date::Error
       false
     end

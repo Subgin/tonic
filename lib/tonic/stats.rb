@@ -36,7 +36,7 @@ module Tonic
       return 'numeric' if sample_value.is_a?(Numeric)
 
       if sample_value.is_a?(String)
-        return 'date' if field.end_with?('_at') && is_date?(sample_value)
+        return 'date' if is_date?(field, sample_value)
         return 'url' if is_url?(sample_value)
         return 'email' if is_email?(sample_value)
         return 'categorical' if field == 'category' || single_word?(sample_value)

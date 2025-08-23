@@ -44,7 +44,7 @@ module Tonic
     def smart_text_filter(attribute, value)
       if attribute == "category"
         "select"
-      elsif attribute.end_with?("_at") && is_date?(value)
+      elsif is_date?(attribute, value)
         "date_range"
       elsif single_word?(value) && !is_url?(value) && !is_email?(value)
         uniq_values = fetch_values(attribute).size

@@ -4,6 +4,7 @@ require "csv"
 
 require_relative "tonic/helpers"
 require_relative "tonic/filters"
+require_relative "tonic/stats"
 
 module Tonic
   VERSION = "0.23.0"
@@ -17,7 +18,7 @@ module Tonic
 
   def self.start(context)
     # Inject helpers
-    context.helpers Tonic::Helpers, Tonic::Filters
+    context.helpers Tonic::Helpers, Tonic::Filters, Tonic::Stats
 
     # Fetch remote collection if any
     if collection_url = raw_config["remote_collection"]

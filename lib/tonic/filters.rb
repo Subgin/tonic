@@ -1,9 +1,7 @@
 module Tonic
   module Filters
     def render_filters
-      attributes = tonic_collection.flat_map(&:keys).uniq.sort
-
-      attributes.map do |attribute|
+      all_attributes_names.map do |attribute|
         next if Tonic::SKIP_FOR_FILTERS.include?(attribute)
         next if config.filters&.exclude&.include?(attribute)
 
@@ -108,10 +106,6 @@ module Tonic
       options = ["All"] + options.sort
 
       partial("templates/filters/radio_buttons", locals: { attribute: attribute, options: options })
-    end
-
-    def fetch_values(attribute)
-      tonic_collection.flat_map(&:"#{attribute}").compact.uniq
     end
   end
 end

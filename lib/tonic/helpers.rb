@@ -7,6 +7,7 @@ module Tonic
         title: "Tonic Example",
         detail_pages: true,
         category_pages: true,
+        stats_page: true,
         item_card_image: true,
         sorting: { default_order: Tonic::DEFAULT_ORDER }
       )
@@ -19,6 +20,14 @@ module Tonic
 
         validate_item!(item)
       end
+    end
+
+    def all_attributes_names
+      tonic_collection.flat_map(&:keys).uniq.sort
+    end
+
+    def fetch_values(attribute)
+      tonic_collection.flat_map(&:"#{attribute}").compact.uniq
     end
 
     def slugify(text)
@@ -77,6 +86,19 @@ module Tonic
 
     def items_for_category(category)
       tonic_collection.select { |item| item.category == category }
+    end
+
+    def menu_links
+      links = config.links || []
+
+      if config.stats_page
+        links << {
+          text: "#{inline_svg 'icons/stats.svg'} Stats",
+          url: "/stats"
+        }
+      end
+
+      links
     end
 
     def render_tags(tags)

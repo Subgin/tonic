@@ -134,20 +134,16 @@ layout: layout
   <!-- Category Breakdown -->
   <% if all_categories(tonic_collection).any? %>
     <h2>Category Breakdown</h2>
-    <div class="card mt-4 mb-8">
-      <div class="card-body">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2">
-          <% all_categories(tonic_collection).each do |category| %>
-            <% items_count = items_for_category(category).size %>
-            <div class="flex justify-between items-center p-3 border border-gray-500 rounded">
-              <a href="<%= category_page_url(category) %>"><%= category %></a>
-              <div class="text-sm text-gray-600">
-                <%= pluralize items_count, 'item' %>
-              </div>
-            </div>
-          <% end %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-8">
+      <% all_categories(tonic_collection).each do |category| %>
+        <% items_count = items_for_category(category).size %>
+        <div class="card flex justify-between items-center p-4">
+          <a href="<%= category_page_url(category) %>"><%= category %></a>
+          <div class="text-sm text-gray-600">
+            <%= pluralize items_count, 'item' %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   <% end %>
 </div>

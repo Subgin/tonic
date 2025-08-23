@@ -97,7 +97,11 @@ layout: page
               <strong>Most common</strong>
               <ul>
                 <% field_stats[:most_common].first(3).each do |value, count| %>
-                  <li><%= strip_truncate(value.to_s, 60) %> (<%= count %>)</li>
+                  <% if is_hash?(value) %>
+                    <li><%= render_hash(value) %></li>
+                  <% else %>
+                    <li><%= strip_truncate(value.to_s, 60) %> (<%= count %>)</li>
+                  <% end %>
                 <% end %>
               </ul>
             </div>

@@ -95,10 +95,7 @@ module Tonic
     end
 
     def frequency_analysis(values, limit)
-      values.each_with_object(Hash.new(0)) { |value, hash| hash[value] += 1 }
-            .sort_by { |_, count| -count }
-            .first(limit)
-            .to_h
+      values.tally.sort_by { |_, count| -count }.first(limit).to_h
     end
   end
 end

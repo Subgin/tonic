@@ -119,7 +119,7 @@ layout: layout
                   <strong>Most common:</strong>
                   <ul>
                     <% field_stats[:most_common].first(2).each do |value, count| %>
-                      <li><%= strip_truncate(value.to_s, 30) %> (<%= count %>)</li>
+                      <li><%= strip_truncate(value.to_s, 60) %> (<%= count %>)</li>
                     <% end %>
                   </ul>
                 </div>
@@ -140,13 +140,9 @@ layout: layout
           <% all_categories(tonic_collection).each do |category| %>
             <% items_count = items_for_category(category).size %>
             <div class="flex justify-between items-center p-3 border border-gray-500 rounded">
-              <div>
-                <a href="<%= category_page_url(category) %>" class="font-medium hover:underline">
-                  <%= category %>
-                </a>
-              </div>
+              <a href="<%= category_page_url(category) %>"><%= category %></a>
               <div class="text-sm text-gray-600">
-                <%= items_count %> item<%= 's' if items_count > 1 %>
+                <%= pluralize items_count, 'item' %>
               </div>
             </div>
           <% end %>

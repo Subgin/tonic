@@ -88,6 +88,19 @@ module Tonic
       tonic_collection.select { |item| item.category == category }
     end
 
+    def menu_links
+      links = config.links || []
+
+      if config.stats_page
+        links << {
+          text: "#{inline_svg 'icons/stats.svg'} Stats",
+          url: "/stats"
+        }
+      end
+
+      links
+    end
+
     def render_tags(tags)
       return if !tags
 

@@ -15,15 +15,12 @@
   </div>
   <div class="flex gap-4">
     <div class="hidden sm:inline">
-      <% config.links&.each do |link| %>
-        <a href="<%= link.url %>" class="nav-link"><%= link.text %></a>
-      <% end %>
-      <% if config.stats_page %>
-        <a href="/stats" class="nav-link"><%= inline_svg 'icons/stats.svg' %> Stats</a>
+      <% menu_links.each do |link| %>
+        <a href="<%= link[:url] %>" class="nav-link"><%= link[:text] %></a>
       <% end %>
     </div>
     
-    <% if config.links&.any? || config.stats_page %>
+    <% if menu_links.any? %>
       <div class="relative sm:hidden">
         <button onclick="toggleMobileMenu()" class="text-white cursor-pointer outline-hidden p-2">
           <span id="mobile-menu-icon"><%= inline_svg 'icons/chevron-down.svg' %></span>
@@ -31,11 +28,8 @@
         </button>
         
         <div id="mobile-menu-dropdown" class="dropdown hidden">
-          <% config.links&.each do |link| %>
-            <a href="<%= link.url %>" class="mobile-nav-link"><%= link.text %></a>
-          <% end %>
-          <% if config.stats_page %>
-            <a href="/stats" class="mobile-nav-link"><%= inline_svg 'icons/stats.svg' %> Stats</a>
+          <% menu_links.each do |link| %>
+            <a href="<%= link[:url] %>" class="mobile-nav-link"><%= link[:text] %></a>
           <% end %>
         </div>
       </div>

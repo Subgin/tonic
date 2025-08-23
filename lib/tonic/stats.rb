@@ -14,7 +14,7 @@ module Tonic
       all_attributes_names.each do |field|
         next if Tonic::SKIP_FOR_FILTERS.include?(field)
 
-        values = tonic_collection.map { |item| item[field] }.compact
+        values = fetch_values(field)
         next if values.empty?
 
         field_type = infer_field_type(field, values.first)
@@ -94,9 +94,9 @@ module Tonic
 
     def frequency_analysis(values, limit = 10)
       values.each_with_object(Hash.new(0)) { |value, hash| hash[value] += 1 }
-           .sort_by { |_, count| -count }
-           .first(limit)
-           .to_h
+            .sort_by { |_, count| -count }
+            .first(limit)
+            .to_h
     end
   end
 end

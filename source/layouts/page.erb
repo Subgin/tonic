@@ -1,0 +1,14 @@
+<% wrap_layout :layout do %>
+  <div class="mt-24 mb-24 px-8 md:px-32 mx-auto max-w-screen-xl">
+    <div class="flex justify-between items-center mb-4">
+      <a href="#" onclick="back('/')">
+        <%= icon 'chevron-left' %> Back
+      </a>
+      <% unless config.hide_sharing %>
+        <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-5 md:right-32 top-32' } %>
+      <% end %>
+    </div>
+
+    <%= yield %>
+  </div>
+<% end %>

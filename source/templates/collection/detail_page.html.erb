@@ -1,60 +1,49 @@
 ---
-layout: layout
+layout: page
 ---
 
 <% @title = item.name %>
 <% @description = item.description %>
 
-<div class="mt-24 mb-24 px-8 md:px-32 mx-auto max-w-screen-xl">
-  <div class="flex justify-between items-center mb-4">
-    <a href="#" onclick="back('/')">
-      <%= icons 'chevron-left' %> Back
-    </a>
-    <% unless config.hide_sharing %>
-      <%= partial 'templates/components/sharing', locals: { extra_classes: 'right-5 md:right-32 top-32' } %>
-    <% end %>
-  </div>
+<span><%= item.category %></span>
+<h1><%= @title %></h1>
 
-  <span><%= item.category %></span>
-  <h1><%= @title %></h1>
+<div class="image-gallery">
+  <% item.images.each do |img| %>
+    <%= image_tag img %>
+  <% end if item.images %>
+</div>
 
-  <div class="image-gallery">
-    <% item.images.each do |img| %>
-      <%= image_tag img %>
-    <% end if item.images %>
-  </div>
+<p><%= render_tags(item.tags) %></p>
 
-  <p><%= render_tags(item.tags) %></p>
+<div class="text-gray-500"><%= @description %></div>
 
-  <div class="text-gray-500"><%= @description %></div>
-
-  <div class="my-6">
-    <% rest_of_attrs(item).each do |attribute| %>
-      <% value = item[attribute] %>
-      <div class="my-3">
-        <b><%= attribute.titleize %></b>
-        <span class="text-gray-500">
-          <% if value.is_a?(Array) %>
-            <%= render_tags(value) %>
-          <% elsif is_bool?(value) %>
-            <%= value ? "Yes" : "No" %>
-          <% elsif value.is_a?(String) && is_url?(value) %>
-            <% if is_video?(value) %>
-              <div class="mt-2 max-w-2xl"><%= render_video(value) %></div>
-            <% elsif is_audio?(value) %>
-              <div class="mt-2"><%= render_audio(value) %></div>
-            <% else %>
-              <%= link_to value, value, target: "_blank" %>
-            <% end %>
-          <% elsif value.is_a?(String) && is_email?(value) %>
-            <%= mail_to value %>
-          <% elsif is_hash?(value) %>
-            <%= render_hash(value) %>
+<div class="my-6">
+  <% rest_of_attrs(item).each do |attribute| %>
+    <% value = item[attribute] %>
+    <div class="my-3">
+      <b><%= attribute.titleize %></b>
+      <span class="text-gray-500">
+        <% if value.is_a?(Array) %>
+          <%= render_tags(value) %>
+        <% elsif is_bool?(value) %>
+          <%= value ? "Yes" : "No" %>
+        <% elsif value.is_a?(String) && is_url?(value) %>
+          <% if is_video?(value) %>
+            <div class="mt-2 max-w-2xl"><%= render_video(value) %></div>
+          <% elsif is_audio?(value) %>
+            <div class="mt-2"><%= render_audio(value) %></div>
           <% else %>
-            <%= value %>
+            <%= link_to value, value, target: "_blank" %>
           <% end %>
-        </span>
-      </div>
-    <% end %>
-  </div>
+        <% elsif value.is_a?(String) && is_email?(value) %>
+          <%= mail_to value %>
+        <% elsif is_hash?(value) %>
+          <%= render_hash(value) %>
+        <% else %>
+          <%= value %>
+        <% end %>
+      </span>
+    </div>
+  <% end %>
 </div>

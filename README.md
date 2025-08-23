@@ -158,6 +158,7 @@ description: |
 remote_collection: https://example.com/collection.json
 detail_pages: true
 category_pages: true
+stats_page: true
 
 # Style/UI
 main_color: "#0891b2"
@@ -232,21 +233,7 @@ stats_page: true   # Enable (default)
 stats_page: false  # Disable
 ```
 
-**Features:**
-- **Summary statistics:** Total items, unique fields, and categories count
-- **Field analysis:** Automatic field type inference (categorical, numeric, date, boolean, array, text, etc.)
-- **Contextual statistics:** 
-  - Categorical fields: unique values and most common items
-  - Numeric fields: min/max/average values and distribution
-  - Array fields (like tags): total unique values, average items per entry, most common tags
-  - Date fields: date ranges and unique dates
-  - Boolean fields: true/false counts and percentages
-- **Category breakdown:** Overview of all categories with item counts and links to category pages
-- **Responsive design:** Works seamlessly on desktop and mobile devices
-
-The stats page leverages the same field inference logic used for filters, ensuring consistency across your Tonic site. No configuration is required – it automatically adapts to any collection schema.
-
-If you want to customize how the stats page looks, you can edit the HTML template at [`source/templates/collection/stats_page.html.erb`](source/templates/collection/stats_page.html.erb).
+If you want to customize how the stats page looks, you can edit the HTML template at [`source/stats.html.erb`](source/stats.html.erb).
 
 #### Font family
 

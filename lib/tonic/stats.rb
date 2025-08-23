@@ -16,7 +16,7 @@ module Tonic
       all_attributes_names.each do |field|
         next if Tonic::SKIP_FOR_FILTERS.include?(field)
 
-        values = tonic_collection.map(&:"#{field}").compact
+        values = fetch_values(field, flatten: false, uniq: false)
         next if values.empty?
 
         field_type = infer_field_type(field, values.first)
@@ -54,7 +54,7 @@ module Tonic
         stats.merge!(
           total_unique_values: all_array_values.uniq.size,
           most_common: frequency_analysis(all_array_values, 5),
-          avg_items_per_entry: (all_array_values.size.to_f / values.size).round(2)
+          avg_items_per_entry: (all_array_values.size.to_f / values.size).round(1)
         )
       when 'categorical'
         stats.merge!(
@@ -66,7 +66,7 @@ module Tonic
         stats.merge!(
           min: numeric_values.min,
           max: numeric_values.max,
-          average: (numeric_values.sum.to_f / numeric_values.size).round(2),
+          average: (numeric_values.sum.to_f / numeric_values.size).round(1),
           unique_values: numeric_values.uniq.size
         )
       when 'date'

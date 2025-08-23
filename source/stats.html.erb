@@ -41,7 +41,7 @@ layout: page
             <%= field_data[:type] %>
           </span>
           <span class="text-gray-600 text-sm">
-            <%= field_stats[:total_entries] %> entries
+            <%= pluralize field_stats[:total_entries], 'entry' %>
           </span>
         </h3>
       </div>

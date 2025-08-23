@@ -23,11 +23,15 @@ module Tonic
     end
 
     def all_attributes_names
-      tonic_collection.flat_map(&:keys).uniq.sort
+      fetch_values(:keys).sort
     end
 
-    def fetch_values(attribute)
-      tonic_collection.flat_map(&:"#{attribute}").compact.uniq
+    def fetch_values(attribute, flatten: true, uniq: true)
+      values = tonic_collection.map(&:"#{attribute}")
+      values = values.flatten if flatten
+      values = values.uniq if uniq
+
+      values.compact
     end
 
     def slugify(text)

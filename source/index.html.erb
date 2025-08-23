@@ -17,7 +17,7 @@ title: Home
 
   <div class="relative">
     <div class="flex absolute inset-y-0 left-0 items-center pl-3">
-      <%= inline_svg 'icons/search.svg' %>
+      <%= icon 'search' %>
     </div>
     <input type="text" id="global" name="global" placeholder="Search ..." class="p-3 pl-10 text-sm" onkeyup="filterBy('global_text')">
   </div>
@@ -29,7 +29,7 @@ title: Home
 
     <div class="relative inline-block text-left">
       <a id="reset" href="/" class="hidden">
-        <%= inline_svg 'icons/close.svg' %> Reset
+        <%= icon 'close' %> Reset
       </a>
 
       <% unless config.hide_sharing %>

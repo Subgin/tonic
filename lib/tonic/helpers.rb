@@ -93,12 +93,16 @@ module Tonic
 
       if config.stats_page
         links << {
-          text: "#{inline_svg 'icons/stats.svg'} Stats",
+          text: "#{icon 'stats'} Stats",
           url: "/stats"
         }
       end
 
       links
+    end
+
+    def icon(name)
+      inline_svg("icons/#{name}.svg")
     end
 
     def render_tags(tags)

@@ -2,8 +2,8 @@
   <div class="flex gap-4">
     <% if current_page.url == '/' && !config.hide_filters %>
       <button onclick="toggleSidebar()" class="text-white cursor-pointer outline-hidden">
-        <span id="menu-icon"><%= inline_svg 'icons/menu.svg' %></span>
-        <span id="close-icon" class="hidden"><%= inline_svg 'icons/close.svg' %></span>
+        <span id="menu-icon"><%= icon 'menu' %></span>
+        <span id="close-icon" class="hidden"><%= icon 'close' %></span>
       </button>
     <% end %>
 
@@ -23,8 +23,8 @@
     <% if menu_links.any? %>
       <div class="relative sm:hidden">
         <button onclick="toggleMobileMenu()" class="text-white cursor-pointer outline-hidden p-2">
-          <span id="mobile-menu-icon"><%= inline_svg 'icons/chevron-down.svg' %></span>
-          <span id="mobile-close-icon" class="hidden"><%= inline_svg 'icons/close.svg' %></span>
+          <span id="mobile-menu-icon"><%= icon 'chevron-down' %></span>
+          <span id="mobile-close-icon" class="hidden"><%= icon 'close' %></span>
         </button>
         
         <div id="mobile-menu-dropdown" class="dropdown hidden">

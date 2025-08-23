@@ -107,9 +107,5 @@ module Tonic
 
       partial("templates/filters/radio_buttons", locals: { attribute: attribute, options: options })
     end
-
-    def fetch_values(attribute)
-      tonic_collection.flat_map(&:"#{attribute}").compact.uniq
-    end
   end
 end

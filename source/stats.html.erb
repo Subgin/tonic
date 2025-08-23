@@ -40,6 +40,8 @@ layout: layout
   <h2>Attributes Analysis</h2>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4 mb-8">
     <% stats[:field_stats].each do |field, field_data| %>
+      <% field_stats = field_data[:stats] %>
+
       <div class="card">
         <div class="card-header">
           <h3>
@@ -47,24 +49,21 @@ layout: layout
             <span class="inline-block px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-800">
               <%= field_data[:type] %>
             </span>
+            <span class="text-gray-600 text-sm">
+              <%= field_stats[:total_entries] %> entries
+            </span>
           </h3>
         </div>
-        <div class="card-body text-sm">
-          <% field_stats = field_data[:stats] %>
-
-          <div class="text-gray-600 mb-3">
-            <%= field_stats[:total_entries] %> entries
-          </div>
-
+        <div class="card-body text-sm mb-2">
           <% case field_data[:type] %>
           <% when 'categorical' %>
             <div class="mb-2">
-              <strong>Unique values:</strong> <%= field_stats[:unique_values] %>
+              <strong>Unique values</strong> <%= field_stats[:unique_values] %>
             </div>
             <% if field_stats[:most_common] %>
               <div>
-                <strong>Most common:</strong>
-                <ul class="mt-1">
+                <strong>Most common</strong>
+                <ul class="mt-2">
                   <% field_stats[:most_common].first(3).each do |value, count| %>
                     <li><%= value %> (<%= count %>)</li>
                   <% end %>
@@ -73,38 +72,38 @@ layout: layout
             <% end %>
           <% when 'numeric' %>
             <div class="grid grid-cols-2 gap-2">
-              <div><strong>Min:</strong> <%= field_stats[:min] %></div>
-              <div><strong>Max:</strong> <%= field_stats[:max] %></div>
-              <div><strong>Average:</strong> <%= field_stats[:average] %></div>
-              <div><strong>Unique:</strong> <%= field_stats[:unique_values] %></div>
+              <div><strong>Min</strong> <%= field_stats[:min] %></div>
+              <div><strong>Max</strong> <%= field_stats[:max] %></div>
+              <div><strong>Average</strong> <%= field_stats[:average] %></div>
+              <div><strong>Unique</strong> <%= field_stats[:unique_values] %></div>
             </div>
           <% when 'array' %>
             <div class="mb-2">
-              <strong>Total unique values:</strong> <%= field_stats[:total_unique_values] %>
+              <strong>Total unique values</strong> <%= field_stats[:total_unique_values] %>
             </div>
             <div class="mb-2">
-              <strong>Avg items per entry:</strong> <%= field_stats[:avg_items_per_entry] %>
+              <strong>Avg items per entry</strong> <%= field_stats[:avg_items_per_entry] %>
             </div>
             <% if field_stats[:most_common] %>
               <div>
-                <strong>Most common:</strong>
-                <div class="mt-1">
+                <strong>Most common</strong>
+                <div class="mt-2">
                   <%= render_tags(field_stats[:most_common].keys.first(5)) %>
                 </div>
               </div>
             <% end %>
           <% when 'date' %>
-            <div><strong>Date range:</strong></div>
+            <div><strong>Date range</strong></div>
             <div><%= field_stats[:earliest] %> to <%= field_stats[:latest] %></div>
-            <div class="mt-1"><strong>Unique dates:</strong> <%= field_stats[:unique_dates] %></div>
+            <div class="mt-2"><strong>Unique dates</strong> <%= field_stats[:unique_dates] %></div>
           <% when 'boolean' %>
-            <div>True: <%= field_stats[:true_count] %> (<%= field_stats[:true_percentage] %>%)</div>
-            <div>False: <%= field_stats[:false_count] %> (<%= 100 - field_stats[:true_percentage] %>%)</div>
+            <div><strong>True</strong> <%= field_stats[:true_count] %> (<%= field_stats[:true_percentage] %>%)</div>
+            <div><strong>False</strong> <%= field_stats[:false_count] %> (<%= 100 - field_stats[:true_percentage] %>%)</div>
           <% else %>
-            <div><strong>Unique values:</strong> <%= field_stats[:unique_values] %></div>
+            <div><strong>Unique values</strong> <%= field_stats[:unique_values] %></div>
             <% if field_stats[:most_common] %>
-              <div class="mt-1">
-                <strong>Most common:</strong>
+              <div class="mt-2">
+                <strong>Most common</strong>
                 <ul>
                   <% field_stats[:most_common].first(3).each do |value, count| %>
                     <li><%= strip_truncate(value.to_s, 60) %> (<%= count %>)</li>

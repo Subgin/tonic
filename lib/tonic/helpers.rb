@@ -26,6 +26,10 @@ module Tonic
       tonic_collection.flat_map(&:keys).uniq.sort
     end
 
+    def fetch_values(attribute)
+      tonic_collection.flat_map(&:"#{attribute}").compact.uniq
+    end
+
     def slugify(text)
       text&.parameterize
     end

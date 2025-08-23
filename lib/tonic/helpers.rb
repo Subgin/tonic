@@ -3,7 +3,7 @@ module Tonic
     extend self
 
     def config
-      data.config.reverse_merge(
+      @config ||= data.config.reverse_merge(
         title: "Tonic Example",
         detail_pages: true,
         category_pages: true,
@@ -14,24 +14,60 @@ module Tonic
     end
 
     def tonic_collection
-      data.collection.each do |item|
-        item.id = slugify(item.name)
-        item.dom_id = "item_#{item.id}"
+      @tonic_collection ||= begin
+        data.collection.each do |item|
+          item.id = slugify(item.name)
+          item.dom_id = "item_#{item.id}"
 
-        validate_item!(item)
+          validate_item!(item)
+        end
       end
     end
 
     def all_attributes_names
-      fetch_values(:keys).sort
+      @all_attributes_names ||= begin
+        collection = tonic_collection
+        collection.map(&:keys).flatten.uniq.sort
+      end
     end
 
     def fetch_values(attribute, flatten: true, uniq: true)
-      values = tonic_collection.map(&:"#{attribute}")
-      values = values.flatten if flatten
-      values = values.uniq if uniq
+      # Use cached values when possible for better performance
+      cached_field_values(attribute, flatten: flatten, uniq: uniq)
+    end
 
-      values.compact
+    def collection_field_cache
+      @collection_field_cache ||= begin
+        cache = {}
+        collection = tonic_collection  # Cache the collection reference
+        
+        # Get all attributes without calling all_attributes_names to avoid circular dependency
+        attributes = collection.map(&:keys).flatten.uniq
+        
+        attributes.each do |field|
+          values = collection.map(&:"#{field}").compact
+          cache[field] = {
+            values: values,
+            flattened_values: values.flatten.compact,
+            unique_values: values.uniq
+          }
+        end
+        cache
+      end
+    end
+
+    def cached_field_values(field, flatten: false, uniq: false)
+      return [] unless collection_field_cache[field]
+      
+      if flatten && uniq
+        collection_field_cache[field][:flattened_values].uniq
+      elsif flatten
+        collection_field_cache[field][:flattened_values] 
+      elsif uniq
+        collection_field_cache[field][:unique_values]
+      else
+        collection_field_cache[field][:values]
+      end
     end
 
     def slugify(text)
@@ -51,19 +87,21 @@ module Tonic
     end
 
     def sorting_options
-      options = tonic_collection[0].select do |k, v|
-        k == "name" ||
-        v.is_a?(Numeric) ||
-        (v.is_a?(String) && k.end_with?("_at") && is_date?(v))
-      end.keys
+      @sorting_options ||= begin
+        options = tonic_collection[0].select do |k, v|
+          k == "name" ||
+          v.is_a?(Numeric) ||
+          (v.is_a?(String) && k.end_with?("_at") && is_date?(v))
+        end.keys
 
-      if exclude = config.sorting.exclude
-        options = options - exclude
+        if exclude = config.sorting.exclude
+          options = options - exclude
+        end
+
+        options.flat_map do |option|
+          ["#{option} asc", "#{option} desc"]
+        end.sort
       end
-
-      options.flat_map do |option|
-        ["#{option} asc", "#{option} desc"]
-      end.sort
     end
 
     def sort_link(option)
@@ -81,7 +119,7 @@ module Tonic
     end
 
     def all_categories(collection)
-      collection.to_a.map(&:category).compact.uniq.sort
+      @all_categories ||= collection.to_a.map(&:category).compact.uniq.sort
     end
 
     def category_page_url(category)

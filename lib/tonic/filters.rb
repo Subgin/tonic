@@ -30,7 +30,7 @@ module Tonic
     end
 
     def smart_numeric_filter(attribute)
-      uniq_values = fetch_values(attribute).size
+      uniq_values = cached_field_values(attribute, flatten: true, uniq: true).size
 
       if uniq_values <= 5
         "radio_buttons"
@@ -47,7 +47,7 @@ module Tonic
       elsif attribute.end_with?("_at") && is_date?(value)
         "date_range"
       elsif single_word?(value) && !is_url?(value) && !is_email?(value)
-        uniq_values = fetch_values(attribute).size
+        uniq_values = cached_field_values(attribute, flatten: true, uniq: true).size
         uniq_values <= 5 ? "radio_buttons" : "select"
       else
         "text"
@@ -63,14 +63,14 @@ module Tonic
     end
 
     def numeric_range_filter(attribute)
-      range = fetch_values(attribute)
+      range = cached_field_values(attribute, flatten: true, uniq: true)
       min, max = range.minmax
 
       partial("templates/filters/numeric_range", locals: { attribute: attribute, min: min, max: max })
     end
 
     def numeric_select_range_filter(attribute)
-      options = fetch_values(attribute)
+      options = cached_field_values(attribute, flatten: true, uniq: true)
       min, max = options.minmax
       options = ["All"] + options.sort
 
@@ -78,20 +78,20 @@ module Tonic
     end
 
     def date_range_filter(attribute)
-      range = fetch_values(attribute)
+      range = cached_field_values(attribute, flatten: true, uniq: true)
       min, max = range.minmax
 
       partial("templates/filters/date_range", locals: { attribute: attribute, min: min, max: max })
     end
 
     def tags_filter(attribute)
-      tags = fetch_values(attribute).sort
+      tags = cached_field_values(attribute, flatten: true, uniq: true).sort
 
       partial("templates/filters/tags", locals: { attribute: attribute, tags: tags })
     end
 
     def select_filter(attribute)
-      options = fetch_values(attribute)
+      options = cached_field_values(attribute, flatten: true, uniq: true)
       options = ["All"] + options.sort
 
       partial("templates/filters/select", locals: { attribute: attribute, options: options })
@@ -102,7 +102,7 @@ module Tonic
     end
 
     def radio_buttons_filter(attribute)
-      options = fetch_values(attribute)
+      options = cached_field_values(attribute, flatten: true, uniq: true)
       options = ["All"] + options.sort
 
       partial("templates/filters/radio_buttons", locals: { attribute: attribute, options: options })

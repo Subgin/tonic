@@ -11,22 +11,24 @@ module Tonic
     private
 
     def generate_field_stats
-      stats = {}
+      @generate_field_stats ||= begin
+        stats = {}
 
-      all_attributes_names.each do |field|
-        next if Tonic::SKIP_FOR_FILTERS.include?(field)
+        all_attributes_names.each do |field|
+          next if Tonic::SKIP_FOR_FILTERS.include?(field)
 
-        values = fetch_values(field, flatten: false, uniq: false)
-        next if values.empty?
+          values = cached_field_values(field, flatten: false, uniq: false)
+          next if values.empty?
 
-        field_type = infer_field_type(field, values.first)
-        stats[field] = {
-          type: field_type,
-          stats: calculate_field_stats(field, values, field_type)
-        }
+          field_type = infer_field_type(field, values.first)
+          stats[field] = {
+            type: field_type,
+            stats: calculate_field_stats(field, values, field_type)
+          }
+        end
+
+        stats
       end
-
-      stats
     end
 
     def infer_field_type(field, sample_value)
@@ -51,30 +53,34 @@ module Tonic
       case field_type
       when 'array'
         all_array_values = values.flatten.compact
+        unique_array_values = all_array_values.uniq
         stats.merge!(
-          total_unique_values: all_array_values.uniq.size,
+          total_unique_values: unique_array_values.size,
           most_common: frequency_analysis(all_array_values, 5),
           avg_items_per_entry: (all_array_values.size.to_f / values.size).round(1)
         )
       when 'categorical'
+        unique_values = values.uniq
         stats.merge!(
-          unique_values: values.uniq.size,
+          unique_values: unique_values.size,
           most_common: frequency_analysis(values, 5)
         )
       when 'numeric'
         numeric_values = values.select { |v| v.is_a?(Numeric) }
+        unique_numeric_values = numeric_values.uniq
         stats.merge!(
           min: numeric_values.min,
           max: numeric_values.max,
           average: (numeric_values.sum.to_f / numeric_values.size).round(1),
-          unique_values: numeric_values.uniq.size
+          unique_values: unique_numeric_values.size
         )
       when 'date'
-        date_values = values.map { |v| Date.parse(v.to_s) rescue nil }.compact
+        date_values = parse_dates_cached(values)
+        unique_date_values = date_values.uniq
         stats.merge!(
           earliest: date_values.min,
           latest: date_values.max,
-          unique_dates: date_values.uniq.size
+          unique_dates: unique_date_values.size
         )
       when 'boolean'
         true_count = values.count(true)
@@ -85,8 +91,9 @@ module Tonic
           true_percentage: (true_count.to_f / values.size * 100).round(1)
         )
       else
+        unique_values = values.uniq
         stats.merge!(
-          unique_values: values.uniq.size,
+          unique_values: unique_values.size,
           most_common: frequency_analysis(values, 5)
         )
       end
@@ -94,11 +101,24 @@ module Tonic
       stats
     end
 
+    def parse_dates_cached(values)
+      @date_cache ||= {}
+      values.map do |v|
+        key = v.to_s
+        @date_cache[key] ||= (Date.parse(key) rescue nil)
+      end.compact
+    end
+
     def frequency_analysis(values, limit)
-      values.each_with_object(Hash.new(0)) { |value, hash| hash[value] += 1 }
-            .sort_by { |_, count| -count }
-            .first(limit)
-            .to_h
+      # Use tally for better performance if available (Ruby 2.7+), otherwise fallback
+      if values.respond_to?(:tally)
+        values.tally.sort_by { |_, count| -count }.first(limit).to_h
+      else
+        values.each_with_object(Hash.new(0)) { |value, hash| hash[value] += 1 }
+              .sort_by { |_, count| -count }
+              .first(limit)
+              .to_h
+      end
     end
   end
 end

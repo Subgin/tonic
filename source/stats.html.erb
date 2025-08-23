@@ -42,9 +42,9 @@ layout: layout
     <% stats[:field_stats].each do |field, field_data| %>
       <div class="card">
         <div class="card-header">
-          <h3 class="text-lg">
+          <h3>
             <%= field.titleize %>
-            <span class="inline-block px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-700">
+            <span class="inline-block px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-800">
               <%= field_data[:type] %>
             </span>
           </h3>
@@ -73,7 +73,6 @@ layout: layout
                 </ul>
               </div>
             <% end %>
-
           <% when 'numeric' %>
             <div class="grid grid-cols-2 gap-2 text-sm">
               <div><strong>Min:</strong> <%= field_stats[:min] %></div>
@@ -81,7 +80,6 @@ layout: layout
               <div><strong>Average:</strong> <%= field_stats[:average] %></div>
               <div><strong>Unique:</strong> <%= field_stats[:unique_values] %></div>
             </div>
-
           <% when 'array' %>
             <div class="mb-2">
               <strong>Total unique values:</strong> <%= field_stats[:total_unique_values] %>
@@ -97,20 +95,17 @@ layout: layout
                 </div>
               </div>
             <% end %>
-
           <% when 'date' %>
             <div class="text-sm">
               <div><strong>Date range:</strong></div>
               <div><%= field_stats[:earliest] %> to <%= field_stats[:latest] %></div>
               <div class="mt-1"><strong>Unique dates:</strong> <%= field_stats[:unique_dates] %></div>
             </div>
-
           <% when 'boolean' %>
             <div class="text-sm">
               <div>True: <%= field_stats[:true_count] %> (<%= field_stats[:true_percentage] %>%)</div>
               <div>False: <%= field_stats[:false_count] %> (<%= 100 - field_stats[:true_percentage] %>%)</div>
             </div>
-
           <% else %>
             <div class="text-sm">
               <div><strong>Unique values:</strong> <%= field_stats[:unique_values] %></div>
@@ -118,7 +113,7 @@ layout: layout
                 <div class="mt-1">
                   <strong>Most common:</strong>
                   <ul>
-                    <% field_stats[:most_common].first(2).each do |value, count| %>
+                    <% field_stats[:most_common].first(3).each do |value, count| %>
                       <li><%= strip_truncate(value.to_s, 60) %> (<%= count %>)</li>
                     <% end %>
                   </ul>
@@ -131,7 +126,6 @@ layout: layout
     <% end %>
   </div>
 
-  <!-- Category Breakdown -->
   <% if all_categories(tonic_collection).any? %>
     <h2>Category Breakdown</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-8">

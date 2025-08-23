@@ -1,9 +1,7 @@
 module Tonic
   module Filters
     def render_filters
-      attributes = tonic_collection.flat_map(&:keys).uniq.sort
-
-      attributes.map do |attribute|
+      all_attributes_names.map do |attribute|
         next if Tonic::SKIP_FOR_FILTERS.include?(attribute)
         next if config.filters&.exclude&.include?(attribute)
 

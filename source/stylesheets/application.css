@@ -79,7 +79,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 #mobile-menu-dropdown .mobile-nav-link {
-  @apply block p-3;
+  @apply block px-6 py-3;
 }
 
 #mobile-menu-dropdown .mobile-nav-link:hover {

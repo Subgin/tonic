@@ -16,7 +16,7 @@ module Tonic
       all_attributes_names.each do |field|
         next if Tonic::SKIP_FOR_FILTERS.include?(field)
 
-        values = fetch_values(field)
+        values = tonic_collection.map(&:"#{field}").compact
         next if values.empty?
 
         field_type = infer_field_type(field, values.first)

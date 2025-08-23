@@ -4,6 +4,7 @@ layout: page
 
 <% @title = "Collection Statistics & Insights" %>
 <% stats = collection_stats %>
+<% categories = all_categories(tonic_collection) %>
 
 <h1><%= @title %></h1>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4 mb-8">
@@ -21,7 +22,7 @@ layout: page
   </div>
   <div class="card">
     <div class="card-body text-center">
-      <div class="text-3xl font-bold text-gray-800"><%= all_categories(tonic_collection).size %></div>
+      <div class="text-3xl font-bold text-gray-800"><%= categories.size %></div>
       <div class="text-sm text-gray-600">Categories</div>
     </div>
   </div>
@@ -69,7 +70,7 @@ layout: page
           </div>
         <% when 'array' %>
           <div class="mb-2">
-            <strong>Total unique values</strong> <%= field_stats[:total_unique_values] %>
+            <strong>Unique values</strong> <%= field_stats[:total_unique_values] %>
           </div>
           <div class="mb-2">
             <strong>Avg items per entry</strong> <%= field_stats[:avg_items_per_entry] %>
@@ -107,10 +108,10 @@ layout: page
   <% end %>
 </div>
 
-<% if all_categories(tonic_collection).any? %>
+<% if categories.any? %>
   <h2>Category Breakdown</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-8">
-    <% all_categories(tonic_collection).each do |category| %>
+    <% categories.each do |category| %>
       <% items_count = items_for_category(category).size %>
       <div class="card flex justify-between items-center p-4">
         <a href="<%= category_page_url(category) %>"><%= category %></a>
